@@ -244,6 +244,18 @@
     .motion-toolbar .motion-accent { margin: 0; font-size: 10px; }
     .motion-status { display: flex; align-items: center; gap: 8px; font-size: 9px; color: var(--muted); margin-bottom: 20px; }
     .motion-status::before { content: ""; width: 5px; height: 5px; background: var(--accent); }
+    .recipe-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:38px; }
+    .recipe-card { border:1px solid var(--rule); padding:24px; min-width:0; }
+    .recipe-head { display:flex; justify-content:space-between; gap:18px; align-items:baseline; margin-bottom:18px; }
+    .recipe-head h3 { font-size:12px; }.recipe-head span { color:var(--muted); font-size:9px; }
+    .recipe-stage { min-height:168px; background:var(--surface); padding:24px; margin-bottom:18px; overflow:hidden; }
+    .recipe-stage h4 { font-size:27px; letter-spacing:-.05em; line-height:1.15; margin:17px 0 12px; }
+    .recipe-stage .micro { color:var(--muted); font-size:9px; }.recipe-stage p { font-size:10px; }
+    .recipe-graphic { display:grid; place-items:center; padding:0; }.recipe-graphic svg { height:168px; width:245px; }
+    .recipe-progress-label { display:flex; justify-content:space-between; gap:16px; font-size:10px; margin-bottom:18px; }
+    .recipe-stage .mcc-progress-track { background:var(--mcc-rule); }.recipe-stage .mcc-badge { margin-top:22px; }.recipe-token { font-size:12px; white-space:pre-wrap; overflow-wrap:anywhere; margin-top:28px; }
+    .recipe-card .footnote { min-height:3.3em; }.recipe-card button { margin-top:10px; }
+    @media(max-width:760px) { .recipe-grid {grid-template-columns:1fr;} }
     .motion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
     .motion-card { border: 1px solid var(--rule); min-width: 0; }
     .motion-art { position: relative; height: 280px; overflow: hidden; background: var(--paper); border-bottom: 1px solid var(--rule); }
@@ -308,7 +320,7 @@
   </div>
   <main id="showcase" class="wrap">
     <section class="panel" id="basics" role="tabpanel" aria-labelledby="tab-basics" tabindex="0">
-      <div class="section-head"><div><p class="kicker">The foundations</p><h2>Mostly neutral. Deliberately orange.</h2></div><button class="text-button" type="button" id="copy-palette">Copy this palette ↗</button></div>
+      <div class="section-head"><div><p class="kicker">The foundations</p><h2>Mostly neutral. Deliberately orange.</h2></div><button class="text-button" type="button" id="copy-palette"><span id="copy-palette-label" data-mcc-feedback-label>Copy this palette</span> <span aria-hidden="true">↗</span></button></div>
       <div class="palette" id="palette" aria-label="Theme colours. Click a swatch to copy its value."></div>
       <p class="footnote"><span class="inline-dot" aria-hidden="true"></span>Orange is a marker, a selection, a point of focus. Click any colour to copy its value.</p>
       <section class="section" aria-labelledby="type-heading">
@@ -372,12 +384,21 @@
         <div class="section-head"><div><p class="kicker">Halftone playground</p><h2 id="lab-heading">Dots can do more.</h2></div><p>A sphere, a wave, a soft edge. Change the form, dot shape and colour, then export a piece of your own.</p></div>
         <div class="studio"><div class="halftone-canvas"><p class="kicker lab-label">Live study / vector halftone</p><span class="lab-corner" aria-hidden="true"></span><div id="lab-art"></div><p class="lab-coordinate" id="lab-coordinate">SPHERE / CIRCLES / 7PX GRID</p></div><div class="studio-controls lab-controls"><h3>A few ways to change it.</h3><label class="control"><span class="control-top">Form</span><select class="input" id="lab-form"><option value="sphere" selected>Sphere</option><option value="cube">Dot cube</option><option value="terrain">Terrain</option><option value="fade">Tonal fade</option><option value="ripple">Dot ripples</option><option value="mesh">Interference mesh</option><option value="wave">Wave band</option><option value="arrow">Dotted direction</option></select></label><label class="control"><span class="control-top">Dot shape</span><select class="input" id="lab-dot"><option value="circle">Circles</option><option value="square">Squares</option><option value="cross">Crosses</option><option value="dash">Short lines</option></select></label><label class="control"><span class="control-top">Colour</span><select class="input" id="lab-ink"><option value="ink">Neutral ink</option><option value="orange">Orange</option><option value="duo">Ink + orange detail</option></select></label><label class="control"><span class="control-top">Dot spacing <output for="lab-spacing" id="lab-spacing-output">7px</output></span><input type="range" id="lab-spacing" min="4" max="12" step="1" value="7"></label><label class="control"><span class="control-top">Contrast <output for="lab-contrast" id="lab-contrast-output">100%</output></span><input type="range" id="lab-contrast" min="50" max="180" step="10" value="100"></label><label class="check"><input type="checkbox" id="lab-paper">Include the paper background</label><button class="btn" id="download-halftone" type="button">Download SVG <span aria-hidden="true">↓</span></button><button class="btn btn-outline" id="download-halftone-png" type="button">Download PNG <span aria-hidden="true">↓</span></button><p class="footnote">Transparent by default. PNGs export at 1600 × 1100. These are graphic studies; the photo shader keeps its own recipe.</p></div></div>
       </section>
-      <section class="section" id="background-studio" aria-labelledby="studio-heading"><div class="section-head"><div><p class="kicker">Background studio</p><h2 id="studio-heading">Try a little atmosphere.</h2></div><p>Halftone edges, fading dots, contours and quiet grids. Leave some clear paper for the words.</p></div><div class="studio"><div class="studio-canvas" id="studio-canvas"><span class="sample-tag">MIGUEL CORDERO COLLAR / PERSONAL NOTES</span><h3>A place for<br>unfinished ideas.</h3><p>A small observation. A question to follow.<br>Something worth coming back to.</p><span class="canvas-coordinate" aria-hidden="true">1200 × 720 / BACKGROUND STUDY</span></div><div class="studio-controls"><h3>Make it yours.</h3><label class="control"><span class="control-top">Pattern</span><select class="input" id="pattern-select"><optgroup label="Dots & halftones"><option value="dots">Dot field</option><option value="mist">Fading dot mist</option><option value="edge">Halftone edge</option><option value="corner">Halftone corner</option><option value="wave">Dot wave</option></optgroup><optgroup label="Lines & grids"><option value="grid">Coordinate grid</option><option value="ripple">Offset ripples</option><option value="contours">Contour lines</option><option value="hatch">Diagonal hatch</option><option value="crosses">Registration crosses</option></optgroup><optgroup label="Pixels & paper"><option value="pixels">Pixel corner</option><option value="dither">Dither fade</option><option value="none">Plain paper</option></optgroup></select></label><label class="control"><span class="control-top">Colour</span><select class="input" id="background-ink"><option value="accent">Orange</option><option value="ink">Neutral ink</option></select></label><label class="control"><span class="control-top">Spacing <output for="spacing" id="spacing-output">28px</output></span><input type="range" id="spacing" min="16" max="56" step="4" value="28"></label><label class="control"><span class="control-top">Strength <output for="strength" id="strength-output">16%</output></span><input type="range" id="strength" min="4" max="36" step="2" value="16"></label><button type="button" class="btn" id="download-background">Download SVG <span aria-hidden="true">↓</span></button><button type="button" class="btn btn-outline" id="copy-background">Copy background CSS</button><p class="footnote">Exports the background only, at 1200 × 720. Controls and sample copy stay in this page.</p></div></div></section>
+      <section class="section" id="background-studio" aria-labelledby="studio-heading"><div class="section-head"><div><p class="kicker">Background studio</p><h2 id="studio-heading">Try a little atmosphere.</h2></div><p>Halftone edges, fading dots, contours and quiet grids. Leave some clear paper for the words.</p></div><div class="studio"><div class="studio-canvas" id="studio-canvas"><span class="sample-tag">MIGUEL CORDERO COLLAR / PERSONAL NOTES</span><h3>A place for<br>unfinished ideas.</h3><p>A small observation. A question to follow.<br>Something worth coming back to.</p><span class="canvas-coordinate" aria-hidden="true">1200 × 720 / BACKGROUND STUDY</span></div><div class="studio-controls"><h3>Make it yours.</h3><label class="control"><span class="control-top">Pattern</span><select class="input" id="pattern-select"><optgroup label="Dots & halftones"><option value="dots">Dot field</option><option value="mist">Fading dot mist</option><option value="edge">Halftone edge</option><option value="corner">Halftone corner</option><option value="wave">Dot wave</option></optgroup><optgroup label="Lines & grids"><option value="grid">Coordinate grid</option><option value="ripple">Offset ripples</option><option value="contours">Contour lines</option><option value="hatch">Diagonal hatch</option><option value="crosses">Registration crosses</option></optgroup><optgroup label="Pixels & paper"><option value="pixels">Pixel corner</option><option value="dither">Dither fade</option><option value="none">Plain paper</option></optgroup></select></label><label class="control"><span class="control-top">Colour</span><select class="input" id="background-ink"><option value="accent">Orange</option><option value="ink">Neutral ink</option></select></label><label class="control"><span class="control-top">Spacing <output for="spacing" id="spacing-output">28px</output></span><input type="range" id="spacing" min="16" max="56" step="4" value="28"></label><label class="control"><span class="control-top">Strength <output for="strength" id="strength-output">16%</output></span><input type="range" id="strength" min="4" max="36" step="2" value="16"></label><button type="button" class="btn" id="download-background">Download SVG <span aria-hidden="true">↓</span></button><button type="button" class="btn btn-outline" id="copy-background"><span id="copy-background-label" data-mcc-feedback-label>Copy background CSS</span></button><p class="footnote">Exports the background only, at 1200 × 720. Controls and sample copy stay in this page.</p></div></div></section>
       <section class="section" aria-labelledby="application-heading"><div class="section-head"><div><p class="kicker">In context</p><h2 id="application-heading">A system that travels.</h2></div><p>The same type and geometry can become a cover, a slide or a note.</p></div><div class="applications"><article class="application"><p class="kicker">Cover study / Light</p><h3>A few things<br>I keep an eye on.</h3><p>NOTES, PEOPLE & IDEAS ↗</p><div id="application-pixels" aria-hidden="true"></div></article><article class="application dark"><p class="kicker">Slide study / Dark</p><h3>What changes<br>when we try?</h3><p>ONE QUESTION TO TAKE WITH YOU.</p></article><article class="application with-art"><p class="kicker">Notebook study / Light</p><h3>An idea<br>taking shape.</h3><p>OBSERVATIONS IN PROGRESS.</p><div class="application-art" id="application-terrain" aria-hidden="true"></div></article><article class="application dark with-art"><p class="kicker">Chapter study / Dark</p><h3>Find a<br>new angle.</h3><p>A DIFFERENT WAY INTO THE QUESTION.</p><div class="application-art" id="application-mesh" aria-hidden="true"></div></article></div><p class="footnote">Original compositions and sample copy. The decorative motifs remain experiments.</p></section>
     </section>
     <section class="panel" id="motion" role="tabpanel" aria-labelledby="tab-motion" tabindex="0" hidden>
-      <div class="section-head"><div><p class="kicker">Motion studies</p><h2>A few things with a little life.</h2></div><p>Dots that wander, light that rolls, a landscape that shifts. Slow loops to try on a cover, a header or a quiet holding screen.</p></div>
+      <div class="section-head"><div><p class="kicker">Motion studies</p><h2>Motion you can put to work.</h2></div><p>Quick feedback for the interface. Slower dot studies for covers, headers and quiet holding screens.</p></div>
       <div class="asset-intro"><span class="status-tag experiment">Exploration</span><p class="footnote" style="margin:0">Live studies in the same ink, paper and orange. Freeze a frame, or play with the pace.</p></div>
+      <section id="motion-recipes" aria-labelledby="recipe-heading">
+        <div class="section-head"><div><p class="kicker">Try the interaction</p><h2 id="recipe-heading">A few useful moves.</h2></div><p>Replay a reveal, change a form, finish a small task. These effects also work in the rest of the showcase.</p></div>
+        <div class="recipe-grid">
+          <article class="recipe-card"><div class="recipe-head"><h3>Editorial reveal</h3><span>240ms / 45ms stagger</span></div><div class="recipe-stage" id="recipe-reveal"><p class="kicker">A personal note</p><h4>A little room<br>for a new idea.</h4><p>One entrance. Then the words stay still.</p></div><p class="footnote">A short introduction for covers and occasional editorial pages.</p><button class="btn btn-outline btn-small" type="button" id="replay-reveal">Replay entrance <span aria-hidden="true">↗</span></button></article>
+          <article class="recipe-card"><div class="recipe-head"><h3>Changing form</h3><span>180ms / 4px</span></div><div class="recipe-stage recipe-graphic" id="recipe-form"></div><p class="footnote">A small bridge between different graphic forms. Slider updates stay direct.</p><button class="btn btn-outline btn-small" type="button" id="change-recipe-form">Change the form <span aria-hidden="true">→</span></button></article>
+          <article class="recipe-card"><div class="recipe-head"><h3>Progress to completion</h3><span>200ms / linear</span></div><div class="recipe-stage"><div class="recipe-progress-label"><label for="recipe-progress">Preparing sample items</label><span id="recipe-progress-count">0 / 4</span></div><progress class="mcc-progress" id="recipe-progress" value="0" max="4">0 of 4</progress><span class="mcc-badge" id="recipe-completion">Ready to start</span></div><p class="footnote" id="recipe-progress-feedback" role="status">A short demonstration with four sample items.</p><button class="btn btn-outline btn-small" type="button" id="run-recipe-progress">Prepare the examples <span aria-hidden="true">→</span></button></article>
+          <article class="recipe-card"><div class="recipe-head"><h3>Confirmation where you act</h3><span>160ms / label change</span></div><div class="recipe-stage"><p class="micro">Current accent token</p><p class="recipe-token" id="recipe-token">--mcc-accent: #E8512A;</p></div><p class="footnote">The label confirms a successful copy, then returns to the original action.</p><button class="btn btn-outline btn-small" type="button" id="copy-recipe-token"><span id="recipe-copy-label" data-mcc-feedback-label>Copy this token</span> <span aria-hidden="true">↗</span></button></article>
+        </div>
+      </section>
       <div class="motion-toolbar"><button type="button" class="btn" id="motion-play" aria-pressed="true">Pause motion <span aria-hidden="true">Ⅱ</span></button><label class="motion-control"><span class="control-top">Pace <output id="motion-speed-output" for="motion-speed">0.65×</output></span><input type="range" id="motion-speed" min="0.2" max="1.4" step="0.05" value="0.65"></label><label class="motion-control"><span class="control-top">Dot spacing <output id="motion-spacing-output" for="motion-spacing">22px</output></span><input type="range" id="motion-spacing" min="14" max="34" step="2" value="22"></label><label class="motion-control"><span class="control-top">Palette</span><select class="input" id="motion-colour"><option value="duo">Ink & orange</option><option value="ink">Neutral ink</option><option value="orange">Orange ink</option></select></label><label class="check motion-accent"><input type="checkbox" id="motion-accent" checked>Travelling orange</label><button type="button" class="text-button" id="motion-reset">Restart loops ↺</button></div>
       <p class="motion-status" id="motion-status" role="status">Choose this tab to start the live studies.</p>
       <div class="motion-grid" id="motion-grid"></div>
@@ -409,7 +430,7 @@
     const svgWrap = (content, title = 'Mikelon graphic', width = 300, height = 180) => `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeXML(title)}"><title>${escapeXML(title)}</title>${content}</svg>`;
     let uiMotion, uiToast, uiDialog;
     function notice(message) { uiToast?.show(message); }
-    async function copy(text, message = 'Copied to clipboard.') {
+    async function copy(text, message = 'Copied to clipboard.', label = null) {
       try {
         if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(text);
         else throw Error('Fallback needed');
@@ -420,6 +441,7 @@
         const copied = document.execCommand('copy'); field.remove(); active?.focus({preventScroll:true});
         if (!copied) { notice('Copy unavailable here. Open this page in a browser tab.'); return; }
       }
+      if(label)uiMotion?.feedback(label,'Copied');
       notice(message);
     }
     function download(content, name, type = 'image/svg+xml') {
@@ -845,10 +867,11 @@
       $('#application-pixels').innerHTML = '<svg viewBox="0 0 300 180" style="position:absolute;width:115px;height:100px;right:20px;bottom:30px" aria-hidden="true"><g fill="var(--accent)"><path d="M92 112h24v24H92zM116 88h24v24h-24zM140 64h24v24h-24zM164 40h24v24h-24zM188 40h24v24h-24z"/></g></svg>';
       $('#application-terrain').innerHTML = halftoneSVG('terrain', {palette:PALETTES.light,cell:7});
       $('#application-mesh').innerHTML = halftoneSVG('mesh', {palette:PALETTES.dark,mode:'duo',cell:7});
+      renderRecipeForm();$('#recipe-token').textContent=`--mcc-accent: ${palette().accent};`;
       if(motionReady)refreshMotion();
     }
     $('#theme-toggle').addEventListener('click', () => setTheme(state.theme === 'light' ? 'dark' : 'light'));
-    $('#copy-palette').addEventListener('click', () => copy(Object.entries(palette()).map(([name, value]) => `--mikelon-${name}: ${value};`).join('\n'), `${state.theme === 'light' ? 'Light' : 'Dark'} palette copied.`));
+    $('#copy-palette').addEventListener('click', () => copy(Object.entries(palette()).map(([name, value]) => `--mikelon-${name}: ${value};`).join('\n'), `${state.theme === 'light' ? 'Light' : 'Dark'} palette copied.`, $('#copy-palette-label')));
     $$('[data-weight]').forEach(button => button.addEventListener('click', () => { $$('[data-weight]').forEach(item => item.setAttribute('aria-pressed', String(item === button))); $('#type-preview').style.fontWeight = button.dataset.weight; }));
     $('#specimen-input').addEventListener('input', event => { $('#type-preview').textContent = event.target.value || 'A curious eye.\nA clear point of view.'; $('#type-preview').style.whiteSpace = 'pre-line'; });
     $$('[data-notice]').forEach(button => button.addEventListener('click', () => notice(button.dataset.notice)));
@@ -904,16 +927,31 @@
     $('#spacing').addEventListener('input', event => { state.spacing = Number(event.target.value); renderStudio(); });
     $('#strength').addEventListener('input', event => { state.strength = Number(event.target.value); renderStudio(); });
     $('#download-background').addEventListener('click', () => download(backgroundSVG(), `mikelon-${state.pattern}-${state.theme}.svg`));
-    $('#copy-background').addEventListener('click', () => copy(`.mikelon-background {\n  background-color: ${palette().paper};\n  background-image: url("data:image/svg+xml,${encodeURIComponent(backgroundSVG())}");\n  background-size: cover;\n  background-position: center;\n}`, 'Background CSS copied.'));
+    $('#copy-background').addEventListener('click', () => copy(`.mikelon-background {\n  background-color: ${palette().paper};\n  background-image: url("data:image/svg+xml,${encodeURIComponent(backgroundSVG())}");\n  background-size: cover;\n  background-position: center;\n}`, 'Background CSS copied.', $('#copy-background-label')));
     $$('.asset-filters [data-family]').forEach(button => button.addEventListener('click', () => { state.family = button.dataset.family; $$('.asset-filters [data-family]').forEach(item => item.setAttribute('aria-pressed', String(item === button))); renderAssets(); }));
     $$('[data-jump]').forEach(link => link.addEventListener('click', event => { event.preventDefault(); jumpTo(link.dataset.jump); }));
     const labFields = { 'lab-form':'labForm', 'lab-dot':'labDot', 'lab-ink':'labInk', 'lab-spacing':'labSpacing', 'lab-contrast':'labContrast', 'lab-paper':'labPaper' };
     Object.entries(labFields).forEach(([id,key]) => {
       const control = document.getElementById(id);
-      control.addEventListener(control.type === 'range' ? 'input' : 'change', () => { state[key] = control.type === 'checkbox' ? control.checked : control.type === 'range' ? Number(control.value) : control.value; renderLab(); });
+      control.addEventListener(control.type === 'range' ? 'input' : 'change', () => { state[key] = control.type === 'checkbox' ? control.checked : control.type === 'range' ? Number(control.value) : control.value; if(uiMotion&&(id==='lab-form'||id==='lab-dot'))uiMotion.replace($('#lab-art'),renderLab);else renderLab(); });
     });
     $('#download-halftone').addEventListener('click', () => download(labSVG(), `mikelon-${state.labForm}-${state.labDot}.svg`));
     $('#download-halftone-png').addEventListener('click', downloadLabPNG);
+    let recipeFormIndex=0;
+    function renderRecipeForm() { $('#recipe-form').innerHTML=halftoneSVG(['sphere','cube','ripple','wave'][recipeFormIndex],{mode:'duo'}); }
+    $('#replay-reveal').addEventListener('click',()=>{
+      [...$('#recipe-reveal').children].forEach((element,index)=>uiMotion?.enter(element,{duration:240,offset:8,delay:index*45}));
+    });
+    $('#change-recipe-form').addEventListener('click',()=>{recipeFormIndex=(recipeFormIndex+1)%4;uiMotion?.replace($('#recipe-form'),renderRecipeForm);});
+    $('#copy-recipe-token').addEventListener('click',()=>copy($('#recipe-token').textContent,'Accent token copied.',$('#recipe-copy-label')));
+    $('#run-recipe-progress').addEventListener('click',()=>{
+      const button=$('#run-recipe-progress'),progress=$('#recipe-progress'),badge=$('#recipe-completion');
+      let value=0;button.disabled=true;progress.value=0;badge.classList.remove('mcc-badge--done');badge.textContent='Preparing…';$('#recipe-progress-count').textContent='0 / 4';$('#recipe-progress-feedback').textContent='Preparing four sample items.';
+      const timer=setInterval(()=>{
+        progress.value=++value;progress.textContent=`${value} of 4`;$('#recipe-progress-count').textContent=`${value} / 4`;
+        if(value===4){clearInterval(timer);button.disabled=false;badge.classList.add('mcc-badge--done');badge.textContent='All ready';$('#recipe-progress-feedback').textContent='All four sample items are ready.';uiMotion?.enter(badge,{duration:180,offset:3});}
+      },450);
+    });
     $('#motion-play').addEventListener('click',()=>{motionState.playing=!motionState.playing;syncMotion();});
     $('#motion-speed').addEventListener('input',event=>{motionState.speed=Number(event.target.value);syncMotion();});
     $('#motion-spacing').addEventListener('input',event=>{motionState.spacing=Number(event.target.value);refreshMotion();});
@@ -929,6 +967,9 @@
       uiMotion=createMotion();uiToast=uiMotion.bindToast($('#toast'));uiDialog=uiMotion.bindDialog($('#example-dialog'));
       $$('.btn').forEach(button=>button.setAttribute('data-mcc-press',''));
       $$('details').forEach(details=>uiMotion.bindDisclosure(details));
+      $$('progress').forEach(progress=>uiMotion.bindProgress(progress));
+      uiMotion.revealOnce($$('.hero h1, .hero-copy, .hero-art'));
+      uiMotion.revealOnce($$('.applications .application'),{duration:240,offset:8,stagger:45});
       uiMotion.reserveSlot($('#empty-slot'),$('#empty-state'),$('#filled-state'));
       uiMotion.reserveSlot($('#notice-slot'),$('#inline-notice'),$('#restore-notice'));
       window.addEventListener('pagehide',event=>{if(!event.persisted)uiMotion.destroy();});

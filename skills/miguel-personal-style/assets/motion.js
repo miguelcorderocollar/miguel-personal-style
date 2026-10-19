@@ -3,31 +3,31 @@ export function createMotion({root=document.documentElement}={}) {
   const doc=root.ownerDocument,win=doc.defaultView;
   const preference=win.matchMedia('(prefers-reduced-motion: reduce)');
   const active=new Map(),cleanups=[],settlers=new Set();
-  let input='keyboard',destroyed=false;
+  let input='keyboard',destroyed=false,interacted=false;
   root.classList.add('mcc-motion');root.dataset.mccInput=input;
   const ease=win.getComputedStyle(root).getPropertyValue('--mcc-ease-out').trim()||'cubic-bezier(.23,1,.32,1)';
   function listen(target,event,handler,options) {target.addEventListener(event,handler,options);cleanups.push(()=>target.removeEventListener(event,handler,options));}
-  function modality(value) {input=value;root.dataset.mccInput=value;}
+  function modality(value) {input=value;interacted=true;root.dataset.mccInput=value;}
   listen(doc,'pointerdown',()=>modality('pointer'),true);
   listen(doc,'keydown',()=>{modality('keyboard');settle();},true);
   function cancel(element) {active.get(element)?.cancel();active.delete(element);}
   function settle() {for(const animation of active.values())animation.cancel();active.clear();for(const finish of settlers)finish();}
   listen(preference,'change',settle);
   function instant(origin=input) {return destroyed||origin==='keyboard';}
-  async function tween(element,from,to,duration=180,{origin=input,persist=false,layout=false}={}) {
+  async function tween(element,from,to,duration=180,{origin=input,persist=false,layout=false,delay=0}={}) {
     const current=active.has(element)?win.getComputedStyle(element):null;
     if(current)from=layout?{height:current.height,opacity:current.opacity}:{opacity:current.opacity,transform:current.transform};
     cancel(element);
     if(instant(origin))return true;
     const reduced=preference.matches;
     if(reduced) {from={opacity:from.opacity??1};to={opacity:to.opacity??1};}
-    const animation=element.animate([from,to],{duration:reduced?80:duration,easing:ease,fill:persist?'forwards':'none'});
+    const animation=element.animate([from,to],{duration:reduced?80:duration,delay:reduced?0:delay,easing:ease,fill:persist?'forwards':delay?'backwards':'none'});
     active.set(element,animation);
     try {await animation.finished;return true;}catch{return false;}
     finally {if(active.get(element)===animation&&!persist){active.delete(element);animation.cancel();}}
   }
-  function enter(element,{duration=180,offset=4,scale,origin=input}={}) {
-    return tween(element,{opacity:0,transform:scale?`scale(${scale})`:`translateY(${offset}px)`},{opacity:1,transform:'none'},duration,{origin});
+  function enter(element,{duration=180,offset=4,scale,origin=input,delay=0}={}) {
+    return tween(element,{opacity:0,transform:scale?`scale(${scale})`:`translateY(${offset}px)`},{opacity:1,transform:'none'},duration,{origin,delay});
   }
   function exit(element,{duration=120,offset=4,origin=input}={}) {
     return tween(element,{opacity:1,transform:'none'},{opacity:0,transform:`translateY(${offset}px)`},duration,{origin,persist:true});
@@ -103,6 +103,45 @@ export function createMotion({root=document.documentElement}={}) {
     const observer=new win.ResizeObserver(measure);observer.observe(first);observer.observe(second);measure();cleanups.push(()=>observer.disconnect());
     return measure;
   }
+  function replace(element,update,options={}) {
+    update();return enter(element,{duration:180,offset:4,...options});
+  }
+  const feedbackStates=new WeakMap();
+  function feedback(label,text,{restoreAfter=1600}={}) {
+    let state=feedbackStates.get(label);
+    if(!state){state={original:label.textContent,timer:null};feedbackStates.set(label,state);cleanups.push(()=>{clearTimeout(state.timer);cancel(label);label.textContent=state.original;});}
+    clearTimeout(state.timer);const origin=input;
+    replace(label,()=>{label.textContent=text;},{duration:160,origin});
+    state.timer=setTimeout(()=>replace(label,()=>{label.textContent=state.original;},{duration:160,origin}),restoreAfter);
+  }
+  function revealOnce(elements,{duration=240,offset=8,stagger=45}={}) {
+    const targets=[...elements];
+    const observer=new win.IntersectionObserver(entries=>{
+      let index=0;
+      for(const entry of entries){if(!entry.isIntersecting)continue;observer.unobserve(entry.target);
+        enter(entry.target,{duration,offset,delay:Math.min(index++*stagger,180),origin:interacted?input:'presentation'});
+      }
+    },{threshold:.12});
+    targets.forEach(element=>observer.observe(element));cleanups.push(()=>observer.disconnect());
+    return ()=>observer.disconnect();
+  }
+  function bindProgress(progress) {
+    const shell=doc.createElement('span'),track=doc.createElement('span'),fill=doc.createElement('span');
+    shell.className='mcc-progress-shell';track.className='mcc-progress-track';fill.className='mcc-progress-fill';track.setAttribute('aria-hidden','true');
+    progress.before(shell);shell.append(progress,track);track.append(fill);progress.classList.add('mcc-progress-native');
+    let mounted=false;
+    function sync(){
+      const ratio=progress.hasAttribute('value')?Math.max(0,Math.min(1,progress.value/progress.max)):null;
+      const immediate=!mounted||instant()||preference.matches;
+      fill.style.transitionDuration=immediate?'0ms':'200ms';
+      fill.style.transform=`scaleX(${ratio??0})`;track.hidden=ratio===null;
+      progress.classList.toggle('mcc-progress-native',ratio!==null);mounted=true;
+    }
+    const observer=new win.MutationObserver(sync);observer.observe(progress,{attributes:true,attributeFilter:['value','max']});sync();
+    settlers.add(sync);
+    cleanups.push(()=>{observer.disconnect();progress.classList.remove('mcc-progress-native');shell.replaceWith(progress);});
+    return {sync};
+  }
   function destroy() {if(destroyed)return;settle();destroyed=true;for(const cleanup of cleanups)cleanup();root.classList.remove('mcc-motion');delete root.dataset.mccInput;}
-  return {enter,exit,cancel,bindDialog,bindToast,bindDisclosure,reserveSlot,destroy,get input(){return input;},get reduced(){return preference.matches;}};
+  return {enter,exit,replace,feedback,revealOnce,bindProgress,cancel,bindDialog,bindToast,bindDisclosure,reserveSlot,destroy,get input(){return input;},get reduced(){return preference.matches;}};
 }

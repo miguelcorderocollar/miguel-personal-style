@@ -6,7 +6,7 @@ JetBrains Mono. White paper, black ink, a little orange. A reusable visual kit f
 
 [Explore the skill](skills/miguel-personal-style/SKILL.md) · [Usage and examples](skills/miguel-personal-style/references/usage.md) · [Visual rules](skills/miguel-personal-style/references/style-guide.md) · [Sources and attribution](skills/miguel-personal-style/references/source-record.md)
 
-The kit includes restrained interaction motion for action presses, dialogs, toasts, loading feedback, first-item states, notices and disclosures. Keyboard navigation and readable data stay immediate. See the [motion guide](skills/miguel-personal-style/references/ui-motion.md) for the reusable API and recipes.
+The kit includes restrained interaction motion for action presses, dialogs, toasts, loading feedback, first-item states, notices and disclosures. It also includes one-time editorial reveals, graphic-form transitions, copy confirmation and smooth determinate progress. Keyboard navigation and readable data stay immediate. See the [motion guide](skills/miguel-personal-style/references/ui-motion.md) for the reusable API and recipes.
 
 ## Install the skill
 
@@ -57,7 +57,7 @@ Two loader variants use orange square pixels. Loading buttons, placeholders and 
 
 ### Dots in motion
 
-The Motion tab explores the same type, colours and geometric marks. These are editable studies for choosing a direction. The included Paper Shaders effects have Canvas fallbacks.
+The Motion tab starts with four replayable interaction recipes: editorial entrance, graphic replacement, progress completion and copy confirmation. It also explores the same type, colours and geometric marks. These are editable studies for choosing a direction. The included Paper Shaders effects have Canvas fallbacks.
 
 ![A little forward motion. A dot wave with a passing orange band.](banners/motion.jpg)
 

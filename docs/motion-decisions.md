@@ -12,13 +12,17 @@ The kit uses short transitions for occasional changes of state. The approved UI 
 | Loading label | Make loading and completion legible | 160ms, 4px and opacity |
 | Empty state to first item | Connect the first-use state to its result | 180ms, 6px and opacity; preserve the slot |
 | Notice dismiss and restore | Explain the feedback's arrival and removal | 120ms exit, 180ms enter |
+| Editorial reveal | Introduce occasional editorial compositions once | 240ms, 8px, 45ms stagger capped at 180ms |
+| Graphic replacement | Bridge a discrete form change | 180ms, 4px and opacity |
+| Copy confirmation | Confirm success at the action | 160ms label change; restore after 1600ms |
+| Determinate progress | Connect actual work completed to its fill | 200ms linear transform; native value updates immediately |
 | Disclosure | Show the relation between a question and its answer | 180ms height and opacity; interruptible |
 
 The interface curve is `cubic-bezier(.23,1,.32,1)`. Reduced motion keeps short opacity feedback. Keyboard actions are immediate. Disclosures are the only layout-property animation; all other new effects animate transform and opacity. No continuous loop is added by the UI helper.
 
 ## What stays still
 
-Tabs, pagination, filters, chart values and continuous design controls stay immediate. The existing decorative dot and pixel studies have their own Motion tab, including pause controls, offscreen suspension and reduced-motion stills. Nothing needs a theme wipe, bouncing menus, scattered confetti or scrolling entrance choreography.
+Tabs, pagination, filters, chart values and continuous design controls stay immediate. The existing decorative dot and pixel studies have their own Motion tab, including pause controls, offscreen suspension and reduced-motion stills. Editorial headings and composition studies can reveal once when seen. This does not apply to functional rows or repeated view navigation. Theme wipes, bouncing menus and scattered confetti are excluded.
 
 ## Emil's skills
 
@@ -43,3 +47,14 @@ These external skills are design references. They are not copied into the distri
 ## Verification
 
 Run `scripts/verify-motion.mjs` from the skill directory with Playwright and Chromium available. It checks real state changes, focus, Escape, keyboard behavior, toast interruption, disclosure reversal, narrow layouts and reduced-motion handling. The capture script records the actual rendered demo separately. A real phone recording is still needed to assess device-specific smoothness; desktop checks do not establish mobile frame rates.
+
+## Additional opportunity pass
+
+| Location | Prior behavior | Purpose | Frequency | Decision |
+| --- | --- | --- | --- | --- |
+| Editorial opener and application compositions | Everything appeared together | Explanation and rare-first-visit delight | Occasional visit, once per element | Reveal in 240ms with 45ms stagger and the existing curve |
+| Halftone form and dot selection | Different artwork replaced the previous form abruptly | Preventing a jarring change | Occasional pointer selection | Incoming artwork enters over 180ms; sliders and keyboard actions stay immediate |
+| Palette/background copy action | Confirmation appeared only at the distant toast | Feedback | Occasional copy | Confirm at the button over 160ms, only after success |
+| Preparation progress | Native fill stepped between measured values | State indication | Occasional task | Interpolate the decorative fill over 200ms; preserve native semantics and real values |
+
+Rejected additional candidates include animated chart values and filter-row rearrangement because users read that information, theme wipes because they add no needed feedback, and repeated hover choreography because it would be seen too often. The replayable examples make the approved additions visible without adding repeated motion throughout the page.

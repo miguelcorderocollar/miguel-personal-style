@@ -17,3 +17,10 @@
 }
 .mcc-motion[data-mcc-input="keyboard"] .mcc-dialog::backdrop{transition:none!important}
 @media(hover:none),(pointer:coarse){.mcc-motion input,.mcc-motion select,.mcc-motion textarea{font-size:max(16px,1em)}}
+.mcc-motion .mcc-progress-shell{display:block;position:relative;height:10px;width:100%}
+.mcc-motion .mcc-progress-native{opacity:0}
+.mcc-motion .mcc-progress-track{position:absolute;inset:0;background:var(--mcc-surface);overflow:hidden;pointer-events:none}
+.mcc-motion .mcc-progress-track[hidden]{display:none}
+.mcc-motion .mcc-progress-fill{display:block;width:100%;height:100%;background:var(--mcc-accent);transform:scaleX(0);transform-origin:left center;transition:transform 200ms linear}
+.mcc-motion [data-mcc-feedback-label]{display:inline-block;min-width:0}
+@media(prefers-reduced-motion:reduce){.mcc-motion .mcc-progress-fill{transition:none!important}}
