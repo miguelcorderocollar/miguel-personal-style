@@ -1,5 +1,7 @@
 # Sources and asset roles
 
+Current direction: black is the default; white is occasional. The 19 October 2026 theme policy below supersedes earlier theme decisions.
+
 Snapshot taken 4 October 2026 from Miguel's local website checkout. Repository HEAD 4bc17b8daf624396ce30b57db04701e4d8690339. Source file hashes describe the actual observed working files in source-snapshot.json, so any local changes are distinguishable from HEAD.
 
 | Source | What it establishes | Use |
@@ -34,3 +36,7 @@ On 4 October 2026, Miguel approved light as the default and dark for highlights 
 The optional motion helper uses native dialog, CSS transitions and the Web Animations API. Its original implementation follows the interaction and performance guidance in [Emil Kowalski’s skills](https://github.com/emilkowalski/skills), read at commit `2d228630ba1446365f614a108cb8252f1feda202` on 18 October 2026. The bundled helper needs no external skill or motion library. The README banners are original HTML/SVG compositions exported to JPEG with local fonts.
 
 On 19 October 2026, the UI helper gained one-time editorial reveals, discrete graphic replacement, local copy confirmation and a transform-based determinate progress fill. The Motion tab includes replayable examples of these methods. The copy feedback follows actual clipboard success, and progress continues to use the native element as its semantic source.
+
+## Current theme policy
+
+On 19 October 2026, Miguel changed the direction to black as the default and white only occasionally. This supersedes the light-default approval recorded above. The base CSS, token metadata, showcase, starter page, README banners and presentation examples use the black default. Use `mcc-light` to opt into white for deliberate contrast.

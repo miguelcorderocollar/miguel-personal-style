@@ -8,8 +8,8 @@ All shell examples here run from the skill folder, the directory containing `SKI
 | --- | --- | --- |
 | Web page or small UI | `assets/examples/component-starter.html` | Local fonts, both themes and accessible component markup |
 | Loader, notice or pagination | Components tab in `assets/examples/design-system.html` | CSS plus the relevant example's state handling |
-| Cover or slide | `assets/examples/preview.html?variant=light` | A composition to adapt at delivery size |
-| Dark highlight | `assets/examples/preview.html?variant=dark` | Same typography and grid with reversed neutrals |
+| Cover or slide | `assets/examples/preview.html?variant=dark` | A black-default composition to adapt at delivery size |
+| Occasional white variation | `assets/examples/preview.html?variant=light` | Same typography and grid on white, for deliberate contrast |
 | Data graphic | `assets/examples/preview.html?variant=data` | A chart composition; replace the illustrative values |
 | Decorative vector or background | Assets tab in `assets/examples/design-system.html` | Transparent SVG or PNG from the playground |
 | Motion study | Motion tab in `assets/examples/design-system.html` | Pause, pace, palette and still-frame controls |
@@ -42,7 +42,7 @@ Copy the `assets/` folder into the destination project. Preserve relative paths 
 </main>
 ```
 
-The square chase uses eight pixels. Add `mcc-loader--small` or `mcc-loader--large` to change its size. The `mcc-loader--steps` variant uses four pixels. Use `mcc-dark` on the same theme container to switch themes. The styles include still alternatives for reduced motion.
+The square chase uses eight pixels. Add `mcc-loader--small` or `mcc-loader--large` to change its size. The `mcc-loader--steps` variant uses four pixels. The `mcc-style` container starts black. Use `mcc-light` on the same container for an occasional white variation; remove it to return to black. `mcc-dark` is an explicit dark alias. The styles include still alternatives for reduced motion.
 
 `mcc-progress` styles a native labelled `<progress>` element. Set its value from real work completed. `mcc-badge`, `mcc-notice`, `mcc-empty` and `mcc-pagination` provide styling; the application owns their state, labels and interactions. The full showcase demonstrates dismiss and restore, add and reset, page selection and loading completion. For the optional native motion helper, API and exact recipes, read [ui-motion.md](ui-motion.md). Transfer the relevant behavior with the markup.
 
@@ -86,7 +86,7 @@ Inspect the PNGs as well as the command result. A screenshot records a single mo
 ## Example requests
 
 - "Use $miguel-personal-style to build a collection page with an orange pixel loader, empty state and pagination. Use placeholder copy clearly marked as an example."
-- "Use $miguel-personal-style for a 1920×1080 cover. Start with the light treatment, my supplied headline and this cleared photograph."
-- "Use $miguel-personal-style to mock up the opening and closing frames for this transcript. Keep dark for a highlight and wait for storyboard approval before animation."
+- "Use $miguel-personal-style for a 1920×1080 cover. Start with the black treatment, my supplied headline and this cleared photograph."
+- "Use $miguel-personal-style to mock up the opening and closing frames for this transcript. Keep black as the default and use white only occasionally and wait for storyboard approval before animation."
 
 Preserve the user's requested scope. Save finished artifacts in their project; do not add private project material to the reusable bundle.

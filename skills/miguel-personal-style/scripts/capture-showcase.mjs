@@ -46,9 +46,9 @@ try {
   await page.locator('#pixel-loaders').scrollIntoViewIfNeeded();
   // Keep the loader headings below the sticky tabs in the captured frame.
   await page.evaluate(() => window.scrollTo(0, document.getElementById('pixel-loaders').getBoundingClientRect().top + window.scrollY - 90));
-  await page.screenshot({path:path.join(output, 'components.png')});
-  await page.locator('#theme-toggle').click();
   await page.screenshot({path:path.join(output, 'components-dark.png')});
+  await page.locator('#theme-toggle').click();
+  await page.screenshot({path:path.join(output, 'components-light.png')});
   await page.locator('#theme-toggle').click();
   await page.locator('#tab-motion').click();
   await page.evaluate(() => window.__motionReady);
@@ -68,7 +68,7 @@ try {
   await page.evaluate(() => window.__ready);
   assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'Starter overflows at 320px');
   await page.locator('#theme').click();
-  assert(await page.locator('body').evaluate(element => element.classList.contains('mcc-dark')));
+  assert(await page.locator('body').evaluate(element => element.classList.contains('mcc-light')));
   assert.deepEqual(errors, [], 'Browser and resource errors');
   console.log(`Captured showcase, light/dark components and motion to ${output}`);
   console.log('Passed: relocated resources, starter theme, 390/320px layouts and reduced-motion pixels.');

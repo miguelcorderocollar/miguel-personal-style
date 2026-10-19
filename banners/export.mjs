@@ -13,7 +13,7 @@ try{
  browser=await chromium.launch({...(args.chrome?{executablePath:args.chrome}:{}),args:['--no-sandbox','--force-color-profile=srgb']});
  const page=await browser.newPage({viewport:{width:1440,height:720},deviceScaleFactor:1});const errors=[];
  page.on('pageerror',e=>errors.push(e.message));page.on('response',r=>{if(r.status()>=400)errors.push(`${r.status()} ${r.url()}`)});
- for(const name of ['identity','components','dark','motion']){
+ for(const name of ['identity','components','light','motion']){
   await page.goto(`http://127.0.0.1:${server.address().port}/banners/${name}.html`);await page.evaluate(()=>window.__ready);
   const overflow=await page.locator('.copy').evaluate(e=>[...e.querySelectorAll('h1,p')].some(n=>n.scrollWidth>n.clientWidth));if(overflow)throw Error(`Text overflow in ${name}`);
   if(errors.length)throw Error(errors.join('\n'));

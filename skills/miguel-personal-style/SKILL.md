@@ -18,7 +18,7 @@ Create artifacts using the identity from miguelcorderocollar.com. This folder is
 ## Identity
 
 - Use the supplied JetBrains Mono Medium 500, SemiBold 600 and ExtraBold 800. Build hierarchy through weight, scale and spacing.
-- Start with white paper and black ink. Black paper with pale ink is approved for highlights or variation. Preserve the same type and grid across themes.
+- Start with black paper, pale ink and the lighter orange accent. White paper with black ink is an occasional contrast or editorial variation; use it sparingly. Preserve the same type and grid across themes.
 - Use warm orange to mark selection, a chart point, an annotation or an active loading state. For small labels on white, use black text beside an orange marker.
 - Keep square corners, thin rules, aligned rows and tabular numbers. Let the information determine the composition.
 - Use the fixed-grid monochrome photographic treatment from `assets/shader-recipe.json`. Procedural dot shapes in the showcase are graphic studies, not photographic shader outputs.
@@ -42,7 +42,7 @@ Copy `assets/` as a unit to retain relative font and runtime paths. Preserve `as
 
 ## UI and motion
 
-Load `personal-style.css` before `components.css`; add `mcc-style` to a container and `mcc-dark` for a dark variant. Keep loader pixels decorative with `aria-hidden="true"` and expose the actual loading state through adjacent status text. Show determinate progress only when the application knows it. Reuse the examples' keyboard focus, labels and state handling when adapting controls.
+Load `personal-style.css` before `components.css`; add `mcc-style` to a container for the black default. Add `mcc-light` only for a deliberate white variation. `mcc-dark` remains an explicit dark alias. Keep loader pixels decorative with `aria-hidden="true"` and expose the actual loading state through adjacent status text. Show determinate progress only when the application knows it. Reuse the examples' keyboard focus, labels and state handling when adapting controls.
 
 Read [references/ui-motion.md](references/ui-motion.md) when implementing interactive UI. Use the optional native helper for action presses, dialogs, toasts, loading-label changes, first-item states, notices and disclosure. The helper also supports one-time editorial reveals, discrete graphic replacements, local copy confirmation and determinate progress. Choose these only when they clarify the content or result; use the replayable Motion tab recipes to inspect them. Keep keyboard actions, tabs, filters, data and continuous controls immediate. Respect reduced-motion preferences. Prefer brief reveals followed by a readable hold. A still is sufficient for a decorative study when motion is unnecessary. The Motion tab's Dot Orbit and Dithering use the locally bundled Paper Shaders runtime with Canvas fallbacks. Adapt the relevant example rather than copying the full showcase into a production app.
 

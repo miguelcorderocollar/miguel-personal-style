@@ -29,7 +29,7 @@ if(kind==='components'){
   marks+=`<g fill="${ink}" font-family="JetBrains Mono" font-size="10" letter-spacing="1"><text x="790" y="325">WAIT</text><text x="1100" y="325">CHANGE</text><text x="1294" y="325" text-anchor="end">READY</text></g>`;
   marks+=`<path d="M745 109v225" stroke="${rule}"/>`;
 }
-if(kind==='dark'){
+if(kind==='light'){
   const cx=1083,cy=230,outer=140;
   for(let y=-outer;y<=outer;y+=7)for(let x=-outer;x<=outer;x+=7){
     const r=Math.hypot(x,y),angle=Math.atan2(y,x);if(r>outer||r<72)continue;

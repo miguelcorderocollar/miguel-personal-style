@@ -1,6 +1,6 @@
 # Miguel personal style
 
-JetBrains Mono. White paper, black ink, a little orange. A reusable visual kit for Miguel Cordero Collar's web interfaces, graphics, slides and motion.
+JetBrains Mono. Black paper, pale ink, a little orange. A reusable visual kit for Miguel Cordero Collar's web interfaces, graphics, slides and motion.
 
 ![A curious eye. A clear system. Miguel personal style with a halftone sphere and orange pixel details.](banners/identity.jpg)
 
@@ -31,6 +31,10 @@ npx skills add miguelcorderocollar/miguel-personal-style --skill miguel-personal
 
 The default scope is the current project; `--global` uses the agent's user-level skills location. Omit `--agent` for the interactive agent picker. Node.js and npm are required for `npx`. See the [Skills CLI documentation](https://github.com/vercel-labs/skills#install-a-skill) for other supported agents and options.
 
+## Theme direction
+
+Use black by default with pale ink and the lighter orange accent. White is an occasional contrast, not a second default. The showcase starts black and offers a white view when needed. This direction supersedes the earlier light-first guidance.
+
 ## A kit you can use
 
 The interactive showcase brings the identity into working examples. Switch themes, try the controls, export a background or explore a motion study. Everything needed to browse it is bundled locally.
@@ -49,9 +53,9 @@ Two loader variants use orange square pixels. Loading buttons, placeholders and 
 ![Small pieces. Clear signals. An orange pixel composition for the component collection.](banners/components.jpg)
 
 <details>
-<summary>See the dark treatment</summary>
+<summary>See the occasional white variation</summary>
 
-![Same grid. After dark. A pale halftone ring and warm orange pixels on black paper.](banners/dark.jpg)
+![Same grid. A little light. A black halftone ring on white paper, used as an occasional variation.](banners/light.jpg)
 
 </details>
 
@@ -85,11 +89,11 @@ Example prompts:
 
 > Use $miguel-personal-style to create a collection page with an orange pixel loader, empty state and pagination. Clearly label any sample copy.
 
-> Use $miguel-personal-style for a cover using my headline and cleared photograph. Start with the light treatment.
+> Use $miguel-personal-style for a cover using my headline and cleared photograph. Start with the black treatment.
 
 After installation, invoke `$miguel-personal-style` in your agent or ask it to use Miguel’s personal style.
 
-The skill routes an agent to the relevant resource instead of requiring it to load the entire showcase. It keeps light as the default and uses dark for a highlight or deliberate variation.
+The skill routes an agent to the relevant resource instead of requiring it to load the entire showcase. Black is the default for interfaces, covers, slides and banners. White is reserved for occasional contrast or an editorial pause.
 
 ## Use the assets directly
 
@@ -99,7 +103,7 @@ Copy the skill's `assets/` folder into your project to preserve relative font an
 <link rel="stylesheet" href="assets/personal-style.css">
 <link rel="stylesheet" href="assets/components.css">
 <main class="mcc-style">
-  <!-- Your content. Add mcc-dark to this container for the dark theme. -->
+  <!-- Your content. Black is the default. Add mcc-light only for an occasional white variation. -->
 </main>
 ```
 

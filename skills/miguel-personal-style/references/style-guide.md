@@ -2,7 +2,7 @@
 
 ## Approved theme roles
 
-Light is the default. Use dark for highlights or to vary the pacing of a longer piece. Keep the same font family, alignment and halftone language across both. A theme change should have a clear editorial purpose and must not introduce flashing. No fixed percentage of dark scenes is required.
+Black is the default, using pale ink and the lighter orange accent. Use white only occasionally for contrast or an editorial pause; return to black for the main presentation. Keep the same font family, alignment and halftone language across both. A theme change should have a clear editorial purpose and must not introduce flashing. There is no fixed percentage, but black should clearly dominate. This policy was updated by Miguel on 19 October 2026 and supersedes the earlier light-default direction.
 
 ## Type and colour, from the website
 
@@ -18,7 +18,7 @@ JetBrains Mono is the single family. Medium 500 is the base, SemiBold 600 suppli
 | Internal rules | black at 18% | pale ink at 22% |
 | Shader ink | #090909 | choose a declared reverse-print adaptation |
 
-Use orange to identify one important item. Its role is selection and annotation, not a blanket background. For small text on white, use black and an orange marker; the default orange is better suited to large text and graphics than small body labels. In dark scenes, the lighter accent is the source-backed choice.
+Use orange to identify one important item. Its role is selection and annotation, not a blanket background. For small text on white, use black and an orange marker; the light-theme orange is better suited to large text and graphics than small body labels. In dark scenes, the lighter accent is the source-backed choice.
 
 ## Proposed sizes for video and covers
 

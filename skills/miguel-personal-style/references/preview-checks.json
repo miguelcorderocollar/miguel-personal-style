@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-04",
+  "date": "2026-10-19",
   "previewSize": [
     1920,
     1080
@@ -18,17 +18,18 @@
   "pageErrors": 0,
   "relativeLinks": "passed",
   "offlinePreprocessor": "Executed on original mountain photograph at320px; passed",
-  "samples": "Direction studies, pending user preference",
+  "samples": "Approved personal identity; black default, white occasional",
   "imageHashes": {
-    "assets/examples/dark.png": "f0b2dda21ea0abdee41a945e19c44963c3f23e1ca5d632ead56fb896455f295d",
-    "assets/examples/data.png": "afefd98a463001ebc9429ed8bfb3f2f5a0bd580af84b5d4a07b5f5797d813122",
-    "assets/examples/light.png": "d326eec43457c3c829da9e6ade72784c4d5c770c59c2fb559205f2f6379fead6",
-    "assets/examples/overview.png": "7ea38b1d488f1e3229e0998f3c4d7476d2ba933da18c32351909c83215cca894",
-    "assets/examples/system.png": "ec3bb434ba15e5dcc8dcc8595e51551505aa39f431e2aedb2e4c3216205c4d67",
+    "assets/examples/dark.png": "fba1d7b0519fb9a8999b56ca0b451ad542d05d181ecfa83033e41ea476fd986f",
+    "assets/examples/data.png": "5621735fe9f78254ea3707f4b8641405a3d9200d5f85c561e618734f67ec9852",
+    "assets/examples/light.png": "0532950f60160a2fd4d2d5d4c77682bf00fe0e739d59fd0fef937ce79a4d6e92",
+    "assets/examples/overview.png": "e4700413e76a38c91e4c759b61a71cc259532f106047fec36a2e5c5fa3409fbe",
+    "assets/examples/system.png": "7973e542772b273c4a284903afd27971b150b2a26cdddc81f59bcece72fbea40",
     "assets/references/site-mountains-halftone.png": "5e733cfd0eb68432e7b3c0e2c509806eb860b31cd85caa1d7200c6bc9aa406a5",
     "assets/references/site-people-light.png": "3aa0f07946bf2e05b79f0a15c0c1f2771356435063fd0b0d1b4d6b9ad9707eee",
     "assets/references/site-quotes-dark.png": "452b8f0f0dbcde475ee432157c971639a843c1567985430ed519fd850c4338aa",
     "assets/references/site-quotes-light.png": "1104bc1ec31b790d9c265a829cc0e5db65a3932ea1e2c44568d205d584df351e",
     "assets/references/site-trends-light.png": "aace1ad04a3fdd56abd684019db548aa9cf0a22dc49dff4fda30ed692c6caac2"
-  }
+  },
+  "defaultTheme": "dark"
 }
