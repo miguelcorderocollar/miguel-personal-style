@@ -288,6 +288,7 @@
     .page-footer { margin-top: 60px; padding-block: 24px 32px; border-top: 1px solid var(--ink); display: flex; justify-content: space-between; align-items: start; gap: 24px; font-size: 9px; color: var(--muted); }
     .page-footer p { max-width: 76ch; }
     .page-footer a { white-space: nowrap; }
+    .footer-links { display:flex;gap:20px;flex-wrap:wrap; }
     .toast { position: fixed; z-index: 30; right: 25px; bottom: 25px; padding: 13px 18px; background: var(--ink); color: var(--paper); border-left: 4px solid var(--accent); font-size: 11px; max-width: calc(100vw - 40px); box-shadow: 0 4px 18px #0002; }
     .toast:empty { display: none; }
     dialog { color: var(--ink); background: var(--paper); border: 1px solid var(--ink); border-radius: 0; padding: 32px; max-width: 440px; width: calc(100% - 40px); }
@@ -427,7 +428,7 @@
       <div class="motion-grid" id="motion-grid"></div>
       <p class="motion-credit">The travelling orange passes across the rotating objects, wave field and terrain. Dot orbit and Dither current use <a href="https://github.com/paper-design/shaders" target="_blank" rel="noopener">Paper Shaders 0.0.81</a>, bundled locally under <a href="../vendor/paper-shaders/LICENSE" target="_blank" rel="noopener">Apache 2.0</a>. The other five are original Canvas studies. Motion pauses in hidden tabs and outside the view; reduced-motion preferences start with stills. “Save frame” downloads a PNG of the current image.</p>
     </section>
-    <footer class="page-footer"><p>mikelon / A working design system.<br>Based on Miguel's personal website and mikelon_kit. Source palette and typography; new component and motif studies.</p><a href="../fonts/OFL.txt" target="_blank" rel="noopener">JetBrains Mono / font licence ↗</a></footer>
+    <footer class="page-footer"><p>mikelon / A working design system.<br>Based on Miguel's personal website and mikelon_kit. Source palette and typography; new component and motif studies.</p><div class="footer-links"><a href="https://github.com/miguelcorderocollar/miguel-personal-style#install-the-skill" target="_blank" rel="noopener">Get the skill ↗</a><a href="../fonts/OFL.txt" target="_blank" rel="noopener">Font licence ↗</a></div></footer>
   </main>
   <dialog id="example-dialog" aria-labelledby="dialog-heading"><p class="kicker">A useful pause</p><h2 id="dialog-heading">Keep the thought.</h2><p>A focused dialog uses the same type, rules and square geometry as the rest of the system.</p><button class="btn" id="close-dialog" type="button">Back to the page <span aria-hidden="true">↗</span></button></dialog>
   <div popover="auto" id="recipe-popover" class="recipe-popover" role="dialog" aria-labelledby="recipe-popover-title">

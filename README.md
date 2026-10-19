@@ -4,7 +4,7 @@ JetBrains Mono. Black paper, pale ink, a little orange. A reusable visual kit fo
 
 ![A curious eye. A clear system. Miguel personal style with a halftone sphere and orange pixel details.](banners/identity.jpg)
 
-[Explore the skill](skills/miguel-personal-style/SKILL.md) · [Usage and examples](skills/miguel-personal-style/references/usage.md) · [Visual rules](skills/miguel-personal-style/references/style-guide.md) · [Sources and attribution](skills/miguel-personal-style/references/source-record.md)
+[Live demo](https://miguel-personal-style.vercel.app/) · [Explore the skill](skills/miguel-personal-style/SKILL.md) · [Usage and examples](skills/miguel-personal-style/references/usage.md) · [Visual rules](skills/miguel-personal-style/references/style-guide.md) · [Sources and attribution](skills/miguel-personal-style/references/source-record.md)
 
 The kit includes restrained interaction motion for action presses, dialogs, toasts, loading feedback, first-item states, notices and disclosures. It also includes one-time editorial reveals, graphic-form transitions, copy confirmation and smooth determinate progress. Keyboard navigation and readable data stay immediate. See the [motion guide](skills/miguel-personal-style/references/ui-motion.md) for the reusable API and recipes.
 
@@ -68,6 +68,8 @@ The Motion tab starts with eight working interaction recipes: editorial entrance
 Open the showcase to see the loops and change their settings.
 
 ## Open the showcase
+
+Browse the [live demo](https://miguel-personal-style.vercel.app/), or open [the Motion recipes](https://miguel-personal-style.vercel.app/#motion) directly.
 
 From this folder, start a local server:
 
