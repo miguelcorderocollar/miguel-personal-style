@@ -40,3 +40,5 @@ On 19 October 2026, the UI helper gained one-time editorial reveals, discrete gr
 ## Current theme policy
 
 On 19 October 2026, Miguel changed the direction to black as the default and white only occasionally. This supersedes the light-default approval recorded above. The base CSS, token metadata, showcase, starter page, README banners and presentation examples use the black default. Use `mcc-light` to opt into white for deliberate contrast.
+
+The subsequent context-and-safety recipes add native anchored popovers, right-edge dialog panels, reversible item presence and deliberate hold confirmation. They follow Emil’s spatial-consistency, interruptibility and asymmetric-timing guidance. The hold example affects only its local sample and provides a native dialog alternative for keyboard users.

@@ -61,7 +61,7 @@ Two loader variants use orange square pixels. Loading buttons, placeholders and 
 
 ### Dots in motion
 
-The Motion tab starts with four replayable interaction recipes: editorial entrance, graphic replacement, progress completion and copy confirmation. It also explores the same type, colours and geometric marks. These are editable studies for choosing a direction. The included Paper Shaders effects have Canvas fallbacks.
+The Motion tab starts with eight working interaction recipes: editorial entrance, graphic replacement, progress completion, copy confirmation, anchored popover, side panel, removal with undo and hold-to-confirm. It also explores the same type, colours and geometric marks. These are editable studies for choosing a direction. The included Paper Shaders effects have Canvas fallbacks.
 
 ![A little forward motion. A dot wave with a passing orange band.](banners/motion.jpg)
 

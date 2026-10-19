@@ -244,6 +244,25 @@
     .motion-toolbar .motion-accent { margin: 0; font-size: 10px; }
     .motion-status { display: flex; align-items: center; gap: 8px; font-size: 9px; color: var(--muted); margin-bottom: 20px; }
     .motion-status::before { content: ""; width: 5px; height: 5px; background: var(--accent); }
+    .recipe-note { color:var(--muted); font-size:10px; }
+    .recipe-mini { display:flex; align-items:center; gap:15px; width:100%; min-height:114px; border:1px solid var(--rule); padding:18px; background:var(--paper); }
+    .recipe-mini strong { display:block; font-size:13px; }.recipe-mini p { margin-top:7px; color:var(--muted); }
+    .recipe-mini-mark { width:22px; height:22px; background:var(--accent); flex-shrink:0; }
+    .recipe-mini.no-accent .recipe-mini-mark { background:var(--muted); }
+    .recipe-presence-stage { position:relative; display:grid; align-items:center; }
+    .recipe-presence-stage > * { grid-area:1/1; }
+    .recipe-removed { text-align:center; color:var(--muted); }
+    .recipe-panel-map { display:flex; gap:12px; height:114px; border:1px solid var(--rule); background:var(--paper); padding:13px; }
+    .recipe-panel-map > div { flex:1; display:grid; align-content:center; gap:9px; }
+    .recipe-panel-map i { display:block; height:3px; background:var(--rule); width:85%; }.recipe-panel-map i:first-child{width:55%;background:var(--ink);}
+    .recipe-panel-map aside { width:65px; border-left:2px solid var(--accent); background:var(--surface); }
+    .recipe-hold-stage { display:grid; align-content:center; gap:20px; }.recipe-hold-stage .mcc-badge { margin:0; width:fit-content; }
+    .recipe-card .mcc-hold { min-width:185px; }
+    .mcc-hold .hold-active { display:none; }.mcc-hold[data-mcc-holding] .hold-idle { display:none; }.mcc-hold[data-mcc-holding] .hold-active { display:inline; }
+    .recipe-popover h3 {font-size:15px;letter-spacing:-.03em;margin-bottom:12px;}.recipe-popover p{font-size:11px;color:var(--muted)}
+    .recipe-popover .check {font-size:11px;margin-block:18px}.recipe-popover button {margin-top:12px}
+    .recipe-sheet-content h2 {font-size:30px;margin:20px 0;letter-spacing:-.05em;}
+    .recipe-sheet-content dl{font-size:11px;margin:25px 0 32px}.recipe-sheet-content dl div{display:flex;justify-content:space-between;gap:18px;padding:14px 0;border-bottom:1px solid var(--rule)}.recipe-sheet-content dt{color:var(--muted)}.recipe-sheet-content dd{margin:0}
     .recipe-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:38px; }
     .recipe-card { border:1px solid var(--rule); padding:24px; min-width:0; }
     .recipe-head { display:flex; justify-content:space-between; gap:18px; align-items:baseline; margin-bottom:18px; }
@@ -391,12 +410,16 @@
       <div class="section-head"><div><p class="kicker">Motion studies</p><h2>Motion you can put to work.</h2></div><p>Quick feedback for the interface. Slower dot studies for covers, headers and quiet holding screens.</p></div>
       <div class="asset-intro"><span class="status-tag experiment">Exploration</span><p class="footnote" style="margin:0">Live studies in the same ink, paper and orange. Freeze a frame, or play with the pace.</p></div>
       <section id="motion-recipes" aria-labelledby="recipe-heading">
-        <div class="section-head"><div><p class="kicker">Try the interaction</p><h2 id="recipe-heading">A few useful moves.</h2></div><p>Replay a reveal, change a form, finish a small task. These effects also work in the rest of the showcase.</p></div>
+        <div class="section-head"><div><p class="kicker">Try the interaction</p><h2 id="recipe-heading">A few useful moves.</h2></div><p>Try an entrance, a contextual panel, an undo or a deliberate hold. Each example shows how motion supports an action.</p></div>
         <div class="recipe-grid">
           <article class="recipe-card"><div class="recipe-head"><h3>Editorial reveal</h3><span>240ms / 45ms stagger</span></div><div class="recipe-stage" id="recipe-reveal"><p class="kicker">A personal note</p><h4>A little room<br>for a new idea.</h4><p>One entrance. Then the words stay still.</p></div><p class="footnote">A short introduction for covers and occasional editorial pages.</p><button class="btn btn-outline btn-small" type="button" id="replay-reveal">Replay entrance <span aria-hidden="true">↗</span></button></article>
           <article class="recipe-card"><div class="recipe-head"><h3>Changing form</h3><span>180ms / 4px</span></div><div class="recipe-stage recipe-graphic" id="recipe-form"></div><p class="footnote">A small bridge between different graphic forms. Slider updates stay direct.</p><button class="btn btn-outline btn-small" type="button" id="change-recipe-form">Change the form <span aria-hidden="true">→</span></button></article>
           <article class="recipe-card"><div class="recipe-head"><h3>Progress to completion</h3><span>200ms / linear</span></div><div class="recipe-stage"><div class="recipe-progress-label"><label for="recipe-progress">Preparing sample items</label><span id="recipe-progress-count">0 / 4</span></div><progress class="mcc-progress" id="recipe-progress" value="0" max="4">0 of 4</progress><span class="mcc-badge" id="recipe-completion">Ready to start</span></div><p class="footnote" id="recipe-progress-feedback" role="status">A short demonstration with four sample items.</p><button class="btn btn-outline btn-small" type="button" id="run-recipe-progress">Prepare the examples <span aria-hidden="true">→</span></button></article>
           <article class="recipe-card"><div class="recipe-head"><h3>Confirmation where you act</h3><span>160ms / label change</span></div><div class="recipe-stage"><p class="micro">Current accent token</p><p class="recipe-token" id="recipe-token">--mcc-accent: #E8512A;</p></div><p class="footnote">The label confirms a successful copy, then returns to the original action.</p><button class="btn btn-outline btn-small" type="button" id="copy-recipe-token"><span id="recipe-copy-label" data-mcc-feedback-label>Copy this token</span> <span aria-hidden="true">↗</span></button></article>
+          <article class="recipe-card"><div class="recipe-head"><h3>Context from its trigger</h3><span>200ms / scale .95</span></div><div class="recipe-stage"><div class="recipe-mini" id="recipe-popover-preview"><span class="recipe-mini-mark" aria-hidden="true"></span><div><strong>A little context.</strong><p>Options stay near the thing they change.</p></div></div></div><p class="footnote">An anchored popover with native outside-click dismissal and Escape.</p><button class="btn btn-outline btn-small" type="button" id="open-recipe-popover" popovertarget="recipe-popover">Open card options <span aria-hidden="true">↗</span></button></article>
+          <article class="recipe-card"><div class="recipe-head"><h3>A panel from the edge</h3><span>280ms in / 200ms out</span></div><div class="recipe-stage"><div class="recipe-panel-map" aria-hidden="true"><div><i></i><i></i><i></i></div><aside></aside></div></div><p class="footnote">A native dialog brings supporting context in from the right and returns focus on close.</p><button class="btn btn-outline btn-small" type="button" id="open-recipe-sheet">Open the side panel <span aria-hidden="true">→</span></button></article>
+          <article class="recipe-card"><div class="recipe-head"><h3>A change you can undo</h3><span>160ms out / 180ms in</span></div><div class="recipe-stage recipe-presence-stage"><p class="recipe-removed" id="recipe-removed" hidden>Room for another thought.</p><div class="recipe-mini" id="recipe-presence-item"><span class="recipe-mini-mark" aria-hidden="true"></span><div><strong>Keep the useful details.</strong><p>An example item, ready to remove or restore.</p></div></div></div><p class="footnote" id="recipe-presence-status" role="status">One sample item. Removal is reversible.</p><button class="btn btn-outline btn-small" type="button" id="toggle-recipe-presence"><span id="recipe-presence-label">Remove this example</span> <span aria-hidden="true">↗</span></button></article>
+          <article class="recipe-card"><div class="recipe-head"><h3>Make the action deliberate</h3><span>2s hold / 200ms cancel</span></div><div class="recipe-stage recipe-hold-stage"><span class="mcc-badge" id="recipe-hold-state">Example is safe</span><p id="recipe-hold-status" role="status">A quick click changes nothing.</p></div><p class="footnote" id="recipe-hold-help">Hold for two seconds to clear this demo. Release or move away to cancel. Keyboard opens confirmation.</p><div class="button-row"><button class="btn btn-outline btn-small" type="button" id="recipe-hold" aria-describedby="recipe-hold-help"><span class="hold-idle">Hold to clear example</span><span class="hold-active">Keep holding…</span></button><button class="text-button" type="button" id="reset-recipe-hold" hidden>Reset example</button></div></article>
         </div>
       </section>
       <div class="motion-toolbar"><button type="button" class="btn" id="motion-play" aria-pressed="true">Pause motion <span aria-hidden="true">Ⅱ</span></button><label class="motion-control"><span class="control-top">Pace <output id="motion-speed-output" for="motion-speed">0.65×</output></span><input type="range" id="motion-speed" min="0.2" max="1.4" step="0.05" value="0.65"></label><label class="motion-control"><span class="control-top">Dot spacing <output id="motion-spacing-output" for="motion-spacing">22px</output></span><input type="range" id="motion-spacing" min="14" max="34" step="2" value="22"></label><label class="motion-control"><span class="control-top">Palette</span><select class="input" id="motion-colour"><option value="duo">Ink & orange</option><option value="ink">Neutral ink</option><option value="orange">Orange ink</option></select></label><label class="check motion-accent"><input type="checkbox" id="motion-accent" checked>Travelling orange</label><button type="button" class="text-button" id="motion-reset">Restart loops ↺</button></div>
@@ -407,6 +430,11 @@
     <footer class="page-footer"><p>mikelon / A working design system.<br>Based on Miguel's personal website and mikelon_kit. Source palette and typography; new component and motif studies.</p><a href="../fonts/OFL.txt" target="_blank" rel="noopener">JetBrains Mono / font licence ↗</a></footer>
   </main>
   <dialog id="example-dialog" aria-labelledby="dialog-heading"><p class="kicker">A useful pause</p><h2 id="dialog-heading">Keep the thought.</h2><p>A focused dialog uses the same type, rules and square geometry as the rest of the system.</p><button class="btn" id="close-dialog" type="button">Back to the page <span aria-hidden="true">↗</span></button></dialog>
+  <div popover="auto" id="recipe-popover" class="recipe-popover" role="dialog" aria-labelledby="recipe-popover-title">
+    <h3 id="recipe-popover-title">Card options</h3><p>Change the marker on this sample card.</p><label class="check"><input type="checkbox" id="recipe-popover-accent" checked>Use the orange detail</label><button class="btn btn-outline btn-small" type="button" popovertarget="recipe-popover" popovertargetaction="hide">Back to the card</button>
+  </div>
+  <dialog id="recipe-sheet" class="recipe-sheet-content" aria-labelledby="recipe-sheet-title"><p class="kicker">Supporting context</p><h2 id="recipe-sheet-title">Keep the page in view.</h2><p>This panel gives the details their own space. Close it and carry on where you left off.</p><dl><div><dt>Paper</dt><dd id="recipe-sheet-paper">Black by default</dd></div><div><dt>Type</dt><dd>JetBrains Mono</dd></div><div><dt>Accent</dt><dd id="recipe-sheet-accent">#FF8561</dd></div></dl><button type="button" class="btn btn-outline" id="close-recipe-sheet">Back to the examples <span aria-hidden="true">→</span></button></dialog>
+  <dialog id="recipe-hold-confirm" aria-labelledby="recipe-hold-confirm-title"><p class="kicker">Confirm the change</p><h2 id="recipe-hold-confirm-title">Clear this example?</h2><p>This affects only the sample on this page. You can reset it afterwards.</p><div class="button-row"><button type="button" class="btn" id="accept-recipe-hold">Clear example</button><button type="button" class="btn btn-outline" id="cancel-recipe-hold" autofocus>Keep it</button></div></dialog>
   <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
   <script src="../vendor/paper-shaders/paper-shaders.min.js"></script>
   <script>
@@ -867,7 +895,7 @@
       $('#application-pixels').innerHTML = '<svg viewBox="0 0 300 180" style="position:absolute;width:115px;height:100px;right:20px;bottom:30px" aria-hidden="true"><g fill="var(--accent)"><path d="M92 112h24v24H92zM116 88h24v24h-24zM140 64h24v24h-24zM164 40h24v24h-24zM188 40h24v24h-24z"/></g></svg>';
       $('#application-terrain').innerHTML = halftoneSVG('terrain', {palette:PALETTES.light,cell:7});
       $('#application-mesh').innerHTML = halftoneSVG('mesh', {palette:PALETTES.dark,mode:'duo',cell:7});
-      renderRecipeForm();$('#recipe-token').textContent=`--mcc-accent: ${palette().accent};`;
+      renderRecipeForm();$('#recipe-token').textContent=`--mcc-accent: ${palette().accent};`;$('#recipe-sheet-accent').textContent=palette().accent;$('#recipe-sheet-paper').textContent=theme==='dark'?'Black by default':'Occasional white';
       if(motionReady)refreshMotion();
     }
     $('#theme-toggle').addEventListener('click', () => setTheme(state.theme === 'light' ? 'dark' : 'light'));
@@ -965,6 +993,24 @@
     setTheme(initialTheme); selectTab(location.hash.slice(1), false, false);
     const uiReady=import('../motion.js').then(({createMotion})=>{
       uiMotion=createMotion();uiToast=uiMotion.bindToast($('#toast'));uiDialog=uiMotion.bindDialog($('#example-dialog'));
+      const recipeSheet=uiMotion.bindDialog($('#recipe-sheet'),{placement:'right'});
+      $('#open-recipe-sheet').addEventListener('click',()=>recipeSheet.open());$('#close-recipe-sheet').addEventListener('click',()=>recipeSheet.close());
+      uiMotion.bindPopover($('#recipe-popover'),$('#open-recipe-popover'));
+      $('#recipe-popover-accent').addEventListener('change',event=>$('#recipe-popover-preview').classList.toggle('no-accent',!event.target.checked));
+      const presence=uiMotion.bindPresence($('#recipe-presence-item'));let itemPresent=true,removalGeneration=0;
+      $('#toggle-recipe-presence').addEventListener('click',async()=>{
+        const ticket=++removalGeneration;itemPresent=!itemPresent;$('#recipe-presence-label').textContent=itemPresent?'Remove this example':'Undo removal';$('#recipe-presence-status').textContent=itemPresent?'Sample item restored.':'Sample item removed. Undo is available.';
+        if(itemPresent){$('#recipe-removed').hidden=true;presence.show();}else{await presence.hide();if(ticket===removalGeneration)$('#recipe-removed').hidden=false;}
+      });
+      const confirmDialog=uiMotion.bindDialog($('#recipe-hold-confirm'));let answerConfirmation=null;
+      $('#recipe-hold-confirm').addEventListener('close',()=>{if(answerConfirmation){answerConfirmation(false);answerConfirmation=null;}});
+      $('#accept-recipe-hold').addEventListener('click',()=>{const answer=answerConfirmation;answerConfirmation=null;confirmDialog.close({immediate:true});answer?.(true);});
+      $('#cancel-recipe-hold').addEventListener('click',()=>confirmDialog.close());
+      const held=uiMotion.bindHold($('#recipe-hold'),{
+        onConfirm:()=>{$('#recipe-hold').disabled=true;$('#recipe-hold-state').textContent='Example cleared';$('#recipe-hold-state').classList.add('mcc-badge--done');$('#recipe-hold-status').textContent='The sample was cleared. Reset it to try again.';$('#reset-recipe-hold').hidden=false;$('#reset-recipe-hold').focus({preventScroll:true});uiMotion.enter($('#recipe-hold-state'),{duration:180});},
+        confirmKeyboard:()=>new Promise(resolve=>{answerConfirmation=resolve;confirmDialog.open();})
+      });
+      $('#reset-recipe-hold').addEventListener('click',()=>{held.reset({immediate:true});$('#recipe-hold').disabled=false;$('#recipe-hold-state').textContent='Example is safe';$('#recipe-hold-state').classList.remove('mcc-badge--done');$('#recipe-hold-status').textContent='A quick click changes nothing.';$('#reset-recipe-hold').hidden=true;$('#recipe-hold').focus({preventScroll:true});});
       $$('.btn').forEach(button=>button.setAttribute('data-mcc-press',''));
       $$('details').forEach(details=>uiMotion.bindDisclosure(details));
       $$('progress').forEach(progress=>uiMotion.bindProgress(progress));

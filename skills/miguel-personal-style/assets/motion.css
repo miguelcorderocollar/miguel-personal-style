@@ -24,3 +24,20 @@
 .mcc-motion .mcc-progress-fill{display:block;width:100%;height:100%;background:var(--mcc-accent);transform:scaleX(0);transform-origin:left center;transition:transform 200ms linear}
 .mcc-motion [data-mcc-feedback-label]{display:inline-block;min-width:0}
 @media(prefers-reduced-motion:reduce){.mcc-motion .mcc-progress-fill{transition:none!important}}
+/* Native top-layer surfaces retain browser Escape, focus and light dismissal. */
+.mcc-motion .mcc-popover{position:fixed;inset:auto;margin:0;width:min(280px,calc(100vw - 32px));max-height:calc(100dvh - 32px);overflow:auto;padding:20px;background:var(--mcc-paper);color:var(--mcc-ink);border:1px solid var(--mcc-rule);opacity:0;transform:scale(.95);transition:opacity 200ms var(--mcc-ease-out),transform 200ms var(--mcc-ease-out),display 200ms allow-discrete,overlay 200ms allow-discrete}
+.mcc-motion .mcc-popover:popover-open{opacity:1;transform:scale(1)}
+@starting-style{.mcc-motion .mcc-popover:popover-open{opacity:0;transform:scale(.95)}}
+.mcc-motion .mcc-dialog-sheet{position:fixed;inset:0 0 0 auto;margin:0;width:min(440px,100vw);height:100dvh;max-height:100dvh;max-width:100vw;border-width:0 0 0 1px;padding:32px 28px;padding-bottom:max(32px,env(safe-area-inset-bottom));overflow:auto}
+.mcc-motion .mcc-hold{position:relative;isolation:isolate;overflow:hidden;touch-action:none}
+.mcc-motion .mcc-hold-fill{position:absolute;inset:0;background:var(--mcc-accent);opacity:.24;transform:scaleX(0);transform-origin:left center;transition:transform 200ms var(--mcc-ease-out);pointer-events:none;z-index:-1}
+@media(prefers-reduced-motion:reduce){.mcc-motion .mcc-popover{transform:none;transition:opacity 80ms var(--mcc-ease-out),display 80ms allow-discrete,overlay 80ms allow-discrete}}
+.mcc-motion[data-mcc-input="keyboard"] .mcc-popover{transition:none!important}
+.mcc-motion .mcc-dialog-sheet::backdrop{transition-duration:280ms}
+.mcc-motion .mcc-dialog-sheet[data-mcc-closing]::backdrop{transition-duration:200ms}
+.mcc-motion .mcc-hold[data-mcc-holding]{border-color:var(--mcc-accent)}
+@media(prefers-reduced-motion:reduce){
+ .mcc-motion .mcc-popover:popover-open{transform:none}
+ .mcc-motion .mcc-dialog-sheet::backdrop,.mcc-motion .mcc-dialog-sheet[data-mcc-closing]::backdrop{transition-duration:80ms}
+ .mcc-motion .mcc-hold-fill{transform:none!important;transition:none!important;opacity:0}
+}

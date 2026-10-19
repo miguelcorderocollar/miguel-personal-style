@@ -14,14 +14,14 @@ export function createMotion({root=document.documentElement}={}) {
   function settle() {for(const animation of active.values())animation.cancel();active.clear();for(const finish of settlers)finish();}
   listen(preference,'change',settle);
   function instant(origin=input) {return destroyed||origin==='keyboard';}
-  async function tween(element,from,to,duration=180,{origin=input,persist=false,layout=false,delay=0}={}) {
+  async function tween(element,from,to,duration=180,{origin=input,persist=false,layout=false,delay=0,easing=ease}={}) {
     const current=active.has(element)?win.getComputedStyle(element):null;
     if(current)from=layout?{height:current.height,opacity:current.opacity}:{opacity:current.opacity,transform:current.transform};
     cancel(element);
     if(instant(origin))return true;
     const reduced=preference.matches;
     if(reduced) {from={opacity:from.opacity??1};to={opacity:to.opacity??1};}
-    const animation=element.animate([from,to],{duration:reduced?80:duration,delay:reduced?0:delay,easing:ease,fill:persist?'forwards':delay?'backwards':'none'});
+    const animation=element.animate([from,to],{duration:reduced?80:duration,delay:reduced?0:delay,easing,fill:persist?'forwards':delay?'backwards':'none'});
     active.set(element,animation);
     try {await animation.finished;return true;}catch{return false;}
     finally {if(active.get(element)===animation&&!persist){active.delete(element);animation.cancel();}}
@@ -32,28 +32,84 @@ export function createMotion({root=document.documentElement}={}) {
   function exit(element,{duration=120,offset=4,origin=input}={}) {
     return tween(element,{opacity:1,transform:'none'},{opacity:0,transform:`translateY(${offset}px)`},duration,{origin,persist:true});
   }
-  function bindDialog(dialog) {
-    dialog.classList.add('mcc-dialog');let generation=0,closing=false,returnFocus=null;
+  function bindDialog(dialog,{placement='center'}={}) {
+    const sheet=placement==='right',drawerEase='cubic-bezier(.32,.72,0,1)';
+    dialog.classList.add('mcc-dialog');if(sheet)dialog.classList.add('mcc-dialog-sheet');
+    let generation=0,closing=false,returnFocus=null;
     function finish() {generation++;cancel(dialog);if(closing){dialog.close();closing=false;}dialog.removeAttribute('data-mcc-closing');}
     settlers.add(finish);
     function open() {
       generation++;closing=false;returnFocus=doc.activeElement;
       dialog.removeAttribute('data-mcc-closing');dialog.dataset.mccVisible='false';
       if(!dialog.open)dialog.showModal();void dialog.offsetWidth;dialog.dataset.mccVisible='true';
-      enter(dialog,{scale:.97,duration:240});
+      if(sheet)tween(dialog,{opacity:0,transform:'translateX(100%)'},{opacity:1,transform:'none'},280,{easing:drawerEase});
+      else enter(dialog,{scale:.97,duration:240});
     }
     async function close({immediate=false}={}) {
       if(!dialog.open)return;
       const ticket=++generation,origin=immediate?'keyboard':input;closing=true;
       dialog.dataset.mccVisible='false';dialog.setAttribute('data-mcc-closing','');
-      const finished=await tween(dialog,{opacity:1,transform:'scale(1)'},{opacity:0,transform:'scale(.97)'},180,{origin,persist:true});
+      const finished=await tween(dialog,{opacity:1,transform:sheet?'none':'scale(1)'},{opacity:0,transform:sheet?'translateX(100%)':'scale(.97)'},sheet?200:180,{origin,persist:true,easing:sheet?drawerEase:ease});
       if(ticket!==generation||!finished)return;
       dialog.close();closing=false;cancel(dialog);dialog.removeAttribute('data-mcc-closing');
       if(returnFocus?.isConnected)returnFocus.focus({preventScroll:true});
     }
     listen(dialog,'cancel',event=>{event.preventDefault();modality('keyboard');close({immediate:true});});
     listen(dialog,'close',()=>{generation++;closing=false;cancel(dialog);dialog.dataset.mccVisible='false';dialog.removeAttribute('data-mcc-closing');});
+    cleanups.push(()=>{if(dialog.open)dialog.close();if(sheet)dialog.classList.remove('mcc-dialog-sheet');});
     return {open,close};
+  }
+  function bindPopover(popover,trigger) {
+    if(typeof popover.showPopover!=='function')return null;
+    if(!popover.id)throw new TypeError('A popover needs an id.');
+    const originalStyle=popover.getAttribute('style');
+    const attributes=new Map(['popovertarget','aria-controls','aria-expanded'].map(name=>[name,trigger.getAttribute(name)]));
+    popover.classList.add('mcc-popover');trigger.setAttribute('popovertarget',popover.id);trigger.setAttribute('aria-controls',popover.id);trigger.setAttribute('aria-expanded','false');
+    const isOpen=()=>popover.matches(':popover-open');
+    function place(){
+      const rect=trigger.getBoundingClientRect(),width=popover.offsetWidth,height=popover.offsetHeight,gap=8,margin=16;
+      const left=Math.max(margin,Math.min(rect.left,win.innerWidth-width-margin));
+      const above=rect.bottom+gap+height>win.innerHeight-margin&&rect.top>height+gap;
+      const top=Math.max(margin,Math.min(above?rect.top-height-gap:rect.bottom+gap,win.innerHeight-height-margin));
+      popover.style.left=`${left}px`;popover.style.top=`${top}px`;popover.style.transformOrigin=`${Math.max(0,Math.min(width,rect.left+rect.width/2-left))}px ${above?'100%':'0%'}`;
+    }
+    function open(){popover.showPopover({source:trigger});place();trigger.setAttribute('aria-expanded','true');}
+    function close(){if(isOpen())popover.hidePopover();trigger.setAttribute('aria-expanded','false');}
+    listen(trigger,'click',event=>{event.preventDefault();if(isOpen())close();else open();});
+    listen(popover,'toggle',()=>{trigger.setAttribute('aria-expanded',String(isOpen()));if(isOpen())place();});
+    listen(win,'resize',()=>{if(isOpen())place();});
+    listen(doc,'scroll',event=>{if(isOpen()&&!popover.contains(event.target))close();},true);
+    cleanups.push(()=>{close();popover.classList.remove('mcc-popover');if(originalStyle===null)popover.removeAttribute('style');else popover.setAttribute('style',originalStyle);for(const [name,value]of attributes){if(value===null)trigger.removeAttribute(name);else trigger.setAttribute(name,value);}});
+    return {open,close};
+  }
+  function bindPresence(element) {
+    const originalInert=element.inert;let visible=!element.hidden,generation=0;
+    function finish(){generation++;cancel(element);element.hidden=!visible;element.inert=visible?originalInert:true;}
+    settlers.add(finish);cleanups.push(()=>{finish();element.inert=originalInert;});
+    function show(){visible=true;generation++;element.hidden=false;element.inert=originalInert;return enter(element,{duration:180,offset:6});}
+    async function hide({focusTarget}={}){visible=false;const ticket=++generation;if(element.contains(doc.activeElement))focusTarget?.focus({preventScroll:true});element.inert=true;await exit(element,{duration:160,offset:-4});if(ticket===generation){element.hidden=true;cancel(element);}}
+    return {show,hide,get visible(){return visible;}};
+  }
+  function bindHold(button,{onConfirm,confirmKeyboard=()=>win.confirm('Confirm this action?'),duration=2000}={}) {
+    if(typeof onConfirm!=='function')throw new TypeError('Hold confirmation needs an onConfirm callback.');
+    const fill=doc.createElement('span');fill.className='mcc-hold-fill';fill.setAttribute('aria-hidden','true');button.prepend(fill);button.classList.add('mcc-hold');
+    let pointer=null,timer,confirming=false;
+    function release(){const id=pointer;pointer=null;if(id!==null&&button.hasPointerCapture(id))button.releasePointerCapture(id);}
+    function reset({immediate=false}={}){clearTimeout(timer);release();button.removeAttribute('data-mcc-holding');fill.style.transitionDuration=immediate?'0ms':'200ms';fill.style.transitionTimingFunction=ease;fill.style.transform='scaleX(0)';}
+    settlers.add(()=>reset({immediate:true}));
+    listen(button,'pointerdown',event=>{
+      if(event.button!==0||!event.isPrimary||pointer!==null||button.disabled||destroyed)return;
+      pointer=event.pointerId;button.setPointerCapture(pointer);fill.style.transitionDuration='0ms';fill.style.transform='scaleX(0)';void fill.offsetWidth;
+      fill.style.transitionDuration=`${duration}ms`;fill.style.transitionTimingFunction='linear';fill.style.transform='scaleX(1)';button.setAttribute('data-mcc-holding','');
+      timer=setTimeout(()=>{if(pointer===null||button.disabled||destroyed||!button.isConnected||doc.hidden){reset({immediate:true});return;}release();button.removeAttribute('data-mcc-holding');onConfirm();},duration);
+    });
+    listen(button,'pointermove',event=>{if(event.pointerId!==pointer)return;const rect=button.getBoundingClientRect();if(event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom)reset();});
+    for(const event of ['pointerup','pointercancel','lostpointercapture'])listen(button,event,()=>{if(pointer!==null)reset();});
+    listen(button,'contextmenu',event=>event.preventDefault());
+    listen(button,'click',async event=>{event.preventDefault();if(event.detail!==0||confirming||button.disabled||destroyed)return;confirming=true;try{if(await confirmKeyboard())if(!destroyed&&button.isConnected&&!button.disabled)onConfirm();}finally{confirming=false;}});
+    listen(doc,'visibilitychange',()=>{if(doc.hidden)reset({immediate:true});});listen(win,'blur',()=>reset({immediate:true}));
+    cleanups.push(()=>{reset({immediate:true});fill.remove();button.classList.remove('mcc-hold');});
+    return {reset,cancel:reset};
   }
   function bindToast(host,{duration=3200}={}) {
     host.classList.add('mcc-toast');let timer,exitTimer,generation=0,origin='keyboard',remaining=duration,deadline=0,hovered=false,ticking=false;
@@ -143,5 +199,5 @@ export function createMotion({root=document.documentElement}={}) {
     return {sync};
   }
   function destroy() {if(destroyed)return;settle();destroyed=true;for(const cleanup of cleanups)cleanup();root.classList.remove('mcc-motion');delete root.dataset.mccInput;}
-  return {enter,exit,replace,feedback,revealOnce,bindProgress,cancel,bindDialog,bindToast,bindDisclosure,reserveSlot,destroy,get input(){return input;},get reduced(){return preference.matches;}};
+  return {enter,exit,replace,feedback,revealOnce,bindProgress,cancel,bindDialog,bindPopover,bindPresence,bindHold,bindToast,bindDisclosure,reserveSlot,destroy,get input(){return input;},get reduced(){return preference.matches;}};
 }

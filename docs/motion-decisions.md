@@ -16,6 +16,10 @@ The kit uses short transitions for occasional changes of state. The approved UI 
 | Graphic replacement | Bridge a discrete form change | 180ms, 4px and opacity |
 | Copy confirmation | Confirm success at the action | 160ms label change; restore after 1600ms |
 | Determinate progress | Connect actual work completed to its fill | 200ms linear transform; native value updates immediately |
+| Anchored popover | Make the relation to its trigger clear | 200ms scale .95 and opacity, viewport-aware placement |
+| Side panel | Bring occasional supporting context from the page edge | 280ms enter / 200ms exit, drawer curve |
+| Removal with undo | Explain disappearance while keeping the action reversible | 160ms exit / 180ms restore |
+| Hold confirmation | Prevent an accidental destructive click | 2s linear fill; cancel over 200ms, keyboard confirmation alternative |
 | Disclosure | Show the relation between a question and its answer | 180ms height and opacity; interruptible |
 
 The interface curve is `cubic-bezier(.23,1,.32,1)`. Reduced motion keeps short opacity feedback. Keyboard actions are immediate. Disclosures are the only layout-property animation; all other new effects animate transform and opacity. No continuous loop is added by the UI helper.
@@ -58,3 +62,14 @@ Run `scripts/verify-motion.mjs` from the skill directory with Playwright and Chr
 | Preparation progress | Native fill stepped between measured values | State indication | Occasional task | Interpolate the decorative fill over 200ms; preserve native semantics and real values |
 
 Rejected additional candidates include animated chart values and filter-row rearrangement because users read that information, theme wipes because they add no needed feedback, and repeated hover choreography because it would be seen too often. The replayable examples make the approved additions visible without adding repeated motion throughout the page.
+
+## Context and safety pass
+
+| Opportunity | Gate result | Implementation |
+| --- | --- | --- |
+| Card options popover | Occasional; spatial consistency; within the 200ms budget; keeps options near their target | Native `popover="auto"`, CSS scale/opacity, trigger-based origin and viewport clamping |
+| Supporting side panel | Occasional; spatial consistency; 280ms in / 200ms out; supplies context without replacing the page | Native dialog positioned at the right edge, shared drawer curve and focus return |
+| Removal and undo | Occasional edit; state indication; 160/180ms; bridges a reversible change | Generation-guarded presence helper, inert during exit and immediate undo |
+| Deliberate hold | Infrequent destructive action; feedback and accident prevention; two-second linear decision interval is intentional | Primary-pointer capture, cancellation on early release/leave/blur, separate keyboard confirmation |
+
+Rejected additions include gesture physics without a real draggable object, ambient bounce on functional controls and artificial delay for routine saves. These would add movement without improving this kit's common interactions. Popovers, dialogs and confirmations retain native browser semantics. The new examples remain black by default with an occasional white variation available.
