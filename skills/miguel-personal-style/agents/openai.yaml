@@ -1,0 +1,6 @@
+interface:
+  display_name: "Miguel personal style"
+  short_description: "Mono type, orange accents and halftone imagery"
+  default_prompt: "Use $miguel-personal-style to design a visual in Miguel Cordero Collar's personal identity."
+policy:
+  allow_implicit_invocation: true

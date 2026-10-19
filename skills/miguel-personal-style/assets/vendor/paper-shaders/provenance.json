@@ -1,0 +1,9 @@
+{
+  "package": "@paper-design/shaders",
+  "version": "0.0.81",
+  "source": "https://github.com/paper-design/shaders",
+  "tarball": "https://registry.npmjs.org/@paper-design/shaders/-/shaders-0.0.81.tgz",
+  "sha256": "65e31106239e9c2da8be52c4371d61efe625fa95fb9f2944977be9622c2aba88",
+  "license": "Apache-2.0",
+  "bundling": "esbuild, IIFE MikelonPaper, ES2020, only ShaderMount, DotOrbit, Dithering and associated colour/noise/sizing helpers"
+}

@@ -1,0 +1,17 @@
+{
+  "cell": 3,
+  "minDot": 0.12,
+  "maxDot": 1.05,
+  "contrast": 1.75,
+  "brightness": 0.02,
+  "gamma": 0.85,
+  "levels": 9,
+  "roughness": 0.36,
+  "grain": 0.06,
+  "softness": 0.8,
+  "angle": 0,
+  "halftone": 1,
+  "ink": "#090909",
+  "paper": "#ffffff",
+  "invert": false
+}
