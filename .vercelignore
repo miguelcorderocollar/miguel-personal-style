@@ -1,0 +1,10 @@
+.git
+.vercel
+node_modules
+public
+work
+**/work
+.venv
+__pycache__
+.env
+.env.*

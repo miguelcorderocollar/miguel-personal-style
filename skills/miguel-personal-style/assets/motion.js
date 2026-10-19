@@ -78,7 +78,7 @@ export function createMotion({root=document.documentElement}={}) {
     listen(trigger,'click',event=>{event.preventDefault();if(isOpen())close();else open();});
     listen(popover,'toggle',()=>{trigger.setAttribute('aria-expanded',String(isOpen()));if(isOpen())place();});
     listen(win,'resize',()=>{if(isOpen())place();});
-    listen(doc,'scroll',event=>{if(isOpen()&&!popover.contains(event.target))close();},true);
+    listen(doc,'scroll',event=>{if(!isOpen()||popover.contains(event.target))return;const rect=trigger.getBoundingClientRect();if(rect.bottom<0||rect.top>win.innerHeight)close();else place();},true);
     cleanups.push(()=>{close();popover.classList.remove('mcc-popover');if(originalStyle===null)popover.removeAttribute('style');else popover.setAttribute('style',originalStyle);for(const [name,value]of attributes){if(value===null)trigger.removeAttribute(name);else trigger.setAttribute(name,value);}});
     return {open,close};
   }

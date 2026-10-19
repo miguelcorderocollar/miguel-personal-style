@@ -11,3 +11,5 @@ work/
 **/work/
 build/
 deliver/
+public/
+.vercel

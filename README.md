@@ -79,6 +79,10 @@ Open [the design system](http://127.0.0.1:8000/skills/miguel-personal-style/asse
 
 Browsing needs a modern browser and a local HTTP server. No build step or external font service is required. WebGL2 powers the library motion effects; Canvas fallbacks cover unavailable WebGL2.
 
+## Deploy the demo
+
+The demo has a dependency-free static build for Vercel. Run `npm run build` to generate `public/` from the skill’s canonical showcase and assets. See [deployment instructions](docs/deployment.md) for CLI setup, the GitHub connection and local output preview.
+
 ## Use with an agent
 
 The complete installable bundle is [`skills/miguel-personal-style/`](skills/miguel-personal-style/). Its `SKILL.md` follows the [Agent Skills specification](https://agentskills.io/specification), with focused references, runnable helpers and reusable assets. Copy that entire folder into your agent's skills location, or point the agent directly at its `SKILL.md`.
@@ -116,7 +120,9 @@ The [component starter](skills/miguel-personal-style/assets/examples/component-s
 ```text
 README.md                         Human guide and banner gallery
 banners/                          Editable HTML artwork and JPEG exports
-docs/motion-decisions.md          Motion scope, rationale and references
+docs/                             Motion decisions and deployment guide
+scripts/build-demo.mjs            Static demo build for Vercel
+vercel.json                       Build command and public output directory
 skills/miguel-personal-style/      Copy or install this whole folder
   SKILL.md                        Agent instructions and resource routing
   agents/openai.yaml              Optional Codex metadata

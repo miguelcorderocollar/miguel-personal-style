@@ -1,0 +1,7 @@
+{
+  "name": "miguel-personal-style",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build-demo.mjs"
+  }
+}
