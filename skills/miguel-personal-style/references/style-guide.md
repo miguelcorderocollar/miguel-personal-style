@@ -32,6 +32,8 @@ The canonical recipe is bundled in assets/shader-recipe.json. It uses cell 3, co
 
 The browser helper keeps the site's GLSL. The offline helper retains the site's CPU preprocessor. Bake the treatment for motion, then move the whole image gently; recomputing a shifting dot grid every frame can shimmer. Check compression at the final resolution because very small dots can alias. Increase cell size for a lower-resolution export only as a deliberate adaptation, with a new still for review.
 
+When an already-halftoned raster must display smaller than its master, use `../assets/image-rendering.js` to create a separate Gaussian-prefiltered, area-resized display copy. Keep the master unchanged and compare at the intended size: filtering reduces moiré but also softens dot edges, and no resampling can restore detail lost in a small source. For a photograph that is meant to receive the halftone treatment, prefer running `drawHalftoneForDisplay` from the source image at the target backing size; avoid blurring facial detail in the master. Keep text, logos and flat graphics crisp instead of applying photographic filtering. Optional shader supersampling is available for stubborn edge aliasing, but the canonical recipe and its default output stay unchanged.
+
 The dark sample's reverse-print procedural sphere is a proposed texture study, not a new photographic asset or a website screenshot. Its neutral shape demonstrates the shader; other subject matter should come from the actual story.
 
 ## Proposed motion grammar

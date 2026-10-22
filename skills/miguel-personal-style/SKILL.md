@@ -14,6 +14,7 @@ Create artifacts using the identity from miguelcorderocollar.com. This folder is
 3. Inspect the matching example before composing. Use `assets/examples/design-system.html` for interactive UI, assets and motion studies; `assets/examples/component-starter.html` for a small reusable page; `assets/examples/preview.html` for still compositions.
 4. Reuse the bundled type, palette and helpers. Keep text and charts crisp. Apply the photographic shader only to images.
 5. Verify the actual delivery size, theme, loading behavior and motion settings. Check clipping, contrast, long copy, font loading and halftone aliasing before delivery.
+6. When displaying an existing raster halftone below its master size, use `assets/image-rendering.js` for a separate display-sized copy, keep the master and recipe unchanged, and compare at the actual size. See [references/usage.md](references/usage.md).
 
 ## Identity
 
@@ -33,6 +34,7 @@ Create artifacts using the identity from miguelcorderocollar.com. This folder is
 | Native UI transitions and interaction rules | `assets/motion.css`, `assets/motion.js`, [references/ui-motion.md](references/ui-motion.md) |
 | WebGL image treatment | `assets/halftone.js`, `assets/shader-recipe.json` |
 | Offline image treatment | `scripts/preprocess_shader.py`, requires Python and Pillow |
+| Display-size image filtering | `assets/image-rendering.js`, [before/after example](assets/examples/moire-filter.html) |
 | Still layouts and reference board | `assets/examples/preview.html`, `assets/examples/overview.html` |
 | Shapes, textures, backgrounds and motion | `assets/examples/design-system.html`, locally bundled Paper Shaders in `assets/vendor/` |
 | Preview capture | `scripts/capture-previews.mjs`, `scripts/capture-showcase.mjs`, requires Node.js, Playwright and Chromium |

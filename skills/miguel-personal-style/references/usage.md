@@ -61,6 +61,24 @@ Crop square portraits deliberately before processing. The script keeps the input
 
 For browser treatment, inspect the helper's exported `drawHalftone(canvas, image, settings, pixelRatio)` API in `assets/halftone.js` and its use in `assets/examples/preview.html`. Pass a decoded, same-origin image and an explicitly sized canvas. Handle WebGL failure with a baked image or a clear fallback.
 
+## Filter a halftone for display
+
+For a pre-rendered halftone shown below its master size, use [`assets/image-rendering.js`](../assets/image-rendering.js) to make a display copy by default. It accepts decoded, origin-clean images and canvases. `displayImage(source, cssWidth, dpr)` returns a separate canvas with the source aspect ratio preserved and a backing width sized for the CSS width and device-pixel ratio, capped at the master's native resolution. It uses a Gaussian low-pass only for a real downscale, then exact area averages. At the master size it leaves the pixels alone; it never mutates the source. Crop first when the destination uses `object-fit: cover`.
+
+```js
+import { displayImage } from './assets/image-rendering.js';
+
+await image.decode(); // Use a decoded, same-origin image or an origin-clean canvas.
+const output = displayImage(image, imageElement.clientWidth, window.devicePixelRatio || 1);
+canvas.width = output.width;
+canvas.height = output.height;
+canvas.getContext('2d').drawImage(output, 0, 0);
+```
+
+`areaResize(source, width, height)` is available when the destination pixels are already known. It uses exact area averages when downscaling; when either axis upscales, it uses the browser's high-quality smoothing. `drawHalftoneForDisplay(canvas, image, settings, options)` runs the existing WebGL shader at the target backing size. Its `options` take `cssWidth`, `cssHeight`, optional positive `dpr`, and optional integer `supersample` (default `1`). A value of `2` renders at twice the target pixel dimensions and area-resizes the result; it can improve edge aliasing at extra GPU and memory cost. The default recipe remains the shader's existing `DEFAULT_RECIPE`.
+
+These operations create display copies; they do not improve an undersized source or replace a final-size review. A pre-halftoned face may lose detail when filtered, so compare facial detail and dot texture at the actual display size. For a photograph that has not yet been halftoned, render the shader at the destination size before considering blur. Do not filter text or other geometry that should remain crisp. The runnable [moire-filter example](../assets/examples/moire-filter.html) shows a cleared mountain reference before and after at the same responsive width.
+
 ## Capture and check examples
 
 Requires Node.js 18+, Playwright and a Chromium browser. These tools are needed only for automated captures, not to browse the kit. Install Playwright in a temporary tools folder or use an existing installation. Both capture scripts accept `--playwright` with the package entry point and `--chrome` with a browser executable when auto-discovery is unavailable.

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Display-size halftone filtering</title>
+    <link rel="stylesheet" href="../personal-style.css" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22%3E%3Crect width=%2216%22 height=%2216%22 fill=%22%23000%22/%3E%3Ccircle cx=%228%22 cy=%228%22 r=%224%22 fill=%22%23ff8561%22/%3E%3C/svg%3E" />
+    <style>
+      * { box-sizing: border-box; }
+      html, body { margin: 0; min-height: 100%; }
+      body { background: var(--mcc-paper); color: var(--mcc-ink); }
+      main { width: min(1120px, calc(100% - 48px)); margin: 56px auto; }
+      .eyebrow { margin: 0 0 18px; color: var(--mcc-accent); font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+      h1 { max-width: 18ch; margin: 0; font-size: clamp(32px, 5vw, 64px); font-weight: 800; letter-spacing: -.04em; line-height: 1.08; }
+      .intro { max-width: 68ch; margin: 24px 0 36px; color: var(--mcc-muted); font-size: 15px; line-height: 1.6; }
+      .comparison { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+      figure { min-width: 0; margin: 0; border: 1px solid var(--mcc-rule); }
+      figure img, figure canvas { display: block; width: 100%; height: auto; margin: 0; background: var(--mcc-surface); }
+      figcaption { min-height: 76px; padding: 14px 16px; border-top: 1px solid var(--mcc-rule); }
+      figcaption strong, figcaption span { display: block; }
+      figcaption span { margin-bottom: 6px; color: var(--mcc-accent); font-size: 11px; font-weight: 600; }
+      figcaption strong { font-size: 13px; font-weight: 600; }
+      .status { margin: 16px 0 0; color: var(--mcc-muted); font-size: 12px; }
+      @media (max-width: 680px) {
+        main { width: min(100% - 32px, 520px); margin: 32px auto; }
+        .comparison { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body class="mcc-style">
+    <main>
+      <p class="eyebrow">Image rendering / display size</p>
+      <h1>Reduce moiré after minification.</h1>
+      <p class="intro">
+        Both panels use the same cleared 1800×515 halftone mountain reference.
+        The left lets the browser scale the master; the right makes a separate
+        display-sized copy with a Gaussian low-pass and exact area averages.
+        Resize or zoom the page to see the target update.
+      </p>
+      <section class="comparison" aria-label="Before and after display-size filtering">
+        <figure>
+          <img
+            id="source"
+            src="../references/site-mountains-halftone.png"
+            alt="Monochrome halftone mountains beneath a bright, finely dotted sky."
+          />
+          <figcaption>
+            <span>01 / BEFORE</span>
+            <strong>Browser scaling from the master</strong>
+          </figcaption>
+        </figure>
+        <figure>
+          <canvas
+            id="filtered"
+            role="img"
+            aria-label="The same halftone mountain image filtered for its current display size."
+          ></canvas>
+          <figcaption>
+            <span>02 / AFTER</span>
+            <strong>Gaussian prefilter + area resize</strong>
+          </figcaption>
+        </figure>
+      </section>
+      <p class="status" id="status" role="status" aria-live="polite"></p>
+    </main>
+    <script type="module">
+      import { displayImage } from "../image-rendering.js";
+
+      const source = document.querySelector("#source");
+      const target = document.querySelector("#filtered");
+      const status = document.querySelector("#status");
+      let renderFrame = 0;
+
+      function render() {
+        if (renderFrame) cancelAnimationFrame(renderFrame);
+        renderFrame = requestAnimationFrame(async () => {
+          renderFrame = 0;
+          await source.decode();
+          const cssWidth = source.getBoundingClientRect().width;
+          const prepared = displayImage(source, cssWidth, window.devicePixelRatio || 1);
+          target.width = prepared.width;
+          target.height = prepared.height;
+          target.getContext("2d").drawImage(prepared, 0, 0);
+          status.textContent = `Master ${source.naturalWidth}×${source.naturalHeight} · output ${target.width}×${target.height} · DPR ${window.devicePixelRatio}`;
+        });
+      }
+
+      new ResizeObserver(render).observe(source);
+      window.addEventListener("resize", render, { passive: true });
+      render();
+    </script>
+  </body>
+</html>
