@@ -54,7 +54,6 @@
     .hero-art { height: 265px; position: relative; display: grid; place-items: center; border-left: 1px solid var(--rule); }
     #hero-sphere { width: 252px; height: 252px; }
     #hero-sphere { display: block; }
-    .art-toggle { position: absolute; left: 24px; bottom: -11px; font-size: 9px; padding: 0; }
     .art-index { position: absolute; top: 0; right: 0; font-size: 10px; color: var(--muted); }
     .art-caption { position: absolute; right: 0; bottom: -11px; font-size: 9px; letter-spacing: .03em; color: var(--muted); }
     .tabs-shell { position: sticky; top: 0; z-index: 5; background: var(--paper); border-top: 1px solid var(--ink); border-bottom: 1px solid var(--rule); }
@@ -426,8 +425,8 @@
         <div class="install" role="group" aria-label="Install the skill"><code class="install-command" id="install-command"><span class="install-prompt" aria-hidden="true">$</span>npx skills add miguelcorderocollar/miguel-personal-style --skill miguel-personal-style</code><button class="install-copy" id="copy-install" type="button"><span id="copy-install-label" data-mcc-feedback-label>Copy</span></button></div>
         <p class="install-note">Installs the skill for your agent. Prefer files? <a href="#start" data-start>Copy the stylesheets</a>.</p>
       </div>
-      <figure class="hero-art" aria-label="A slowly turning dotted globe with an orange wedge">
-        <span class="art-index">FIG. 01 / DOT STUDY</span><canvas id="hero-sphere" aria-hidden="true"></canvas><figcaption class="art-caption">A turning globe. One orange wedge.</figcaption><button class="text-button art-toggle" id="hero-motion" type="button" aria-pressed="true" aria-label="Pause the globe">Pause <span aria-hidden="true">Ⅱ</span></button>
+      <figure class="hero-art" aria-label="A slowly turning halftone globe with orange wedges drifting the other way">
+        <span class="art-index">FIG. 01 / DOT STUDY</span><canvas id="hero-sphere" aria-hidden="true"></canvas><figcaption class="art-caption">A turning globe. Orange drifting the other way.</figcaption>
       </figure>
     </section>
   </div>
@@ -676,60 +675,60 @@
     // The orange wedge: a band of longitude from pole to pole, fixed to the globe's surface.
     // (nx, ny, nz) is a front-facing point on a unit sphere in screen space: x right, y down, z toward the viewer.
     // Undo the globe's forward tilt, then compare the point's longitude with the wedge's meridian.
+    const clamp = (value, low = 0, high = 1) => Math.max(low, Math.min(high, value));
     const WEDGE = { tilt: .26, spin: .3, half: .22 };
     function inWedge(nx, ny, nz, { tilt = WEDGE.tilt, spin = WEDGE.spin, half = WEDGE.half } = {}) {
       if (nz < 0) return false;
       const longitude = Math.atan2(nx, ny * Math.sin(tilt) + nz * Math.cos(tilt)) - spin;
       return Math.abs(Math.atan2(Math.sin(longitude), Math.cos(longitude))) < half;
     }
-    // Hero globe: dots sampled on the sphere's surface, so the dots and the orange wedge turn together.
-    // It rests offscreen, in hidden documents and for reduced-motion preferences, and has its own pause control.
-    const heroGlobe = { angle: -.5, playing: true, visible: true, raf: 0, last: 0, drawn: 0, points: [] };
-    for (let ring = 1, rings = 60; ring < rings; ring++) {
-      const latitude = -Math.PI / 2 + ring * Math.PI / rings, count = Math.max(6, Math.round(rings * 2 * Math.cos(latitude)));
-      for (let col = 0; col < count; col++) {
-        const longitude = col * Math.PI * 2 / count;
-        heroGlobe.points.push({ latitude, longitude, wedge: Math.min(longitude, Math.PI * 2 - longitude) < WEDGE.half + .04 });
-      }
-    }
+    // Hero globe: the same fixed halftone grid as the sphere study, redrawn as the globe turns.
+    // Segment lines are fixed to the surface and turn with it; the orange wedges drift the other way.
+    // It rests offscreen and in hidden documents, and stays still for reduced-motion preferences.
+    const heroGlobe = { time: 0, visible: true, raf: 0, last: 0, drawn: 0 };
+    const HERO = { spin: .1, wedgeDrift: -.2, segments: 10, startWedge: -.35 };
     function drawHeroGlobe() {
       const canvas = heroGlobe.canvas; if (!canvas) return;
       const box = canvas.getBoundingClientRect(), size = Math.max(1, Math.round(box.width)), ratio = Math.min(2, devicePixelRatio || 1);
       if (canvas.width !== Math.round(size * ratio)) { canvas.width = canvas.height = Math.round(size * ratio); }
-      const context = canvas.getContext('2d'), { ink, accent } = palette(), R = size * .42, centre = size / 2, unit = size / 252;
-      const tilt = WEDGE.tilt, ct = Math.cos(tilt), st = Math.sin(tilt);
+      const context = canvas.getContext('2d'), { ink, accent } = palette();
+      const R = size * .42, centre = size / 2, cell = R * 2 / 27, tilt = WEDGE.tilt, ct = Math.cos(tilt), st = Math.sin(tilt);
+      const surfaceSpin = heroGlobe.time * HERO.spin, wedgeSpin = HERO.startWedge + heroGlobe.time * HERO.wedgeDrift;
+      const segment = Math.PI * 2 / HERO.segments;
       context.setTransform(ratio, 0, 0, ratio, 0, 0); context.clearRect(0, 0, size, size);
-      for (const accentPass of [false, true]) {
-        context.fillStyle = accentPass ? accent : ink; context.beginPath();
-        for (const point of heroGlobe.points) {
-          if (point.wedge !== accentPass) continue;
-          const cl = Math.cos(point.latitude), phase = point.longitude + heroGlobe.angle;
-          const bx = cl * Math.sin(phase), by = Math.sin(point.latitude), bz = cl * Math.cos(phase);
-          const y = by * ct + bz * st, z = -by * st + bz * ct;
-          if (z < .02) continue;
-          const light = Math.max(0, -.5 * bx - .55 * y + .67 * z);
-          const radius = unit * Math.max(.22 + Math.pow(1 - light, 1.3) * 1.55, point.wedge ? 1.1 : 0) * Math.min(1, z * 4);
-          const x = centre + bx * R, py = centre + y * R;
-          context.moveTo(x + radius, py); context.arc(x, py, radius, 0, Math.PI * 2);
-        }
-        context.fill();
+      const marks = { ink: new Path2D(), accent: new Path2D() };
+      for (let gy = centre - R + cell / 2; gy < centre + R; gy += cell) for (let gx = centre - R + cell / 2; gx < centre + R; gx += cell) {
+        const nx = (gx - centre) / R, ny = (gy - centre) / R, q = nx * nx + ny * ny;
+        if (q > 1) continue;
+        const nz = Math.sqrt(1 - q);
+        let tone = .12 + .86 * (1 - clamp(-.5 * nx - .55 * ny + .67 * nz));
+        // Longitude in the globe's own frame (undo the tilt), shared by the segment lines and the wedge.
+        const bz = ny * st + nz * ct, longitude = Math.atan2(nx, bz);
+        const offset = longitude - surfaceSpin, toLine = Math.abs(offset - Math.round(offset / segment) * segment);
+        if (toLine < .075 && Math.abs(-ny * ct + nz * st) < .96) tone *= .2;
+        // Two opposite wedges: as one turns behind the globe, the other comes round the front.
+        const accentDot = inWedge(nx, ny, nz, { spin: wedgeSpin }) || inWedge(nx, ny, nz, { spin: wedgeSpin + Math.PI });
+        if (accentDot) tone = Math.max(tone, .62);
+        tone = Math.round(clamp(tone) * 8) / 8;
+        const radius = cell * .46 * (.12 + .88 * tone);
+        const path = accentDot ? marks.accent : marks.ink;
+        path.moveTo(gx + radius, gy); path.arc(gx, gy, radius, 0, Math.PI * 2);
       }
+      context.fillStyle = ink; context.fill(marks.ink);
+      context.fillStyle = accent; context.fill(marks.accent);
     }
     function heroTick(now) {
       heroGlobe.raf = 0; if (!heroRunning()) return;
       const delta = heroGlobe.last ? Math.min(.05, (now - heroGlobe.last) / 1000) : 0; heroGlobe.last = now;
-      heroGlobe.angle += delta * .45;
-      if (now - heroGlobe.drawn >= 1000 / 30) { heroGlobe.drawn = now; drawHeroGlobe(); }
+      heroGlobe.time += delta;
+      if (now - heroGlobe.drawn >= 1000 / 24) { heroGlobe.drawn = now; drawHeroGlobe(); }
       heroGlobe.raf = requestAnimationFrame(heroTick);
     }
-    function heroRunning() { return heroGlobe.playing && heroGlobe.visible && !document.hidden; }
+    function heroRunning() { return !motionPreference.matches && heroGlobe.visible && !document.hidden; }
     function syncHeroGlobe() {
-      const button = $('#hero-motion');
-      if (button) { button.setAttribute('aria-pressed', String(heroGlobe.playing)); button.innerHTML = heroGlobe.playing ? 'Pause <span aria-hidden="true">Ⅱ</span>' : 'Play <span aria-hidden="true">▷</span>'; }
       if (heroRunning()) { if (!heroGlobe.raf) { heroGlobe.last = 0; heroGlobe.raf = requestAnimationFrame(heroTick); } }
       else { if (heroGlobe.raf) cancelAnimationFrame(heroGlobe.raf); heroGlobe.raf = 0; drawHeroGlobe(); }
     }
-    const clamp = (value, low = 0, high = 1) => Math.max(low, Math.min(high, value));
     const noise = (x, y) => { const n = Math.sin(x * 127.1 + y * 311.7) * 43758.5453; return n - Math.floor(n); };
     const HALFTONES = ['sphere','cube','terrain','fade','ripple','mesh','wave','arrow'];
     const HALFTONE_MODES = { sphere:'duo', cube:'duo', fade:'orange', mesh:'duo', arrow:'orange' };
@@ -1228,12 +1227,11 @@
     // A tab hash makes the browser focus its panel on arrival. Keep focus styling for keyboard use, not for landing.
     const releaseLandingFocus = () => { if (document.activeElement?.matches('[role="tabpanel"]')) document.activeElement.blur(); };
     releaseLandingFocus(); window.addEventListener('load', releaseLandingFocus, { once: true });
-    heroGlobe.canvas = $('#hero-sphere'); heroGlobe.playing = !motionPreference.matches;
+    heroGlobe.canvas = $('#hero-sphere');
     new ResizeObserver(drawHeroGlobe).observe(heroGlobe.canvas);
     new IntersectionObserver(entries => { heroGlobe.visible = entries[0].isIntersecting; syncHeroGlobe(); }).observe(heroGlobe.canvas);
-    $('#hero-motion').addEventListener('click', () => { heroGlobe.playing = !heroGlobe.playing; $('#hero-motion').setAttribute('aria-label', heroGlobe.playing ? 'Pause the globe' : 'Play the globe'); syncHeroGlobe(); });
     document.addEventListener('visibilitychange', syncHeroGlobe);
-    motionPreference.addEventListener('change', event => { if (event.matches) { heroGlobe.playing = false; syncHeroGlobe(); } });
+    motionPreference.addEventListener('change', syncHeroGlobe);
     syncHeroGlobe();
     const uiReady=import('../motion.js').then(({createMotion})=>{
       uiMotion=createMotion();uiToast=uiMotion.bindToast($('#toast'));uiDialog=uiMotion.bindDialog($('#example-dialog'));
