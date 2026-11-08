@@ -121,20 +121,6 @@
     .principle-list li::before { content: counter(principle, decimal-leading-zero); grid-row: 1 / 3; font-size: 9px; color: var(--muted); padding-top: 2px; }
     .principle-list li span { font-size: 10px; color: var(--muted); margin-top: 3px; }
     .leave li strong { font-weight: 600; }
-    .start-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; }
-    .start-card { border: 1px solid var(--rule); padding: 22px; display: flex; flex-direction: column; gap: 16px; min-width: 0; }
-    .start-card .text-button { margin-top: auto; align-self: start; }
-    .start-step { font-size: 9px; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); }
-    .code { margin: 0; padding: 14px; background: var(--surface); font-size: 10.5px; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; }
-    .start-prompt { font-size: 13px; font-weight: 600; letter-spacing: -.02em; line-height: 1.55; }
-    .rules-board { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 30px; border-top: 1px solid var(--ink); padding-top: 25px; }
-    .rule-visual { height: 52px; display: flex; align-items: center; }
-    .rule-visual > span { width: 100%; border-top: 2px solid var(--ink); }
-    .rule-visual.double > span { border-top: 5px double var(--ink); }
-    .spacing-visual { height: 52px; display: flex; align-items: end; gap: 1ch; }
-    .spacing-visual span { background: var(--surface); border-top: 2px solid var(--accent); width: 3ch; }
-    .rules-board h3 { font-size: 12px; margin-block: 17px 8px; }
-    .rules-board p { font-size: 10px; color: var(--muted); }
     .component-grid { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--rule); }
     .component { padding: 27px 30px 30px; min-width: 0; }
     .component:nth-child(odd) { border-right: 1px solid var(--rule); }
@@ -331,8 +317,8 @@
     dialog p { font-size: 12px; color: var(--muted); margin-bottom: 26px; }
     @keyframes appear { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
     @media (max-width: 1050px) { .wrap { width: calc(100% - 64px); } .hero { grid-template-columns: 1fr 240px; gap: 20px; } .hero-art { height: 240px; } .hero-art > svg { width: 210px; height: 210px; } .swatch { height: 145px; padding: 13px; } .swatch-value { font-size: 12px; } .tabs { gap: 25px; } .tab-note { display: none; } .component { padding: 24px; } }
-    @media (max-width: 760px) { .wrap { width: calc(100% - 40px); } .masthead { min-height: 76px; } .edition { display: none; } .brand { gap: 8px; font-size: 11px; } .brand strong { font-size: 17px; } .hero { grid-template-columns: 1fr 170px; padding-block: 35px; gap: 8px; } .hero h1 { font-size: 46px; } .hero-copy { font-size: 11px; } .hero-art { height: 200px; border: 0; } .hero-art > svg { width: 170px; height: 170px; } .art-caption { display: none; } .art-index { font-size: 8px; } .section-head { align-items: start; flex-direction: column; gap: 13px; } .section-head h2 { font-size: 22px; } .palette { grid-template-columns: repeat(2, 1fr); grid-auto-flow: dense; } .swatch:nth-child(4) { grid-column: 1 / -1; } .principles { grid-template-columns: 1fr; } .principle-list + .principle-list { border-left: 0; padding-left: 0; margin-top: 18px; } .principle-list:first-child { padding-right: 0; } .start-grid { grid-template-columns: 1fr; } .page-footer { grid-template-columns: 1fr 1fr; } .footer-about { grid-column: 1 / -1; } .swatch { height: 135px; } .type-board { grid-template-columns: 1fr; } .type-sizes { border-left: 0; border-top: 1px solid var(--rule); display: grid; grid-template-columns: 1fr 1fr; gap: 0 20px; } .type-row:nth-child(3) { border-bottom: 0; } .theme-sample { padding: 23px; } .component-grid { grid-template-columns: 1fr; } .component:nth-child(odd) { border-right: 0; } .component:nth-child(n+2) { border-top: 1px solid var(--rule); } .asset-grid { grid-template-columns: repeat(2, 1fr); } .asset-tile:last-child:nth-child(n) { grid-column: auto; } .asset-tile:last-child:nth-child(odd) { grid-column: 1 / -1; } .studio { grid-template-columns: 1fr; } .studio-controls { border-left: 0; border-top: 1px solid var(--ink); display: grid; grid-template-columns: 1fr 1fr; gap: 0 20px; } .studio-controls h3 { grid-column: 1 / -1; } .studio-controls .control { margin-bottom: 18px; } .studio-controls .footnote { grid-column: 1 / -1; } .studio-controls .btn { align-self: end; } .studio-canvas { min-height: 330px; padding: 34px; } .applications { grid-template-columns: 1fr; } .application h3 { font-size: 31px; } .application { aspect-ratio: auto; min-height: 0; } .application-art { position: relative; right: auto; bottom: auto; width: 62%; height: 130px; margin: 18px 0 0 auto; } #application-pixels svg { position: static !important; display: block; margin: 12px 0 0 auto; } }
-    @media (max-width: 500px) { .wrap { width: calc(100% - 32px); } .brand-slash, .brand-description { display: none; } .theme-button { font-size: 10px; min-height: 36px; padding: 7px 10px; } .hero { grid-template-columns: 1fr; padding-block: 32px; } .hero h1 { font-size: 46px; margin-block: 18px; } .hero-art { height: 150px; border: 0; margin-top: 4px; place-items: start; } .hero-art .art-index { display: none; } #hero-sphere { width: 140px !important; height: 140px !important; } .install-note { font-size: 9px; } .hero-copy { font-size: 11px; max-width: 43ch; } .tabs { gap: 0; justify-content: space-between; } .tab { padding-block: 17px 14px; font-size: 10px; } .tab-number { margin-right: 5px; font-size: 8px; } .panel { padding-top: 29px; } .palette { gap: 5px; } .swatch { height: 122px; padding: 10px; } .swatch-name { font-size: 9px; } .swatch-value { font-size: 11px; } .swatch-copy { top: 9px; right: 10px; } .type-main { padding: 23px; } .type-sizes { padding-inline: 23px; } .type-row:nth-child(1) .type-example { font-size: 28px; } .theme-pair { grid-template-columns: 1fr; gap: 12px; } .theme-sample { min-height: 230px; } .theme-sample h3 { font-size: 33px; } .rules-board { gap: 18px; grid-template-columns: 1fr; } .rules-board > div { display: grid; grid-template-columns: 100px 1fr; column-gap: 20px; align-items: center; } .rules-board h3 { margin: 0; } .rules-board p { grid-column: 2; margin-top: -7px; } .rule-visual, .spacing-visual { grid-row: 1 / 3; } .asset-preview { height: 150px; padding: 14px; } .asset-preview > svg { height: 112px; } .asset-info { padding: 13px; } .asset-info h3 { font-size: 10px; } .asset-info p { font-size: 8px; } .asset-info-top { flex-wrap: wrap; gap: 1px; } .studio-canvas { padding: 27px; min-height: 310px; } .studio-canvas h3 { font-size: 37px; } .studio-controls { padding: 20px; gap: 0 14px; } .studio-controls .control:first-of-type { grid-column: 1 / -1; } .page-footer { grid-template-columns: 1fr; gap: 24px; } .kit-tag.kit code { padding: 1px 4px; } .section { margin-top: 39px; } .field-row { grid-template-columns: 1fr; } .field-row > .btn { justify-self: start; } }
+    @media (max-width: 760px) { .wrap { width: calc(100% - 40px); } .masthead { min-height: 76px; } .edition { display: none; } .brand { gap: 8px; font-size: 11px; } .brand strong { font-size: 17px; } .hero { grid-template-columns: 1fr 170px; padding-block: 35px; gap: 8px; } .hero h1 { font-size: 46px; } .hero-copy { font-size: 11px; } .hero-art { height: 200px; border: 0; } .hero-art > svg { width: 170px; height: 170px; } .art-caption { display: none; } .art-index { font-size: 8px; } .section-head { align-items: start; flex-direction: column; gap: 13px; } .section-head h2 { font-size: 22px; } .palette { grid-template-columns: repeat(2, 1fr); grid-auto-flow: dense; } .swatch:nth-child(4) { grid-column: 1 / -1; } .principles { grid-template-columns: 1fr; } .principle-list + .principle-list { border-left: 0; padding-left: 0; margin-top: 18px; } .principle-list:first-child { padding-right: 0; } .page-footer { grid-template-columns: 1fr 1fr; } .footer-about { grid-column: 1 / -1; } .swatch { height: 135px; } .type-board { grid-template-columns: 1fr; } .type-sizes { border-left: 0; border-top: 1px solid var(--rule); display: grid; grid-template-columns: 1fr 1fr; gap: 0 20px; } .type-row:nth-child(3) { border-bottom: 0; } .theme-sample { padding: 23px; } .component-grid { grid-template-columns: 1fr; } .component:nth-child(odd) { border-right: 0; } .component:nth-child(n+2) { border-top: 1px solid var(--rule); } .asset-grid { grid-template-columns: repeat(2, 1fr); } .asset-tile:last-child:nth-child(n) { grid-column: auto; } .asset-tile:last-child:nth-child(odd) { grid-column: 1 / -1; } .studio { grid-template-columns: 1fr; } .studio-controls { border-left: 0; border-top: 1px solid var(--ink); display: grid; grid-template-columns: 1fr 1fr; gap: 0 20px; } .studio-controls h3 { grid-column: 1 / -1; } .studio-controls .control { margin-bottom: 18px; } .studio-controls .footnote { grid-column: 1 / -1; } .studio-controls .btn { align-self: end; } .studio-canvas { min-height: 330px; padding: 34px; } .applications { grid-template-columns: 1fr; } .application h3 { font-size: 31px; } .application { aspect-ratio: auto; min-height: 0; } .application-art { position: relative; right: auto; bottom: auto; width: 62%; height: 130px; margin: 18px 0 0 auto; } #application-pixels svg { position: static !important; display: block; margin: 12px 0 0 auto; } }
+    @media (max-width: 500px) { .wrap { width: calc(100% - 32px); } .brand-slash, .brand-description { display: none; } .theme-button { font-size: 10px; min-height: 36px; padding: 7px 10px; } .hero { grid-template-columns: 1fr; padding-block: 32px; } .hero h1 { font-size: 46px; margin-block: 18px; } .hero-art { height: 150px; border: 0; margin-top: 4px; place-items: start; } .hero-art .art-index { display: none; } #hero-sphere { width: 140px !important; height: 140px !important; } .install-note { font-size: 9px; } .hero-copy { font-size: 11px; max-width: 43ch; } .tabs { gap: 0; justify-content: space-between; } .tab { padding-block: 17px 14px; font-size: 10px; } .tab-number { margin-right: 5px; font-size: 8px; } .panel { padding-top: 29px; } .palette { gap: 5px; } .swatch { height: 122px; padding: 10px; } .swatch-name { font-size: 9px; } .swatch-value { font-size: 11px; } .swatch-copy { top: 9px; right: 10px; } .type-main { padding: 23px; } .type-sizes { padding-inline: 23px; } .type-row:nth-child(1) .type-example { font-size: 28px; } .theme-pair { grid-template-columns: 1fr; gap: 12px; } .theme-sample { min-height: 230px; } .theme-sample h3 { font-size: 33px; } .asset-preview { height: 150px; padding: 14px; } .asset-preview > svg { height: 112px; } .asset-info { padding: 13px; } .asset-info h3 { font-size: 10px; } .asset-info p { font-size: 8px; } .asset-info-top { flex-wrap: wrap; gap: 1px; } .studio-canvas { padding: 27px; min-height: 310px; } .studio-canvas h3 { font-size: 37px; } .studio-controls { padding: 20px; gap: 0 14px; } .studio-controls .control:first-of-type { grid-column: 1 / -1; } .page-footer { grid-template-columns: 1fr; gap: 24px; } .kit-tag.kit code { padding: 1px 4px; } .section { margin-top: 39px; } .field-row { grid-template-columns: 1fr; } .field-row > .btn { justify-self: start; } }
     @media (max-width: 1050px) { #hero-sphere { width: 210px; height: 210px; } }
     @media (max-width: 760px) { #hero-sphere { width: 170px; height: 170px; } }
     @media (max-width: 500px) { .hero h1 { font-size: clamp(32px, 11.3vw, 46px); } }
@@ -406,6 +392,29 @@
     .photo-notes p { font-size: 10px; color: var(--muted); }
     @media (max-width: 760px) { .field-grid { grid-template-columns: 1fr; } .photo-figure figcaption { grid-template-columns: 1fr; gap: 6px; } .photo-notes { grid-template-columns: 1fr; gap: 18px; } .group-head { flex-direction: column; gap: 4px; } .tabs { gap: 14px; overflow-x: auto; scrollbar-width: none; } }
     @media (max-width: 500px) { .tab-number { display: none; } .tabs { gap: 0; } .group-nav a { font-size: 9px; padding: 6px 9px; } }
+    /* Philosophy */
+    .manifesto { padding-block: 18px 46px; border-bottom: 1px solid var(--ink); }
+    .manifesto h2 { font-size: clamp(40px, 6vw, 84px); font-weight: 800; letter-spacing: -.06em; line-height: 1.02; margin-block: 20px 22px; }
+    .manifesto-lead { font-size: 13px; color: var(--muted); }
+    .ideas { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; column-gap: 48px; }
+    .idea { display: grid; grid-template-columns: 96px 1fr; gap: 24px; padding-block: 32px; border-bottom: 1px solid var(--rule); align-items: start; }
+    .idea-mark { width: 96px; height: 64px; display: grid; place-items: center; }
+    .idea-mark svg { width: 96px; height: 64px; }
+    .idea-mark[data-mark="brackets"] svg, .idea-mark[data-mark="coordinates"] svg, .idea-mark[data-mark="orbit"] svg { transform: scale(1.5); }
+    .idea-index { display: block; font-size: 9px; color: var(--muted); letter-spacing: .06em; margin-bottom: 8px; }
+    .idea h3 { font-size: 17px; font-weight: 800; letter-spacing: -.035em; line-height: 1.25; margin-bottom: 10px; }
+    .idea p { font-size: 11px; line-height: 1.75; color: var(--muted); max-width: 52ch; }
+    .manifesto-close { margin-top: 72px; font-size: clamp(26px, 3.4vw, 44px); font-weight: 800; letter-spacing: -.05em; line-height: 1.12; }
+    .manifesto-close span { display: block; margin-top: 18px; font-size: 10px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+    .manifesto-close span::before { content: ""; display: inline-block; width: 6px; height: 6px; margin-right: 9px; background: var(--accent); vertical-align: middle; }
+    /* Rules & dividers */
+    .divider-demo { display: grid; gap: 22px; padding-top: 6px; }
+    .divider-row { display: grid; grid-template-columns: 1fr 190px; align-items: center; gap: 18px; font-size: 10px; color: var(--muted); }
+    .divider-sample { display: block; }
+    .rule-structure { border-top: 2px solid var(--ink); }
+    .rule-inner { border-top: 1px solid var(--rule); }
+    .rule-double { border-top: 5px double var(--ink); }
+    @media (max-width: 760px) { .ideas { grid-template-columns: 1fr; } .idea { grid-template-columns: 72px 1fr; gap: 16px; padding-block: 26px; } .idea-mark, .idea-mark svg { width: 72px; height: 48px; } .divider-row { grid-template-columns: 1fr; gap: 8px; } }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; scroll-behavior: auto !important; } .switch-track::after, .swatch { transition:none; transform:none; } }
   </style>
   <link rel="stylesheet" href="../motion.css">
@@ -431,33 +440,34 @@
   </div>
   <div class="tabs-shell">
     <div class="wrap tabs" role="tablist" aria-label="Design system sections">
-      <button class="tab" id="tab-basics" role="tab" aria-selected="true" aria-controls="basics" tabindex="0" type="button"><span class="tab-number">01</span><span class="tab-label-full">Foundations</span><span class="tab-label-short">Basics</span></button>
-      <button class="tab" id="tab-components" role="tab" aria-selected="false" aria-controls="components" tabindex="-1" type="button"><span class="tab-number">02</span><span class="tab-label-full">Components</span><span class="tab-label-short">UI</span></button>
-      <button class="tab" id="tab-assets" role="tab" aria-selected="false" aria-controls="assets" tabindex="-1" type="button"><span class="tab-number">03</span>Graphics</button>
-      <button class="tab" id="tab-use" role="tab" aria-selected="false" aria-controls="use" tabindex="-1" type="button"><span class="tab-number">04</span>In use</button>
-      <button class="tab" id="tab-motion" role="tab" aria-selected="false" aria-controls="motion" tabindex="-1" type="button"><span class="tab-number">05</span>Motion</button>
+      <button class="tab" id="tab-philosophy" role="tab" aria-selected="true" aria-controls="philosophy" tabindex="0" type="button"><span class="tab-number">01</span><span class="tab-label-full">Philosophy</span><span class="tab-label-short">Why</span></button>
+      <button class="tab" id="tab-basics" role="tab" aria-selected="false" aria-controls="basics" tabindex="-1" type="button"><span class="tab-number">02</span><span class="tab-label-full">Foundations</span><span class="tab-label-short">Basics</span></button>
+      <button class="tab" id="tab-components" role="tab" aria-selected="false" aria-controls="components" tabindex="-1" type="button"><span class="tab-number">03</span><span class="tab-label-full">Components</span><span class="tab-label-short">UI</span></button>
+      <button class="tab" id="tab-assets" role="tab" aria-selected="false" aria-controls="assets" tabindex="-1" type="button"><span class="tab-number">04</span>Graphics</button>
+      <button class="tab" id="tab-use" role="tab" aria-selected="false" aria-controls="use" tabindex="-1" type="button"><span class="tab-number">05</span>In use</button>
+      <button class="tab" id="tab-motion" role="tab" aria-selected="false" aria-controls="motion" tabindex="-1" type="button"><span class="tab-number">06</span>Motion</button>
       <a class="tab-note" href="https://github.com/miguelcorderocollar/miguel-personal-style#install-the-skill" target="_blank" rel="noopener">Get the skill ↗</a>
     </div>
   </div>
   <main id="showcase" class="wrap">
-    <section class="panel" id="basics" role="tabpanel" aria-labelledby="tab-basics" tabindex="0">
-      <div class="section-head"><div><p class="kicker">The foundations</p><h2>Mostly neutral. Deliberately orange.</h2></div><button class="text-button" type="button" id="copy-palette"><span id="copy-palette-label" data-mcc-feedback-label>Copy this palette</span> <span aria-hidden="true">↗</span></button></div>
-      <div class="palette" id="palette" aria-label="Theme colours. Click a swatch to copy its value."></div>
-      
-      <section class="section" aria-labelledby="type-heading">
-        <div class="section-head"><div><p class="kicker">Typography</p><h2 id="type-heading">One family. Enough range.</h2></div></div>
-        <div class="type-board">
-          <div class="type-main"><h3>JetBrains Mono</h3><div class="type-controls" role="group" aria-label="Specimen font weight"><button class="weight-button" type="button" data-weight="500" aria-pressed="false">Medium 500</button><button class="weight-button" type="button" data-weight="600" aria-pressed="false">SemiBold 600</button><button class="weight-button" type="button" data-weight="800" aria-pressed="true">ExtraBold 800</button></div><p class="type-preview" id="type-preview" style="font-weight:800">A curious eye.<br>A clear point of view.</p><label class="label" for="specimen-input">Try your own words</label><input id="specimen-input" class="specimen-edit" type="text" placeholder="Write something worth keeping." maxlength="100" autocomplete="off"></div>
-          <div class="type-sizes"><div class="type-row"><p class="type-example">Aa 0123</p><p class="type-label">Display / ExtraBold / tight spacing</p></div><div class="type-row"><p class="type-example">A useful heading.</p><p class="type-label">Heading / SemiBold</p></div><div class="type-row"><p class="type-example">Keep a little context around the idea.</p><p class="type-label">Body / Medium / natural spacing</p></div><div class="type-row"><p class="type-example">Notes / Observations / 01</p><p class="type-label">Metadata / tabular numbers</p></div></div>
-        </div>
-      </section>
-      <section class="section" aria-labelledby="theme-heading">
-        <div class="section-head"><div><p class="kicker">Two treatments</p><h2 id="theme-heading">The same voice, in different light.</h2></div></div>
-        <div class="theme-pair"><article class="theme-sample dark"><span class="sample-tag">BLACK / THE EVERYDAY DEFAULT</span><span class="sample-corner" aria-hidden="true">↗</span><h3>Make room<br>for a thought.</h3><p>#000000 / #D3D3D3 / #FF8561</p></article><article class="theme-sample"><span class="sample-tag">WHITE / OCCASIONAL CONTRAST</span><span class="sample-corner" aria-hidden="true">↗</span><h3>Keep a<br>curious eye.</h3><p>#FFFFFF / #000000 / #E8512A</p></article></div>
-        
-      </section>
+    <section class="panel" id="philosophy" role="tabpanel" aria-labelledby="tab-philosophy" tabindex="0">
+      <div class="manifesto">
+        <p class="kicker">Philosophy</p>
+        <h2>Constraints<br>are beautiful.</h2>
+        <p class="manifesto-lead">Why this style exists, and why it stays the same.</p>
+      </div>
+      <ol class="ideas">
+        <li class="idea"><div class="idea-mark" data-mark="brackets" aria-hidden="true"></div><div><span class="idea-index">01</span><h3>Decide once. Ship every time.</h3><p>Every project used to begin with the same questions: which font, which colours, what should it feel like. Now the answer is already here, so the first hour goes to the idea, not the look.</p></div></li>
+        <li class="idea"><div class="idea-mark" data-mark="coordinates" aria-hidden="true"></div><div><span class="idea-index">02</span><h3>When anything is possible, choose less.</h3><p>Tools can now generate any style in seconds. That makes restraint worth more, not less: black, white, one orange and one typeface, done carefully.</p></div></li>
+        <li class="idea"><div class="idea-mark" data-mark="prompt" aria-hidden="true"></div><div><span class="idea-index">03</span><h3>A typeface that feels like home.</h3><p>JetBrains Mono is a coding font, and code is where most of my projects start. It’s also the font on my own machine in Omarchy, so the work looks like the place it’s made.</p></div></li>
+        <li class="idea"><div class="idea-mark" data-mark="checker" aria-hidden="true"></div><div><span class="idea-index">04</span><h3>Beauty in constraint.</h3><p>With infinite pixels and infinite colours you can make anything, and most of it is forgettable. A fixed grid and a few dot sizes force a choice about what matters, and that’s what shines through.</p></div></li>
+        <li class="idea"><div class="idea-mark" data-mark="pixels" aria-hidden="true"></div><div><span class="idea-index">05</span><h3>Made of pixels, on purpose.</h3><p>Pixels are the material of the digital world, the place I love to build. Atoms are hard, and I have deep respect for people who build with them; bits move fast, and something made tonight can reach millions tomorrow.</p></div></li>
+        <li class="idea"><div class="idea-mark" data-mark="orange" aria-hidden="true"></div><div><span class="idea-index">06</span><h3>Orange, simply.</h3><p>There’s no hidden meaning in the orange. It’s bright, a little unexpected, and it stands out on black. Its only job is to point at the one thing that matters.</p></div></li>
+        <li class="idea"><div class="idea-mark" data-mark="sphere" aria-hidden="true"></div><div><span class="idea-index">07</span><h3>Black first, quiet motion.</h3><p>Black paper is kinder to the eyes over long hours, with white kept for the occasional pause. Motion stays subtle: alive, never loud.</p></div></li>
+        <li class="idea"><div class="idea-mark" data-mark="orbit" aria-hidden="true"></div><div><span class="idea-index">08</span><h3>Simple enough to travel.</h3><p>Because it’s simple, it goes anywhere: this site, slides, covers, video and my Omarchy desktop theme. Same type, same dots, same orange.</p></div></li>
+      </ol>
       <section class="section" aria-labelledby="principles-heading">
-        <div class="section-head"><div><p class="kicker">Principles</p><h2 id="principles-heading">What to keep. What to leave out.</h2></div></div>
+        <div class="section-head"><div><p class="kicker">In practice</p><h2 id="principles-heading">What to keep. What to leave out.</h2></div></div>
         <div class="principles">
           <div class="principle-list"><h3 class="principle-title keep">Keep</h3><ol>
             <li><strong>Black paper first.</strong><span>White is an occasional pause, not a second default.</span></li>
@@ -475,19 +485,23 @@
           </ol></div>
         </div>
       </section>
-      <section class="section" aria-labelledby="structure-heading">
-        <div class="section-head"><div><p class="kicker">Structure</p><h2 id="structure-heading">A page with a clear rhythm.</h2></div></div>
-        <div class="rules-board"><div><div class="rule-visual"><span></span></div><h3>A rule, not a shadow.</h3><p>2px for structure, 1px inside.</p></div><div><div class="rule-visual double"><span></span></div><h3>A little editorial weight.</h3><p>For a major division only.</p></div><div><div class="spacing-visual" aria-hidden="true"><span style="height:13px"></span><span style="height:26px"></span><span style="height:39px"></span><span style="height:52px"></span></div><h3>Space follows the type.</h3><p>1.2rem rhythm, widths in characters.</p></div></div>
-      </section>
-      <section class="section" id="start" aria-labelledby="start-heading">
-        <div class="section-head"><div><p class="kicker">Start here</p><h2 id="start-heading">Start with two stylesheets.</h2></div></div>
-        <div class="start-grid">
-          <article class="start-card"><p class="start-step">01 / With an agent</p><pre class="code" id="start-install">npx skills add miguelcorderocollar/miguel-personal-style --skill miguel-personal-style</pre><button class="text-button" type="button" data-copy-code="start-install"><span data-mcc-feedback-label>Copy command</span> <span aria-hidden="true">↗</span></button></article>
-          <article class="start-card"><p class="start-step">02 / In a page</p><pre class="code" id="start-html">&lt;link rel="stylesheet" href="assets/personal-style.css"&gt;
-&lt;link rel="stylesheet" href="assets/components.css"&gt;
-&lt;main class="mcc-style"&gt;…&lt;/main&gt;</pre><button class="text-button" type="button" data-copy-code="start-html"><span data-mcc-feedback-label>Copy markup</span> <span aria-hidden="true">↗</span></button></article>
-          <article class="start-card"><p class="start-step">03 / Ask for it</p><p class="start-prompt">“Use $miguel-personal-style for a cover with my headline. Start with the black treatment.”</p><a class="text-button" href="https://github.com/miguelcorderocollar/miguel-personal-style/blob/main/skills/miguel-personal-style/references/usage.md" target="_blank" rel="noopener">Read the usage guide ↗</a></article>
+      <p class="manifesto-close">These are my constraints.<br>They’re the point.<span>Miguel Cordero Collar</span></p>
+    </section>
+    <section class="panel" id="basics" role="tabpanel" aria-labelledby="tab-basics" tabindex="0" hidden>
+      <div class="section-head"><div><p class="kicker">The foundations</p><h2>Mostly neutral. Deliberately orange.</h2></div><button class="text-button" type="button" id="copy-palette"><span id="copy-palette-label" data-mcc-feedback-label>Copy this palette</span> <span aria-hidden="true">↗</span></button></div>
+      <div class="palette" id="palette" aria-label="Theme colours. Click a swatch to copy its value."></div>
+      
+      <section class="section" aria-labelledby="type-heading">
+        <div class="section-head"><div><p class="kicker">Typography</p><h2 id="type-heading">One family. Enough range.</h2></div></div>
+        <div class="type-board">
+          <div class="type-main"><h3>JetBrains Mono</h3><div class="type-controls" role="group" aria-label="Specimen font weight"><button class="weight-button" type="button" data-weight="500" aria-pressed="false">Medium 500</button><button class="weight-button" type="button" data-weight="600" aria-pressed="false">SemiBold 600</button><button class="weight-button" type="button" data-weight="800" aria-pressed="true">ExtraBold 800</button></div><p class="type-preview" id="type-preview" style="font-weight:800">A curious eye.<br>A clear point of view.</p><label class="label" for="specimen-input">Try your own words</label><input id="specimen-input" class="specimen-edit" type="text" placeholder="Write something worth keeping." maxlength="100" autocomplete="off"></div>
+          <div class="type-sizes"><div class="type-row"><p class="type-example">Aa 0123</p><p class="type-label">Display / ExtraBold / tight spacing</p></div><div class="type-row"><p class="type-example">A useful heading.</p><p class="type-label">Heading / SemiBold</p></div><div class="type-row"><p class="type-example">Keep a little context around the idea.</p><p class="type-label">Body / Medium / natural spacing</p></div><div class="type-row"><p class="type-example">Notes / Observations / 01</p><p class="type-label">Metadata / tabular numbers</p></div></div>
         </div>
+      </section>
+      <section class="section" aria-labelledby="theme-heading">
+        <div class="section-head"><div><p class="kicker">Two treatments</p><h2 id="theme-heading">The same voice, in different light.</h2></div></div>
+        <div class="theme-pair"><article class="theme-sample dark"><span class="sample-tag">BLACK / THE EVERYDAY DEFAULT</span><span class="sample-corner" aria-hidden="true">↗</span><h3>Make room<br>for a thought.</h3><p>#000000 / #D3D3D3 / #FF8561</p></article><article class="theme-sample"><span class="sample-tag">WHITE / OCCASIONAL CONTRAST</span><span class="sample-corner" aria-hidden="true">↗</span><h3>Keep a<br>curious eye.</h3><p>#FFFFFF / #000000 / #E8512A</p></article></div>
+        
       </section>
     </section>
     <section class="panel" id="components" role="tabpanel" aria-labelledby="tab-components" tabindex="0" hidden>
@@ -519,27 +533,28 @@
         <section class="component"><div class="component-title"><h3><span class="component-index">09</span>Editorial card</h3><span class="kit-tag">Page pattern</span></div><article class="editorial-card"><p class="kicker">A personal note</p><h3>Some things deserve a closer look.</h3><p>COLLECT / QUESTION / COME BACK TO IT</p></article><p class="component-demo-label">Sample copy.</p></section>
         <section class="component"><div class="component-title"><h3><span class="component-index">10</span>Pull quote</h3><span class="kit-tag">Page pattern</span></div><figure class="pull-quote"><blockquote><p>Put the real quotation here. Give it room, and give it a source.</p></blockquote><figcaption><span class="quote-name">Speaker name</span><span class="quote-source">Source title / Year</span></figcaption></figure><p class="component-demo-label">Placeholder. Use a real, attributed quote.</p></section>
         <section class="component"><div class="component-title"><h3><span class="component-index">11</span>Disclosure & reading</h3><span class="kit-tag">Page pattern</span></div><details><summary>When should the orange appear?</summary><p>Use it to identify the selected item, a chart point or a short annotation. A little space around the accent gives it more presence.</p></details><details><summary>How does the image treatment work?</summary><p>The site's photos use monochrome halftone dots on a fixed grid. Text and charts stay crisp. The dot sphere in this showcase is an original procedural study.</p></details></section>
+        <section class="component"><div class="component-title"><h3><span class="component-index">12</span>Rules & dividers</h3><span class="kit-tag kit"><code>.mcc-rule</code></span></div><div class="divider-demo"><div class="divider-row"><span class="divider-sample rule-structure"></span><span>2px / structure</span></div><div class="divider-row"><span class="divider-sample rule-inner"></span><span>1px / inside a component</span></div><div class="divider-row"><span class="divider-sample rule-double"></span><span>Double / a major division</span></div></div></section>
         </div>
       </section>
       <section class="component-group" id="group-feedback" aria-labelledby="group-feedback-heading">
         <div class="group-head"><h3 id="group-feedback-heading">Feedback & waiting</h3></div>
         <div class="component-grid">
-        <section class="component" id="pixel-loaders"><div class="component-title"><h3><span class="component-index">12</span>Pixel loaders</h3><span class="kit-tag kit"><code>.mcc-loader</code></span></div>
+        <section class="component" id="pixel-loaders"><div class="component-title"><h3><span class="component-index">13</span>Pixel loaders</h3><span class="kit-tag kit"><code>.mcc-loader</code></span></div>
           <div class="loader-gallery"><div class="loader-stage"><span class="mcc-loader mcc-loader--large" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="micro">Square chase</span></div><div class="loader-stage"><span class="mcc-loader mcc-loader--steps mcc-loader--large" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="micro">Pixel steps</span></div></div>
           <div class="loading-demo"><button class="btn" id="loading-action" type="button"><span id="loading-indicator" hidden><span class="mcc-loader mcc-loader--small" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></span><span id="loading-label">Try a loading action</span></button><p class="footnote" id="loading-feedback" role="status">Demo only.</p></div>
           
         </section>
-        <section class="component"><div class="component-title"><h3><span class="component-index">13</span>Progress & placeholders</h3><span class="kit-tag kit"><code>.mcc-progress</code><code>.mcc-skeleton</code></span></div>
+        <section class="component"><div class="component-title"><h3><span class="component-index">14</span>Progress & placeholders</h3><span class="kit-tag kit"><code>.mcc-progress</code><code>.mcc-skeleton</code></span></div>
           <div class="progress-meta"><label for="example-progress">Preparing example items</label><span id="progress-label">0 / 8</span></div><progress class="mcc-progress" id="example-progress" max="8" value="0">0 of 8</progress>
           <div class="button-row"><button class="btn btn-outline btn-small" id="progress-action" type="button">Run progress demo →</button></div><p class="footnote" id="progress-feedback" role="status">Ready.</p>
           <div class="skeleton-row" role="img" aria-label="Static example of a loading placeholder"><div class="mcc-skeleton" style="height:42px" aria-hidden="true"></div><div class="skeleton-copy" aria-hidden="true"><div class="mcc-skeleton"></div><div class="mcc-skeleton"></div></div></div>
         </section>
-        <section class="component"><div class="component-title"><h3><span class="component-index">14</span>Status & notices</h3><span class="kit-tag kit"><code>.mcc-badge</code><code>.mcc-notice</code></span></div>
+        <section class="component"><div class="component-title"><h3><span class="component-index">15</span>Status & notices</h3><span class="kit-tag kit"><code>.mcc-badge</code><code>.mcc-notice</code></span></div>
           <div class="button-row"><span class="mcc-badge">Draft</span><span class="mcc-badge mcc-badge--active">In progress</span><span class="mcc-badge mcc-badge--done">Saved</span></div>
           <div id="notice-slot" style="margin-top:24px"><div class="mcc-notice" id="inline-notice"><div><strong>A local preview</strong><p>Your changes appear in this example only.</p></div><button type="button" id="dismiss-notice" aria-label="Dismiss preview notice">×</button></div><button class="text-button" id="restore-notice" type="button" hidden>Show notice again</button></div>
           
         </section>
-        <section class="component"><div class="component-title"><h3><span class="component-index">15</span>Empty state</h3><span class="kit-tag kit"><code>.mcc-empty</code></span></div>
+        <section class="component"><div class="component-title"><h3><span class="component-index">16</span>Empty state</h3><span class="kit-tag kit"><code>.mcc-empty</code></span></div>
           <div id="empty-slot"><div class="mcc-empty" id="empty-state"><span class="mcc-empty-mark" aria-hidden="true"></span><h4>Room for a first thought.</h4><p>Collect an idea you want to come back to.</p><button type="button" class="btn btn-outline btn-small" id="add-example">Add an example +</button></div>
           <div id="filled-state" hidden><article class="collection-row"><span class="index">01</span><div><h4>Look a little closer</h4><p>Your first example thought.</p></div><span aria-hidden="true">↗</span></article><button class="text-button" type="button" id="reset-empty">Reset empty state</button></div></div><p class="footnote" id="empty-feedback" role="status">Example collection is empty.</p>
         </section>
@@ -548,10 +563,10 @@
       <section class="component-group" id="group-overlays" aria-labelledby="group-overlays-heading">
         <div class="group-head"><h3 id="group-overlays-heading">Context & safeguards</h3></div>
         <div class="component-grid">
-        <section class="component"><div class="component-title"><h3><span class="component-index">16</span>Popover</h3><span class="kit-tag kit"><code>bindPopover</code></span></div><div class="recipe-stage"><div class="recipe-mini" id="recipe-popover-preview"><span class="recipe-mini-mark" aria-hidden="true"></span><div><strong>A little context.</strong><p>Options stay near the thing they change.</p></div></div></div><p class="footnote timing">200ms / scale .95</p><button class="btn btn-outline btn-small" type="button" id="open-recipe-popover" popovertarget="recipe-popover">Open card options <span aria-hidden="true">↗</span></button></section>
-        <section class="component"><div class="component-title"><h3><span class="component-index">17</span>Side panel</h3><span class="kit-tag kit"><code>bindDialog</code></span></div><div class="recipe-stage"><div class="recipe-panel-map" aria-hidden="true"><div><i></i><i></i><i></i></div><aside></aside></div></div><p class="footnote timing">280ms in / 200ms out</p><button class="btn btn-outline btn-small" type="button" id="open-recipe-sheet">Open the side panel <span aria-hidden="true">→</span></button></section>
-        <section class="component"><div class="component-title"><h3><span class="component-index">18</span>Removal with undo</h3><span class="kit-tag kit"><code>bindPresence</code></span></div><div class="recipe-stage recipe-presence-stage"><p class="recipe-removed" id="recipe-removed" hidden>Room for another thought.</p><div class="recipe-mini" id="recipe-presence-item"><span class="recipe-mini-mark" aria-hidden="true"></span><div><strong>Keep the useful details.</strong><p>An example item, ready to remove or restore.</p></div></div></div><p class="footnote timing">160ms out / 180ms in</p><p class="footnote" id="recipe-presence-status" role="status">Removal can be undone.</p><button class="btn btn-outline btn-small" type="button" id="toggle-recipe-presence"><span id="recipe-presence-label">Remove this example</span> <span aria-hidden="true">↗</span></button></section>
-        <section class="component"><div class="component-title"><h3><span class="component-index">19</span>Hold to confirm</h3><span class="kit-tag kit"><code>bindHold</code></span></div><div class="recipe-stage recipe-hold-stage"><span class="mcc-badge" id="recipe-hold-state">Example is safe</span><p id="recipe-hold-status" role="status">A quick click changes nothing.</p></div><p class="footnote timing">2s hold / 200ms cancel</p><p class="footnote" id="recipe-hold-help">Hold for two seconds. Keyboard opens a confirmation.</p><div class="button-row"><button class="btn btn-outline btn-small" type="button" id="recipe-hold" aria-describedby="recipe-hold-help"><span class="hold-idle">Hold to clear example</span><span class="hold-active">Keep holding…</span></button><button class="text-button" type="button" id="reset-recipe-hold" hidden>Reset example</button></div></section>
+        <section class="component"><div class="component-title"><h3><span class="component-index">17</span>Popover</h3><span class="kit-tag kit"><code>bindPopover</code></span></div><div class="recipe-stage"><div class="recipe-mini" id="recipe-popover-preview"><span class="recipe-mini-mark" aria-hidden="true"></span><div><strong>A little context.</strong><p>Options stay near the thing they change.</p></div></div></div><p class="footnote timing">200ms / scale .95</p><button class="btn btn-outline btn-small" type="button" id="open-recipe-popover" popovertarget="recipe-popover">Open card options <span aria-hidden="true">↗</span></button></section>
+        <section class="component"><div class="component-title"><h3><span class="component-index">18</span>Side panel</h3><span class="kit-tag kit"><code>bindDialog</code></span></div><div class="recipe-stage"><div class="recipe-panel-map" aria-hidden="true"><div><i></i><i></i><i></i></div><aside></aside></div></div><p class="footnote timing">280ms in / 200ms out</p><button class="btn btn-outline btn-small" type="button" id="open-recipe-sheet">Open the side panel <span aria-hidden="true">→</span></button></section>
+        <section class="component"><div class="component-title"><h3><span class="component-index">19</span>Removal with undo</h3><span class="kit-tag kit"><code>bindPresence</code></span></div><div class="recipe-stage recipe-presence-stage"><p class="recipe-removed" id="recipe-removed" hidden>Room for another thought.</p><div class="recipe-mini" id="recipe-presence-item"><span class="recipe-mini-mark" aria-hidden="true"></span><div><strong>Keep the useful details.</strong><p>An example item, ready to remove or restore.</p></div></div></div><p class="footnote timing">160ms out / 180ms in</p><p class="footnote" id="recipe-presence-status" role="status">Removal can be undone.</p><button class="btn btn-outline btn-small" type="button" id="toggle-recipe-presence"><span id="recipe-presence-label">Remove this example</span> <span aria-hidden="true">↗</span></button></section>
+        <section class="component"><div class="component-title"><h3><span class="component-index">20</span>Hold to confirm</h3><span class="kit-tag kit"><code>bindHold</code></span></div><div class="recipe-stage recipe-hold-stage"><span class="mcc-badge" id="recipe-hold-state">Example is safe</span><p id="recipe-hold-status" role="status">A quick click changes nothing.</p></div><p class="footnote timing">2s hold / 200ms cancel</p><p class="footnote" id="recipe-hold-help">Hold for two seconds. Keyboard opens a confirmation.</p><div class="button-row"><button class="btn btn-outline btn-small" type="button" id="recipe-hold" aria-describedby="recipe-hold-help"><span class="hold-idle">Hold to clear example</span><span class="hold-active">Keep holding…</span></button><button class="text-button" type="button" id="reset-recipe-hold" hidden>Reset example</button></div></section>
         </div>
       </section>
     </section>
@@ -643,7 +658,7 @@
       setTimeout(() => URL.revokeObjectURL(url), 1000); notice(`Downloaded ${name}`);
     }
     function selectTab(id, focus = false, updateURL = true) {
-      if (!['basics', 'components', 'assets', 'use', 'motion'].includes(id)) id = 'basics';
+      if (!['philosophy', 'basics', 'components', 'assets', 'use', 'motion'].includes(id)) id = 'philosophy';
       $$('[role="tab"]').forEach(tab => { const active = tab.getAttribute('aria-controls') === id; tab.setAttribute('aria-selected', String(active)); tab.tabIndex = active ? 0 : -1; if (active && focus) tab.focus(); });
       $$('[role="tabpanel"]').forEach(panel => { panel.hidden = panel.id !== id; });
       if (id === 'use') renderPhoto();
@@ -679,7 +694,7 @@
       return Math.abs(Math.atan2(Math.sin(longitude), Math.cos(longitude))) < half;
     }
     // Hero globe: dots sampled on the sphere's surface, held in an orientation matrix so it can spin on any axis.
-    // A slow natural spin turns it one way while two opposite orange wedges drift the other way.
+    // A slow natural spin turns it one way while the orange wedge drifts the other way.
     // Hover pushes nearby dots aside, press and hold pauses it, and a drag spins it; afterwards a gentle pull
     // returns it upright to its natural spin. It rests offscreen and in hidden tabs; reduced motion removes the spin.
     const HERO = { rings: 48, spin: .12, wedgeDrift: -.32, wedgeHalf: .26, settle: 1.6, upright: .9, push: 7, reach: 38 };
@@ -727,7 +742,7 @@
         const x = O[0] * bx + O[1] * by + O[2] * bz, y = O[3] * bx + O[4] * by + O[5] * bz;
         const light = Math.max(0, -.5 * x - .55 * y + .67 * z);
         const offset = Math.abs(Math.atan2(Math.sin(point.longitude - wedgeCentre), Math.cos(point.longitude - wedgeCentre)));
-        const wedge = offset < HERO.wedgeHalf || Math.PI - offset < HERO.wedgeHalf;
+        const wedge = offset < HERO.wedgeHalf;
         const radius = unit * Math.max(.35 + Math.pow(1 - light, 1.2) * 1.75, wedge ? 1.3 : 0) * Math.min(1, z * 4);
         let px = centre + x * R, py = centre + y * R;
         if (pointer) {
@@ -1138,6 +1153,16 @@
       })();
       window.__motionReady=motionReady;return motionReady;
     }
+    function renderIdeaMarks() {
+      const { accent, ink } = palette();
+      $$('[data-mark]').forEach(mark => {
+        const id = mark.dataset.mark;
+        if (id === 'prompt') mark.innerHTML = svgWrap(`<text x="98" y="112" fill="${ink}" font-family="JetBrains Mono, monospace" font-weight="800" font-size="64">&gt;_</text><rect x="196" y="64" width="12" height="48" fill="${accent}"/>`, 'Terminal prompt');
+        else if (id === 'orange') mark.innerHTML = svgWrap(`<rect x="120" y="60" width="60" height="60" fill="${accent}"/>`, 'One orange square');
+        else if (id === 'sphere') mark.innerHTML = halftoneSVG('sphere', { mode: 'duo', cell: 7 });
+        else mark.innerHTML = motifSVG(id);
+      });
+    }
     function renderPalette() {
       const p = palette(); const items = [['Paper','paper'],['Ink','ink'],['Secondary','muted'],['Orange accent','accent'],['Surface','surface']];
       $('#palette').innerHTML = items.map(([name,key]) => { const foreground = key === 'ink' ? p.paper : key === 'muted' ? (state.theme === 'dark' ? '#000000' : '#FFFFFF') : key === 'accent' ? '#000000' : p.ink; return `<button type="button" class="swatch" data-copy="${p[key]}" style="background:${p[key]};color:${foreground}" aria-label="Copy ${name} colour ${p[key]}"><span class="swatch-copy" aria-hidden="true">↗</span><span class="swatch-name">${name}</span><span class="swatch-value">${p[key]}</span></button>`; }).join('');
@@ -1148,7 +1173,7 @@
       document.documentElement.style.colorScheme = theme;
       $('#theme-toggle').setAttribute('aria-pressed', String(theme === 'dark')); $('#theme-label').textContent = theme === 'dark' ? 'Light view' : 'Dark view';
       try { localStorage.setItem('mikelon-showcase-theme-v2', theme); } catch { /* Storage is optional in local previews. */ }
-      renderPalette(); renderAssets(); renderLab(); renderStudio(); drawHeroGlobe();
+      renderPalette(); renderIdeaMarks(); renderAssets(); renderLab(); renderStudio(); drawHeroGlobe();
       $('#application-pixels').innerHTML = '<svg viewBox="0 0 300 180" style="position:absolute;width:115px;height:100px;right:20px;bottom:30px" aria-hidden="true"><g fill="var(--accent)"><path d="M92 112h24v24H92zM116 88h24v24h-24zM140 64h24v24h-24zM164 40h24v24h-24zM188 40h24v24h-24z"/></g></svg>';
       $('#application-terrain').innerHTML = halftoneSVG('terrain', {palette:PALETTES.light,cell:7});
       $('#application-mesh').innerHTML = halftoneSVG('mesh', {palette:PALETTES.dark,mode:'duo',cell:7});
@@ -1158,7 +1183,6 @@
     }
     $('#theme-toggle').addEventListener('click', () => setTheme(state.theme === 'light' ? 'dark' : 'light'));
     $('#copy-install').addEventListener('click', () => copy($('#install-command').textContent.replace(/^\$/, ''), 'Install command copied.', $('#copy-install-label')));
-    $$('[data-copy-code]').forEach(button => button.addEventListener('click', () => copy(document.getElementById(button.dataset.copyCode).textContent, 'Copied to clipboard.', $('[data-mcc-feedback-label]', button))));
     $('#copy-palette').addEventListener('click', () => copy(Object.entries(palette()).map(([name, value]) => `--mikelon-${name}: ${value};`).join('\n'), `${state.theme === 'light' ? 'Light' : 'Dark'} palette copied.`, $('#copy-palette-label')));
     $$('[data-weight]').forEach(button => button.addEventListener('click', () => { $$('[data-weight]').forEach(item => item.setAttribute('aria-pressed', String(item === button))); $('#type-preview').style.fontWeight = button.dataset.weight; }));
     $('#specimen-input').addEventListener('input', event => { $('#type-preview').textContent = event.target.value || 'A curious eye.\nA clear point of view.'; $('#type-preview').style.whiteSpace = 'pre-line'; });

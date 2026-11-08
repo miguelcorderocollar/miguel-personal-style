@@ -125,3 +125,23 @@ The panel IDs are unchanged, so existing `#basics`, `#assets` and `#motion` link
 - **Text:**
   - Removed section intros, group intros, explanatory footnotes, the masthead edition line, the install note, photo notes, motion credits, card numbers and asset notes.
   - The labels that keep the content honest stay: sample copy, illustrative values and the placeholder quote. So do the status messages controls write into.
+
+## Fourth pass: philosophy (8 November 2026)
+
+- A new first tab, **Philosophy**, opens the page.
+  - **Statement:** "Constraints are beautiful."
+  - **Eight short ideas, each with a mark from the kit:**
+    - decide once and ship faster;
+    - choose less when anything is possible;
+    - a coding typeface that feels like home in Omarchy;
+    - beauty in constraint;
+    - pixels as the material of the digital world;
+    - an orange chosen simply for contrast;
+    - black first with quiet motion;
+    - a style simple enough to travel.
+  - **In practice:** the keep / leave-out principles, moved here from Foundations.
+  - **Close:** "These are my constraints. They're the point."
+- **Removed:**
+  - "Start with two stylesheets." The hero keeps the install command.
+  - "A page with a clear rhythm." Its rules are now the Rules & dividers component (`.mcc-rule`) in Reading & content.
+- **Hero globe:** a single orange wedge.
