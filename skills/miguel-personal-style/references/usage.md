@@ -11,7 +11,7 @@ All shell examples here run from the skill folder, the directory containing `SKI
 | Cover or slide | `assets/examples/preview.html?variant=dark` | A black-default composition to adapt at delivery size |
 | Occasional white variation | `assets/examples/preview.html?variant=light` | Same typography and grid on white, for deliberate contrast |
 | Data graphic | `assets/examples/preview.html?variant=data` | A chart composition; replace the illustrative values |
-| Decorative vector or background | Assets tab in `assets/examples/design-system.html` | Transparent SVG or PNG from the playground |
+| Decorative vector or background | Graphics tab in `assets/examples/design-system.html` | Transparent SVG or PNG from the playground |
 | Motion study | Motion tab in `assets/examples/design-system.html` | Pause, pace, palette and still-frame controls |
 | Treated photograph | `scripts/preprocess_shader.py` | A baked PNG or WebP for a cleared source image |
 

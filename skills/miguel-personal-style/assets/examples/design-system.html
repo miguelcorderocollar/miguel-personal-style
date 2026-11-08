@@ -285,8 +285,7 @@
     .recipe-panel-map i { display:block; height:3px; background:var(--rule); width:85%; }.recipe-panel-map i:first-child{width:55%;background:var(--ink);}
     .recipe-panel-map aside { width:65px; border-left:2px solid var(--accent); background:var(--surface); }
     .recipe-hold-stage { display:grid; align-content:center; gap:20px; }.recipe-hold-stage .mcc-badge { margin:0; width:fit-content; }
-    .recipe-card .mcc-hold { min-width:185px; }
-    .mcc-hold .hold-active { display:none; }.mcc-hold[data-mcc-holding] .hold-idle { display:none; }.mcc-hold[data-mcc-holding] .hold-active { display:inline; }
+        .mcc-hold .hold-active { display:none; }.mcc-hold[data-mcc-holding] .hold-idle { display:none; }.mcc-hold[data-mcc-holding] .hold-active { display:inline; }
     .recipe-popover h3 {font-size:15px;letter-spacing:-.03em;margin-bottom:12px;}.recipe-popover p{font-size:11px;color:var(--muted)}
     .recipe-popover .check {font-size:11px;margin-block:18px}.recipe-popover button {margin-top:12px}
     .recipe-sheet-content h2 {font-size:30px;margin:20px 0;letter-spacing:-.05em;}
@@ -343,6 +342,71 @@
     @media (max-width: 500px) { .asset-tile[data-family="halftone"] .asset-preview { padding: 10px; } .asset-tile[data-family="halftone"] .asset-preview > svg { height: 130px; } .asset-actions { gap: 10px; flex-wrap: wrap; } .asset-actions .download-asset { font-size: 8px; } .asset-family { font-size: 7px; } .lab-coordinate { font-size: 8px; left: 20px; } .lab-label { left: 20px; font-size: 8px; } .halftone-canvas { min-height: 315px; padding-inline: 10px; }  .filter-count { margin-left: 4px; font-size: 8px; } }
     @media (max-width: 760px) { .motion-grid { grid-template-columns: 1fr; } .motion-art { height: 260px; } .motion-toolbar { gap: 18px; } .motion-control { flex: 1 1 145px; } .motion-toolbar > .btn { flex: 1 1 145px; } .tab-label-full { display: none; } .tab-label-short { display: inline; } }
     @media (max-width: 500px) { .motion-toolbar { padding: 16px; gap: 16px; } .motion-art { height: 230px; } .motion-card-info { padding: 18px; } .motion-grid { gap: 16px; } .motion-control { min-width: 0; } }
+
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+    /* Components: grouped grids with a jump list. */
+    .group-nav { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 34px; }
+    .group-nav a { padding: 7px 12px; border: 1px solid var(--rule); font-size: 10px; text-decoration: none; }
+    .group-nav a:hover { border-color: var(--ink); }
+    .component-group { scroll-margin-top: 94px; }
+    .component-group + .component-group { margin-top: 46px; }
+    .group-head { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding-bottom: 12px; margin-bottom: 14px; border-bottom: 1px solid var(--ink); }
+    .group-head h3 { font-size: 15px; font-weight: 800; letter-spacing: -.035em; }
+    .group-head p { font-size: 10px; color: var(--muted); }
+    .component:last-child:nth-child(odd) { grid-column: 1 / -1; border-right: 0; }
+    .component .recipe-stage { margin-bottom: 14px; }
+    .component .timing { margin-top: 0; font-size: 9px; letter-spacing: .04em; }
+    .component .timing + .footnote { margin-top: 4px; }
+    .component > .btn, .component > .button-row { margin-top: 14px; }
+    .mcc-hold { min-width: 185px; }
+    /* Fields */
+    .field-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 12px; }
+    .field-label-row { display: flex; justify-content: space-between; align-items: baseline; margin-top: 16px; }
+    .char-count { font-size: 9px; color: var(--muted); }
+    .textarea { display: block; resize: vertical; min-height: 76px; line-height: 1.6; }
+    select.input { cursor: pointer; }
+    .form-actions { display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 14px; }
+    .form-actions .check { margin: 0; }
+    /* Dialog & toast stage */
+    .overlay-stage { position: relative; min-height: 132px; display: grid; place-items: center; }
+    .overlay-dialog { width: 58%; padding: 16px; border: 1px solid var(--ink); background: var(--paper); display: grid; gap: 8px; }
+    .overlay-dialog i { display: block; height: 3px; background: var(--rule); }
+    .overlay-dialog i:first-child { width: 60%; background: var(--ink); }
+    .overlay-dialog b { display: block; width: 34%; height: 14px; margin-top: 4px; background: var(--ink); }
+    .overlay-toast { position: absolute; right: 14px; bottom: 14px; width: 30%; height: 18px; background: var(--ink); border-left: 3px solid var(--accent); }
+    /* Data table */
+    .table-wrap { overflow-x: auto; }
+    .data-table { width: 100%; border-collapse: collapse; font-size: 11px; font-variant-numeric: tabular-nums lining-nums; }
+    .data-table th { text-align: left; font-weight: 600; border-bottom: 1px solid var(--ink); padding: 0; }
+    .data-table th button { width: 100%; text-align: inherit; border: 0; background: none; padding: 0 10px 10px 0; font-size: 9px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+    .data-table th[aria-sort="ascending"] button, .data-table th[aria-sort="descending"] button { color: var(--ink); }
+    .data-table th[aria-sort="ascending"] button::after { content: " ↑"; }
+    .data-table th[aria-sort="descending"] button::after { content: " ↓"; }
+    .data-table td { padding: 11px 10px 11px 0; border-bottom: 1px solid var(--rule); }
+    .data-table .num { text-align: right; }
+    .data-table th.num button { text-align: right; padding-right: 0; }
+    .data-table td.num:last-child { padding-right: 0; }
+    .data-table tr.is-current td:first-child { box-shadow: inset 3px 0 0 var(--accent); padding-left: 10px; }
+    .data-table tr.is-current td { font-weight: 600; }
+    /* Pull quote */
+    .pull-quote { margin: 0; padding: 6px 0 4px 22px; border-left: 2px solid var(--accent); }
+    .pull-quote blockquote { margin: 0; }
+    .pull-quote blockquote p { font-size: clamp(19px, 1.9vw, 25px); font-weight: 800; letter-spacing: -.04em; line-height: 1.25; max-width: 24ch; }
+    .pull-quote figcaption { display: flex; flex-direction: column; gap: 2px; margin-top: 18px; font-size: 10px; }
+    .quote-name { font-weight: 600; }
+    .quote-source { color: var(--muted); }
+    /* In use */
+    .photo-figure { margin: 0; border: 1px solid var(--rule); }
+    .photo-frame { background: #fff; line-height: 0; }
+    .photo-frame canvas { width: 100%; height: auto; display: block; }
+    .photo-figure figcaption { display: grid; grid-template-columns: auto 1fr auto; gap: 24px; align-items: baseline; padding: 14px 18px; border-top: 1px solid var(--rule); font-size: 10px; color: var(--muted); }
+    .photo-index { color: var(--ink); font-size: 9px; letter-spacing: .06em; }
+    .photo-meta { font-size: 9px; }
+    .photo-notes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 24px; }
+    .photo-notes h3 { font-size: 12px; margin-bottom: 8px; }
+    .photo-notes p { font-size: 10px; color: var(--muted); }
+    @media (max-width: 760px) { .field-grid { grid-template-columns: 1fr; } .photo-figure figcaption { grid-template-columns: 1fr; gap: 6px; } .photo-notes { grid-template-columns: 1fr; gap: 18px; } .group-head { flex-direction: column; gap: 4px; } .tabs { gap: 14px; overflow-x: auto; scrollbar-width: none; } }
+    @media (max-width: 500px) { .tab-number { display: none; } .tabs { gap: 0; } .group-nav a { font-size: 9px; padding: 6px 9px; } }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; scroll-behavior: auto !important; } .switch-track::after, .swatch { transition:none; transform:none; } }
   </style>
   <link rel="stylesheet" href="../motion.css">
@@ -369,10 +433,11 @@
   </div>
   <div class="tabs-shell">
     <div class="wrap tabs" role="tablist" aria-label="Design system sections">
-      <button class="tab" id="tab-basics" role="tab" aria-selected="true" aria-controls="basics" tabindex="0" type="button"><span class="tab-number">01</span>Basics</button>
-      <button class="tab" id="tab-components" role="tab" aria-selected="false" aria-controls="components" tabindex="-1" type="button"><span class="tab-number">02</span>Components</button>
-      <button class="tab" id="tab-assets" role="tab" aria-selected="false" aria-controls="assets" tabindex="-1" type="button"><span class="tab-number">03</span><span class="tab-label-full">Assets & backgrounds</span><span class="tab-label-short">Assets</span></button>
-      <button class="tab" id="tab-motion" role="tab" aria-selected="false" aria-controls="motion" tabindex="-1" type="button"><span class="tab-number">04</span>Motion</button>
+      <button class="tab" id="tab-basics" role="tab" aria-selected="true" aria-controls="basics" tabindex="0" type="button"><span class="tab-number">01</span><span class="tab-label-full">Foundations</span><span class="tab-label-short">Basics</span></button>
+      <button class="tab" id="tab-components" role="tab" aria-selected="false" aria-controls="components" tabindex="-1" type="button"><span class="tab-number">02</span><span class="tab-label-full">Components</span><span class="tab-label-short">UI</span></button>
+      <button class="tab" id="tab-assets" role="tab" aria-selected="false" aria-controls="assets" tabindex="-1" type="button"><span class="tab-number">03</span>Graphics</button>
+      <button class="tab" id="tab-use" role="tab" aria-selected="false" aria-controls="use" tabindex="-1" type="button"><span class="tab-number">04</span>In use</button>
+      <button class="tab" id="tab-motion" role="tab" aria-selected="false" aria-controls="motion" tabindex="-1" type="button"><span class="tab-number">05</span>Motion</button>
       <a class="tab-note" href="https://github.com/miguelcorderocollar/miguel-personal-style#install-the-skill" target="_blank" rel="noopener">Get the skill ↗</a>
     </div>
   </div>
@@ -428,41 +493,72 @@
       </section>
     </section>
     <section class="panel" id="components" role="tabpanel" aria-labelledby="tab-components" tabindex="0" hidden>
-      <div class="section-head"><div><p class="kicker">Working examples</p><h2>A small, useful toolkit.</h2></div><p>Every control works. A class name means the part ships in <code>components.css</code>; “Page pattern” means its styles live in this page.</p></div>
-      <div class="component-grid">
-        <section class="component"><div class="component-title"><h3><span class="component-index">01</span>Buttons & actions</h3><span class="kit-tag">Page pattern</span></div><div class="button-row"><button class="btn" type="button" id="open-dialog">Open a thought <span aria-hidden="true">↗</span></button><button class="btn btn-outline" type="button" data-notice="Secondary action selected.">Secondary</button></div><div class="button-row"><button class="btn btn-accent" type="button" data-notice="Orange marks the action.">An orange detail <span aria-hidden="true">→</span></button><button class="btn btn-outline" type="button" disabled>Unavailable</button></div><p class="footnote">Hard edges. A visible focus ring. An accent with a job.</p></section>
-        <section class="component"><div class="component-title"><h3><span class="component-index">02</span>Fields & feedback</h3><span class="kit-tag">Page pattern</span></div><form id="demo-form"><div class="field-row"><div><label class="label" for="collection-name">Collection name</label><input class="input" id="collection-name" name="collection" value="Things worth a closer look" maxlength="80" required></div><button class="btn btn-outline" type="submit">Save name <span aria-hidden="true">↗</span></button></div><label class="check"><input type="checkbox" checked name="include-context">Include a short note with each item</label><p class="footnote" id="form-feedback" aria-live="polite">Demo only. Try renaming this collection.</p></form></section>
+      <div class="section-head"><div><p class="kicker">Components</p><h2>A small, useful toolkit.</h2></div><p>Every control works. A class tag means the part ships in <code>components.css</code>, a function tag means it comes from <code>motion.js</code>, and “Page pattern” means its styles live in this page.</p></div>
+<nav class="group-nav" aria-label="Component groups"><a href="#group-actions" data-jump="group-actions">Actions & input</a><a href="#group-browse" data-jump="group-browse">Browse & data</a><a href="#group-reading" data-jump="group-reading">Reading & content</a><a href="#group-feedback" data-jump="group-feedback">Feedback & waiting</a><a href="#group-overlays" data-jump="group-overlays">Context & safeguards</a></nav>
+      <section class="component-group" id="group-actions" aria-labelledby="group-actions-heading">
+        <div class="group-head"><h3 id="group-actions-heading">Actions & input</h3><p>Ways to act and to enter something.</p></div>
+        <div class="component-grid">
+        <section class="component"><div class="component-title"><h3><span class="component-index">01</span>Buttons & actions</h3><span class="kit-tag">Page pattern</span></div><div class="button-row"><button class="btn" type="button" data-notice="Changes saved in this demo.">Save changes <span aria-hidden="true">↗</span></button><button class="btn btn-outline" type="button" data-notice="Secondary action selected.">Secondary</button></div><div class="button-row"><button class="btn btn-accent" type="button" data-notice="Orange marks the action.">An orange detail <span aria-hidden="true">→</span></button><button class="btn btn-outline" type="button" disabled>Unavailable</button></div><p class="footnote">Hard edges. A visible focus ring. An accent with a job.</p></section>
+        <section class="component"><div class="component-title"><h3><span class="component-index">02</span>Fields & feedback</h3><span class="kit-tag">Page pattern</span></div><form id="demo-form" class="demo-form"><div class="field-grid"><div><label class="label" for="collection-name">Collection name</label><input class="input" id="collection-name" name="collection" value="Things worth a closer look" maxlength="80" required></div><div><label class="label" for="collection-kind">Kind</label><select class="input" id="collection-kind" name="kind"><option>Ideas</option><option>Tools</option><option>Notes</option></select></div></div><div class="field-label-row"><label class="label" for="collection-note">Short note</label><span class="char-count" id="note-count" aria-live="off">0 / 140</span></div><textarea class="input textarea" id="collection-note" name="note" rows="3" maxlength="140" placeholder="Why is this worth coming back to?"></textarea><div class="form-actions"><label class="check"><input type="checkbox" checked name="include-context">Include the note with each item</label><button class="btn btn-outline" type="submit">Save collection <span aria-hidden="true">↗</span></button></div><p class="footnote" id="form-feedback" aria-live="polite">Demo only. Try renaming this collection.</p></form></section>
         <section class="component"><div class="component-title"><h3><span class="component-index">03</span>Selection & settings</h3><span class="kit-tag">Page pattern</span></div><label class="switch-row"><span>Show supporting context</span><span class="switch"><input type="checkbox" role="switch" id="context-switch" checked><span class="switch-track" aria-hidden="true"></span></span></label><label class="switch-row"><span>Use compact spacing</span><span class="switch"><input type="checkbox" role="switch" id="compact-switch"><span class="switch-track" aria-hidden="true"></span></span></label><p class="footnote" id="switch-feedback" aria-live="polite">Supporting context is visible. Standard spacing.</p></section>
-        <section class="component"><div class="component-title"><h3><span class="component-index">04</span>Filters & collection rows</h3><span class="kit-tag">Page pattern</span></div><div class="filter-row" role="group" aria-label="Filter example collection"><button class="filter" data-filter="all" aria-pressed="true" type="button">All</button><button class="filter" data-filter="idea" aria-pressed="false" type="button">Ideas</button><button class="filter" data-filter="tool" aria-pressed="false" type="button">Tools</button><button class="filter" data-filter="note" aria-pressed="false" type="button">Notes</button></div><div id="collection-rows"><article class="collection-row" data-category="idea"><span class="index">01</span><div><h4>Start with a better question</h4><p>An idea to come back to.</p></div><span class="collection-arrow" aria-hidden="true">↗</span></article><article class="collection-row" data-category="tool"><span class="index">02</span><div><h4>A smaller, calmer toolkit</h4><p>A useful tool, with a clear purpose.</p></div><span class="collection-arrow" aria-hidden="true">↗</span></article><article class="collection-row" data-category="note"><span class="index">03</span><div><h4>Leave room for the unexpected</h4><p>A note from the margins.</p></div><span class="collection-arrow" aria-hidden="true">↗</span></article></div><p class="collection-count" id="collection-count" aria-live="polite">3 example entries</p></section>
-        <section class="component"><div class="component-title"><h3><span class="component-index">05</span>Charts & signals</h3><span class="kit-tag">Page pattern</span></div><p class="kicker">One series in focus</p><svg class="chart" viewBox="0 0 480 155" role="img" aria-label="Illustrative line chart showing a gradually rising orange series. These are demonstration values, not measured data."><g stroke="var(--rule)" stroke-width="1"><path d="M0 24H480M0 66H480M0 108H480"/></g><path d="M0 148H480" fill="none" stroke="var(--ink)"/><g class="chart-axis" fill="var(--muted)" font-size="9"><text x="0" y="19">75</text><text x="0" y="61">50</text><text x="0" y="103">25</text><text x="0" y="143">0</text></g><path d="M22 130L48 118L90 123L132 92L174 100L216 73L258 79L300 48L342 59L384 29L426 37L470 10" fill="none" stroke="var(--accent)" stroke-width="2.5"/><circle cx="470" cy="10" r="4" fill="var(--accent)"/></svg><div class="chart-caption"><span class="chart-key">Illustrative series</span><span>Earlier → later</span></div><p class="footnote">Demonstration values. Actual charts need their data and source.</p></section>
-        <section class="component"><div class="component-title"><h3><span class="component-index">06</span>Editorial card</h3><span class="kit-tag">Page pattern</span></div><article class="editorial-card"><p class="kicker">A personal note</p><h3>Some things deserve a closer look.</h3><p>COLLECT / QUESTION / COME BACK TO IT</p></article><p class="component-demo-label">Sample editorial copy.</p></section>
-        <section class="component" id="pixel-loaders"><div class="component-title"><h3><span class="component-index">07</span>Pixel loaders</h3><span class="kit-tag kit"><code>.mcc-loader</code></span></div>
+        <section class="component"><div class="component-title"><h3><span class="component-index">04</span>Dialog & toast</h3><span class="kit-tag kit"><code>bindDialog</code><code>bindToast</code></span></div><div class="recipe-stage overlay-stage" aria-hidden="true"><div class="overlay-dialog"><i></i><i></i><b></b></div><div class="overlay-toast"></div></div><div class="button-row"><button class="btn btn-outline btn-small" type="button" id="open-dialog">Open a dialog <span aria-hidden="true">↗</span></button><button class="btn btn-outline btn-small" type="button" data-notice="Saved. A toast confirms from the same edge every time.">Show a toast <span aria-hidden="true">↘</span></button></div><p class="footnote">A native dialog keeps focus and Escape. A single toast confirms routine actions and pauses while hovered.</p></section>
+        </div>
+      </section>
+      <section class="component-group" id="group-browse" aria-labelledby="group-browse-heading">
+        <div class="group-head"><h3 id="group-browse-heading">Browse & data</h3><p>Finding, comparing and moving through a collection.</p></div>
+        <div class="component-grid">
+        <section class="component"><div class="component-title"><h3><span class="component-index">05</span>Filters & collection rows</h3><span class="kit-tag">Page pattern</span></div><div class="filter-row" role="group" aria-label="Filter example collection"><button class="filter" data-filter="all" aria-pressed="true" type="button">All</button><button class="filter" data-filter="idea" aria-pressed="false" type="button">Ideas</button><button class="filter" data-filter="tool" aria-pressed="false" type="button">Tools</button><button class="filter" data-filter="note" aria-pressed="false" type="button">Notes</button></div><div id="collection-rows"><article class="collection-row" data-category="idea"><span class="index">01</span><div><h4>Start with a better question</h4><p>An idea to come back to.</p></div><span class="collection-arrow" aria-hidden="true">↗</span></article><article class="collection-row" data-category="tool"><span class="index">02</span><div><h4>A smaller, calmer toolkit</h4><p>A useful tool, with a clear purpose.</p></div><span class="collection-arrow" aria-hidden="true">↗</span></article><article class="collection-row" data-category="note"><span class="index">03</span><div><h4>Leave room for the unexpected</h4><p>A note from the margins.</p></div><span class="collection-arrow" aria-hidden="true">↗</span></article></div><p class="collection-count" id="collection-count" aria-live="polite">3 example entries</p></section>
+        <section class="component"><div class="component-title"><h3><span class="component-index">06</span>Data table</h3><span class="kit-tag">Page pattern</span></div><div class="table-wrap"><table class="data-table" id="data-table"><caption class="sr-only">Illustrative reading log. Sort by any column.</caption><thead><tr><th scope="col" aria-sort="none"><button type="button" data-sort="week">Week</button></th><th scope="col" aria-sort="none"><button type="button" data-sort="topic">Topic</button></th><th scope="col" class="num" aria-sort="descending"><button type="button" data-sort="notes">Notes</button></th><th scope="col" class="num" aria-sort="none"><button type="button" data-sort="change">Change</button></th></tr></thead><tbody></tbody></table></div><p class="footnote">Illustrative values. Tabular figures align; one row is marked as the current week.</p></section>
+        <section class="component"><div class="component-title"><h3><span class="component-index">07</span>Charts & signals</h3><span class="kit-tag">Page pattern</span></div><p class="kicker">One series in focus</p><svg class="chart" viewBox="0 0 480 155" role="img" aria-label="Illustrative line chart showing a gradually rising orange series. These are demonstration values, not measured data."><g stroke="var(--rule)" stroke-width="1"><path d="M0 24H480M0 66H480M0 108H480"/></g><path d="M0 148H480" fill="none" stroke="var(--ink)"/><g class="chart-axis" fill="var(--muted)" font-size="9"><text x="0" y="19">75</text><text x="0" y="61">50</text><text x="0" y="103">25</text><text x="0" y="143">0</text></g><path d="M22 130L48 118L90 123L132 92L174 100L216 73L258 79L300 48L342 59L384 29L426 37L470 10" fill="none" stroke="var(--accent)" stroke-width="2.5"/><circle cx="470" cy="10" r="4" fill="var(--accent)"/></svg><div class="chart-caption"><span class="chart-key">Illustrative series</span><span>Earlier → later</span></div><p class="footnote">Demonstration values. Actual charts need their data and source.</p></section>
+        <section class="component"><div class="component-title"><h3><span class="component-index">08</span>Pagination</h3><span class="kit-tag kit"><code>.mcc-pagination</code></span></div>
+          <div class="page-results" id="page-results"></div><nav class="mcc-pagination" aria-label="Example collection pages"><button type="button" id="previous-page" aria-label="Previous page" disabled>←</button><button type="button" data-example-page="1" aria-label="Page 1" aria-current="page">01</button><button type="button" data-example-page="2" aria-label="Page 2">02</button><button type="button" data-example-page="3" aria-label="Page 3">03</button><button type="button" id="next-page" aria-label="Next page">→</button></nav><p class="footnote" id="page-feedback" role="status"></p>
+        </section>
+        </div>
+      </section>
+      <section class="component-group" id="group-reading" aria-labelledby="group-reading-heading">
+        <div class="group-head"><h3 id="group-reading-heading">Reading & content</h3><p>Editorial pieces for longer or quieter content.</p></div>
+        <div class="component-grid">
+        <section class="component"><div class="component-title"><h3><span class="component-index">09</span>Editorial card</h3><span class="kit-tag">Page pattern</span></div><article class="editorial-card"><p class="kicker">A personal note</p><h3>Some things deserve a closer look.</h3><p>COLLECT / QUESTION / COME BACK TO IT</p></article><p class="component-demo-label">Sample editorial copy.</p></section>
+        <section class="component"><div class="component-title"><h3><span class="component-index">10</span>Pull quote</h3><span class="kit-tag">Page pattern</span></div><figure class="pull-quote"><blockquote><p>Put the real quotation here. Give it room, and give it a source.</p></blockquote><figcaption><span class="quote-name">Speaker name</span><span class="quote-source">Source title / Year</span></figcaption></figure><p class="component-demo-label">Placeholder text. A quotation needs its real words and attribution; never invent one.</p></section>
+        <section class="component"><div class="component-title"><h3><span class="component-index">11</span>Disclosure & reading</h3><span class="kit-tag">Page pattern</span></div><details><summary>When should the orange appear?</summary><p>Use it to identify the selected item, a chart point or a short annotation. A little space around the accent gives it more presence.</p></details><details><summary>How does the image treatment work?</summary><p>The site's photos use monochrome halftone dots on a fixed grid. Text and charts stay crisp. The dot sphere in this showcase is an original procedural study.</p></details></section>
+        </div>
+      </section>
+      <section class="component-group" id="group-feedback" aria-labelledby="group-feedback-heading">
+        <div class="group-head"><h3 id="group-feedback-heading">Feedback & waiting</h3><p>States, progress and the first moment of an empty collection.</p></div>
+        <div class="component-grid">
+        <section class="component" id="pixel-loaders"><div class="component-title"><h3><span class="component-index">12</span>Pixel loaders</h3><span class="kit-tag kit"><code>.mcc-loader</code></span></div>
           <div class="loader-gallery"><div class="loader-stage"><span class="mcc-loader mcc-loader--large" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="micro">Square chase</span></div><div class="loader-stage"><span class="mcc-loader mcc-loader--steps mcc-loader--large" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="micro">Pixel steps</span></div></div>
           <div class="loading-demo"><button class="btn" id="loading-action" type="button"><span id="loading-indicator" hidden><span class="mcc-loader mcc-loader--small" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></span><span id="loading-label">Try a loading action</span></button><p class="footnote" id="loading-feedback" role="status">A short demo. No files are sent.</p></div>
           <p class="footnote">Orange pixels carry the motion. Reduced-motion settings keep the marks still.</p>
         </section>
-        <section class="component"><div class="component-title"><h3><span class="component-index">08</span>Progress & placeholders</h3><span class="kit-tag kit"><code>.mcc-progress</code><code>.mcc-skeleton</code></span></div>
+        <section class="component"><div class="component-title"><h3><span class="component-index">13</span>Progress & placeholders</h3><span class="kit-tag kit"><code>.mcc-progress</code><code>.mcc-skeleton</code></span></div>
           <div class="progress-meta"><label for="example-progress">Preparing example items</label><span id="progress-label">0 / 8</span></div><progress class="mcc-progress" id="example-progress" max="8" value="0">0 of 8</progress>
           <div class="button-row"><button class="btn btn-outline btn-small" id="progress-action" type="button">Run progress demo →</button></div><p class="footnote" id="progress-feedback" role="status">Illustrative progress. Ready to start.</p>
           <div class="skeleton-row" role="img" aria-label="Static example of a loading placeholder"><div class="mcc-skeleton" style="height:42px" aria-hidden="true"></div><div class="skeleton-copy" aria-hidden="true"><div class="mcc-skeleton"></div><div class="mcc-skeleton"></div></div></div><p class="footnote">Keep the layout in place while content loads.</p>
         </section>
-        <section class="component"><div class="component-title"><h3><span class="component-index">09</span>Status & notices</h3><span class="kit-tag kit"><code>.mcc-badge</code><code>.mcc-notice</code></span></div>
+        <section class="component"><div class="component-title"><h3><span class="component-index">14</span>Status & notices</h3><span class="kit-tag kit"><code>.mcc-badge</code><code>.mcc-notice</code></span></div>
           <div class="button-row"><span class="mcc-badge">Draft</span><span class="mcc-badge mcc-badge--active">In progress</span><span class="mcc-badge mcc-badge--done">Saved</span></div>
           <div id="notice-slot" style="margin-top:24px"><div class="mcc-notice" id="inline-notice"><div><strong>A local preview</strong><p>Your changes appear in this example only.</p></div><button type="button" id="dismiss-notice" aria-label="Dismiss preview notice">×</button></div><button class="text-button" id="restore-notice" type="button" hidden>Show notice again</button></div>
           <p class="footnote">Text names the state; the marker adds emphasis.</p>
         </section>
-        <section class="component"><div class="component-title"><h3><span class="component-index">10</span>Empty state</h3><span class="kit-tag kit"><code>.mcc-empty</code></span></div>
+        <section class="component"><div class="component-title"><h3><span class="component-index">15</span>Empty state</h3><span class="kit-tag kit"><code>.mcc-empty</code></span></div>
           <div id="empty-slot"><div class="mcc-empty" id="empty-state"><span class="mcc-empty-mark" aria-hidden="true"></span><h4>Room for a first thought.</h4><p>Collect an idea you want to come back to.</p><button type="button" class="btn btn-outline btn-small" id="add-example">Add an example +</button></div>
           <div id="filled-state" hidden><article class="collection-row"><span class="index">01</span><div><h4>Look a little closer</h4><p>Your first example thought.</p></div><span aria-hidden="true">↗</span></article><button class="text-button" type="button" id="reset-empty">Reset empty state</button></div></div><p class="footnote" id="empty-feedback" role="status">Example collection is empty.</p>
         </section>
-        <section class="component"><div class="component-title"><h3><span class="component-index">11</span>Pagination</h3><span class="kit-tag kit"><code>.mcc-pagination</code></span></div>
-          <div class="page-results" id="page-results"></div><nav class="mcc-pagination" aria-label="Example collection pages"><button type="button" id="previous-page" aria-label="Previous page" disabled>←</button><button type="button" data-example-page="1" aria-label="Page 1" aria-current="page">01</button><button type="button" data-example-page="2" aria-label="Page 2">02</button><button type="button" data-example-page="3" aria-label="Page 3">03</button><button type="button" id="next-page" aria-label="Next page">→</button></nav><p class="footnote" id="page-feedback" role="status"></p>
-        </section>
-        <section class="component"><div class="component-title"><h3><span class="component-index">12</span>Disclosure & reading</h3><span class="kit-tag">Page pattern</span></div><details><summary>When should the orange appear?</summary><p>Use it to identify the selected item, a chart point or a short annotation. A little space around the accent gives it more presence.</p></details><details><summary>How does the image treatment work?</summary><p>The site's photos use monochrome halftone dots on a fixed grid. Text and charts stay crisp. The dot sphere in this showcase is an original procedural study.</p></details></section>
-      </div>
+        </div>
+      </section>
+      <section class="component-group" id="group-overlays" aria-labelledby="group-overlays-heading">
+        <div class="group-head"><h3 id="group-overlays-heading">Context & safeguards</h3><p>Supporting surfaces and actions that should be reversible or deliberate.</p></div>
+        <div class="component-grid">
+        <section class="component"><div class="component-title"><h3><span class="component-index">16</span>Popover</h3><span class="kit-tag kit"><code>bindPopover</code></span></div><div class="recipe-stage"><div class="recipe-mini" id="recipe-popover-preview"><span class="recipe-mini-mark" aria-hidden="true"></span><div><strong>A little context.</strong><p>Options stay near the thing they change.</p></div></div></div><p class="footnote timing">200ms / scale .95</p><p class="footnote">An anchored popover with native outside-click dismissal and Escape.</p><button class="btn btn-outline btn-small" type="button" id="open-recipe-popover" popovertarget="recipe-popover">Open card options <span aria-hidden="true">↗</span></button></section>
+        <section class="component"><div class="component-title"><h3><span class="component-index">17</span>Side panel</h3><span class="kit-tag kit"><code>bindDialog</code></span></div><div class="recipe-stage"><div class="recipe-panel-map" aria-hidden="true"><div><i></i><i></i><i></i></div><aside></aside></div></div><p class="footnote timing">280ms in / 200ms out</p><p class="footnote">A native dialog brings supporting context in from the right and returns focus on close.</p><button class="btn btn-outline btn-small" type="button" id="open-recipe-sheet">Open the side panel <span aria-hidden="true">→</span></button></section>
+        <section class="component"><div class="component-title"><h3><span class="component-index">18</span>Removal with undo</h3><span class="kit-tag kit"><code>bindPresence</code></span></div><div class="recipe-stage recipe-presence-stage"><p class="recipe-removed" id="recipe-removed" hidden>Room for another thought.</p><div class="recipe-mini" id="recipe-presence-item"><span class="recipe-mini-mark" aria-hidden="true"></span><div><strong>Keep the useful details.</strong><p>An example item, ready to remove or restore.</p></div></div></div><p class="footnote timing">160ms out / 180ms in</p><p class="footnote" id="recipe-presence-status" role="status">One sample item. Removal is reversible.</p><button class="btn btn-outline btn-small" type="button" id="toggle-recipe-presence"><span id="recipe-presence-label">Remove this example</span> <span aria-hidden="true">↗</span></button></section>
+        <section class="component"><div class="component-title"><h3><span class="component-index">19</span>Hold to confirm</h3><span class="kit-tag kit"><code>bindHold</code></span></div><div class="recipe-stage recipe-hold-stage"><span class="mcc-badge" id="recipe-hold-state">Example is safe</span><p id="recipe-hold-status" role="status">A quick click changes nothing.</p></div><p class="footnote timing">2s hold / 200ms cancel</p><p class="footnote" id="recipe-hold-help">Hold for two seconds to clear this demo. Release or move away to cancel. Keyboard opens confirmation.</p><div class="button-row"><button class="btn btn-outline btn-small" type="button" id="recipe-hold" aria-describedby="recipe-hold-help"><span class="hold-idle">Hold to clear example</span><span class="hold-active">Keep holding…</span></button><button class="text-button" type="button" id="reset-recipe-hold" hidden>Reset example</button></div></section>
+        </div>
+      </section>
     </section>
     <section class="panel" id="assets" role="tabpanel" aria-labelledby="tab-assets" tabindex="0" hidden>
-      <div class="section-head"><div><p class="kicker">An expanding box of possibilities</p><h2>More dots. More things to try.</h2></div><p>Original vector studies for covers, slides, backgrounds and the margins of a page. Take a piece, change it, see where it belongs.</p></div>
+      <div class="section-head"><div><p class="kicker">Graphics</p><h2>More dots. More things to try.</h2></div><p>Original vector studies for covers, slides, backgrounds and the margins of a page. Take a piece, change it, see where it belongs.</p></div>
       <div class="asset-toolbar"><div class="asset-filters" role="group" aria-label="Filter visual explorations"><button class="filter" type="button" data-family="all" aria-pressed="true">Everything <span class="filter-count" data-count="all"></span></button><button class="filter" type="button" data-family="halftone" aria-pressed="false">Halftone <span class="filter-count" data-count="halftone"></span></button><button class="filter" type="button" data-family="marks" aria-pressed="false">Marks & shapes <span class="filter-count" data-count="marks"></span></button><button class="filter" type="button" data-family="textures" aria-pressed="false">Textures <span class="filter-count" data-count="textures"></span></button><button class="filter" type="button" data-family="core" aria-pressed="false">Core <span class="filter-count" data-count="core"></span></button></div><a class="text-button" href="#halftone-lab" data-jump="halftone-lab">Play with the halftones ↗</a></div>
       <div class="gallery-summary"><p id="gallery-count" role="status"></p><p>SVGs have transparent backgrounds, except the original extension mark.</p></div>
       <div class="asset-grid" id="asset-grid"></div>
@@ -471,21 +567,23 @@
         <div class="studio"><div class="halftone-canvas"><p class="kicker lab-label">Live study / vector halftone</p><span class="lab-corner" aria-hidden="true"></span><div id="lab-art"></div><p class="lab-coordinate" id="lab-coordinate">SPHERE / CIRCLES / 7PX GRID</p></div><div class="studio-controls lab-controls"><h3>A few ways to change it.</h3><label class="control"><span class="control-top">Form</span><select class="input" id="lab-form"><option value="sphere" selected>Sphere</option><option value="cube">Dot cube</option><option value="terrain">Terrain</option><option value="fade">Tonal fade</option><option value="ripple">Dot ripples</option><option value="mesh">Interference mesh</option><option value="wave">Wave band</option><option value="arrow">Dotted direction</option></select></label><label class="control"><span class="control-top">Dot shape</span><select class="input" id="lab-dot"><option value="circle">Circles</option><option value="square">Squares</option><option value="cross">Crosses</option><option value="dash">Short lines</option></select></label><label class="control"><span class="control-top">Colour</span><select class="input" id="lab-ink"><option value="ink">Neutral ink</option><option value="orange">Orange</option><option value="duo">Ink + orange detail</option></select></label><label class="control"><span class="control-top">Dot spacing <output for="lab-spacing" id="lab-spacing-output">7px</output></span><input type="range" id="lab-spacing" min="4" max="12" step="1" value="7"></label><label class="control"><span class="control-top">Contrast <output for="lab-contrast" id="lab-contrast-output">100%</output></span><input type="range" id="lab-contrast" min="50" max="180" step="10" value="100"></label><label class="check"><input type="checkbox" id="lab-paper">Include the paper background</label><button class="btn" id="download-halftone" type="button">Download SVG <span aria-hidden="true">↓</span></button><button class="btn btn-outline" id="download-halftone-png" type="button">Download PNG <span aria-hidden="true">↓</span></button><p class="footnote">Transparent by default. PNGs export at 1600 × 1100. These are graphic studies; the photo shader keeps its own recipe.</p></div></div>
       </section>
       <section class="section" id="background-studio" aria-labelledby="studio-heading"><div class="section-head"><div><p class="kicker">Background studio</p><h2 id="studio-heading">Try a little atmosphere.</h2></div><p>Halftone edges, fading dots, contours and quiet grids. Leave some clear paper for the words.</p></div><div class="studio"><div class="studio-canvas" id="studio-canvas"><span class="sample-tag">MIGUEL CORDERO COLLAR / PERSONAL NOTES</span><h3>A place for<br>unfinished ideas.</h3><p>A small observation. A question to follow.<br>Something worth coming back to.</p><span class="canvas-coordinate" aria-hidden="true">1200 × 720 / BACKGROUND STUDY</span></div><div class="studio-controls"><h3>Make it yours.</h3><label class="control"><span class="control-top">Pattern</span><select class="input" id="pattern-select"><optgroup label="Dots & halftones"><option value="dots">Dot field</option><option value="mist">Fading dot mist</option><option value="edge">Halftone edge</option><option value="corner" selected>Halftone corner</option><option value="wave">Dot wave</option></optgroup><optgroup label="Lines & grids"><option value="grid">Coordinate grid</option><option value="ripple">Offset ripples</option><option value="contours">Contour lines</option><option value="hatch">Diagonal hatch</option><option value="crosses">Registration crosses</option></optgroup><optgroup label="Pixels & paper"><option value="pixels">Pixel corner</option><option value="dither">Dither fade</option><option value="none">Plain paper</option></optgroup></select></label><label class="control"><span class="control-top">Colour</span><select class="input" id="background-ink"><option value="accent">Orange</option><option value="ink">Neutral ink</option></select></label><label class="control"><span class="control-top">Spacing <output for="spacing" id="spacing-output">28px</output></span><input type="range" id="spacing" min="16" max="56" step="4" value="28"></label><label class="control"><span class="control-top">Strength <output for="strength" id="strength-output">24%</output></span><input type="range" id="strength" min="4" max="36" step="2" value="24"></label><button type="button" class="btn" id="download-background">Download SVG <span aria-hidden="true">↓</span></button><button type="button" class="btn btn-outline" id="copy-background"><span id="copy-background-label" data-mcc-feedback-label>Copy background CSS</span></button><p class="footnote">Exports the background only, at 1200 × 720. Controls and sample copy stay in this page.</p></div></div></section>
-      <section class="section" aria-labelledby="application-heading"><div class="section-head"><div><p class="kicker">In context</p><h2 id="application-heading">A system that travels.</h2></div><p>The same type and geometry can become a cover, a slide or a note.</p></div><div class="applications"><article class="application dark"><p class="kicker">Cover / Black default</p><h3>A few things<br>I keep an eye on.</h3><p>NOTES, PEOPLE & IDEAS ↗</p><div id="application-pixels" aria-hidden="true"></div></article><article class="application dark with-art"><p class="kicker">Slide / 16:9</p><h3>What changes<br>when we try?</h3><p>ONE QUESTION TO TAKE WITH YOU.</p><div class="application-art" id="application-sphere" aria-hidden="true"></div></article><article class="application with-art"><p class="kicker">Notebook / Occasional white</p><h3>An idea<br>taking shape.</h3><p>OBSERVATIONS IN PROGRESS.</p><div class="application-art" id="application-terrain" aria-hidden="true"></div></article><article class="application dark with-art"><p class="kicker">Chapter opener / Black</p><h3>Find a<br>new angle.</h3><p>A DIFFERENT WAY INTO THE QUESTION.</p><div class="application-art" id="application-mesh" aria-hidden="true"></div></article></div><p class="footnote">Original compositions and sample copy. The decorative motifs remain experiments.</p></section>
+    </section>
+    <section class="panel" id="use" role="tabpanel" aria-labelledby="tab-use" tabindex="0" hidden>
+      <div class="section-head"><div><p class="kicker">In use</p><h2>A system that travels.</h2></div><p>Photography, covers and slides. How the type, the halftone and the orange behave outside the component grid.</p></div>
+      <figure class="photo-figure">
+        <div class="photo-frame"><canvas id="photo-canvas" role="img" aria-label="Mountain ridge under clouds, printed as a fine monochrome halftone"></canvas><img id="photo-source" src="../references/site-mountains-halftone.png" alt="" hidden></div>
+        <figcaption><span class="photo-index">FIG. 02 / PHOTOGRAPHY</span><span>The published mountain halftone from miguelcorderocollar.com, shown at its display size. <code>image-rendering.js</code> filters it so the dots don't moiré.</span><span class="photo-meta" id="photo-meta"></span></figcaption>
+      </figure>
+      <div class="photo-notes"><div><h3>One recipe for photographs.</h3><p>Fixed-grid monochrome dots from <code>shader-recipe.json</code>. Keep the same pitch across a series.</p></div><div><h3>Procedural forms are separate.</h3><p>The globe and the gallery studies are drawings, not outputs of the photo shader.</p></div><div><h3>Smaller than the master?</h3><p>Filter a display copy with <code>displayImage()</code>. Never resample the master itself.</p></div></div>
+      <section class="section" aria-labelledby="application-heading"><div class="section-head"><div><p class="kicker">Compositions</p><h2 id="application-heading">Covers, slides and notes.</h2></div><p>The same type and geometry at the sizes they ship. Black first, with one occasional white page.</p></div><div class="applications"><article class="application dark"><p class="kicker">Cover / Black default</p><h3>A few things<br>I keep an eye on.</h3><p>NOTES, PEOPLE & IDEAS ↗</p><div id="application-pixels" aria-hidden="true"></div></article><article class="application dark with-art"><p class="kicker">Slide / 16:9</p><h3>What changes<br>when we try?</h3><p>ONE QUESTION TO TAKE WITH YOU.</p><div class="application-art" id="application-sphere" aria-hidden="true"></div></article><article class="application with-art"><p class="kicker">Notebook / Occasional white</p><h3>An idea<br>taking shape.</h3><p>OBSERVATIONS IN PROGRESS.</p><div class="application-art" id="application-terrain" aria-hidden="true"></div></article><article class="application dark with-art"><p class="kicker">Chapter opener / Black</p><h3>Find a<br>new angle.</h3><p>A DIFFERENT WAY INTO THE QUESTION.</p><div class="application-art" id="application-mesh" aria-hidden="true"></div></article></div><p class="footnote">Original compositions and sample copy. The decorative motifs remain experiments.</p></section>
     </section>
     <section class="panel" id="motion" role="tabpanel" aria-labelledby="tab-motion" tabindex="0" hidden>
-      <div class="section-head"><div><p class="kicker">Motion</p><h2>Motion you can put to work.</h2></div><p>Two speeds. Quick feedback for the interface, and slower dot studies for covers, headers and quiet holding screens.</p></div>
+      <div class="section-head"><div><p class="kicker">Motion</p><h2>Motion you can put to work.</h2></div><p>Two speeds. Short moves for occasional editorial changes, and slower dot studies for covers, headers and quiet holding screens.</p></div>
       <section class="section motion-part" id="motion-recipes" aria-labelledby="recipe-heading">
-        <div class="section-head"><div><p class="kicker">01 / Interface recipes</p><h2 id="recipe-heading">A few useful moves.</h2></div><p>Try an entrance, a contextual panel, an undo or a deliberate hold. Each example shows how motion supports an action.</p></div>
+        <div class="section-head"><div><p class="kicker">01 / Editorial moves</p><h2 id="recipe-heading">Arrive once. Then hold still.</h2></div><p>An entrance for a cover and a bridge between two graphics. Interaction motion for popovers, panels, undo and hold lives with its <a href="#group-overlays" data-component-group="overlays">component</a>.</p></div>
         <div class="recipe-grid">
           <article class="recipe-card"><div class="recipe-head"><h3>Editorial reveal</h3><span>240ms / 45ms stagger</span></div><div class="recipe-stage" id="recipe-reveal"><p class="kicker">A personal note</p><h4>A little room<br>for a new idea.</h4><p>One entrance. Then the words stay still.</p></div><p class="footnote">A short introduction for covers and occasional editorial pages.</p><button class="btn btn-outline btn-small" type="button" id="replay-reveal">Replay entrance <span aria-hidden="true">↗</span></button></article>
           <article class="recipe-card"><div class="recipe-head"><h3>Changing form</h3><span>180ms / 4px</span></div><div class="recipe-stage recipe-graphic" id="recipe-form"></div><p class="footnote">A small bridge between different graphic forms. Slider updates stay direct.</p><button class="btn btn-outline btn-small" type="button" id="change-recipe-form">Change the form <span aria-hidden="true">→</span></button></article>
-          <article class="recipe-card"><div class="recipe-head"><h3>Progress to completion</h3><span>200ms / linear</span></div><div class="recipe-stage"><div class="recipe-progress-label"><label for="recipe-progress">Preparing sample items</label><span id="recipe-progress-count">0 / 4</span></div><progress class="mcc-progress" id="recipe-progress" value="0" max="4">0 of 4</progress><span class="mcc-badge" id="recipe-completion">Ready to start</span></div><p class="footnote" id="recipe-progress-feedback" role="status">A short demonstration with four sample items.</p><button class="btn btn-outline btn-small" type="button" id="run-recipe-progress">Prepare the examples <span aria-hidden="true">→</span></button></article>
-          <article class="recipe-card"><div class="recipe-head"><h3>Confirmation where you act</h3><span>160ms / label change</span></div><div class="recipe-stage"><p class="micro">Current accent token</p><p class="recipe-token" id="recipe-token">--mcc-accent: #E8512A;</p></div><p class="footnote">The label confirms a successful copy, then returns to the original action.</p><button class="btn btn-outline btn-small" type="button" id="copy-recipe-token"><span id="recipe-copy-label" data-mcc-feedback-label>Copy this token</span> <span aria-hidden="true">↗</span></button></article>
-          <article class="recipe-card"><div class="recipe-head"><h3>Context from its trigger</h3><span>200ms / scale .95</span></div><div class="recipe-stage"><div class="recipe-mini" id="recipe-popover-preview"><span class="recipe-mini-mark" aria-hidden="true"></span><div><strong>A little context.</strong><p>Options stay near the thing they change.</p></div></div></div><p class="footnote">An anchored popover with native outside-click dismissal and Escape.</p><button class="btn btn-outline btn-small" type="button" id="open-recipe-popover" popovertarget="recipe-popover">Open card options <span aria-hidden="true">↗</span></button></article>
-          <article class="recipe-card"><div class="recipe-head"><h3>A panel from the edge</h3><span>280ms in / 200ms out</span></div><div class="recipe-stage"><div class="recipe-panel-map" aria-hidden="true"><div><i></i><i></i><i></i></div><aside></aside></div></div><p class="footnote">A native dialog brings supporting context in from the right and returns focus on close.</p><button class="btn btn-outline btn-small" type="button" id="open-recipe-sheet">Open the side panel <span aria-hidden="true">→</span></button></article>
-          <article class="recipe-card"><div class="recipe-head"><h3>A change you can undo</h3><span>160ms out / 180ms in</span></div><div class="recipe-stage recipe-presence-stage"><p class="recipe-removed" id="recipe-removed" hidden>Room for another thought.</p><div class="recipe-mini" id="recipe-presence-item"><span class="recipe-mini-mark" aria-hidden="true"></span><div><strong>Keep the useful details.</strong><p>An example item, ready to remove or restore.</p></div></div></div><p class="footnote" id="recipe-presence-status" role="status">One sample item. Removal is reversible.</p><button class="btn btn-outline btn-small" type="button" id="toggle-recipe-presence"><span id="recipe-presence-label">Remove this example</span> <span aria-hidden="true">↗</span></button></article>
-          <article class="recipe-card"><div class="recipe-head"><h3>Make the action deliberate</h3><span>2s hold / 200ms cancel</span></div><div class="recipe-stage recipe-hold-stage"><span class="mcc-badge" id="recipe-hold-state">Example is safe</span><p id="recipe-hold-status" role="status">A quick click changes nothing.</p></div><p class="footnote" id="recipe-hold-help">Hold for two seconds to clear this demo. Release or move away to cancel. Keyboard opens confirmation.</p><div class="button-row"><button class="btn btn-outline btn-small" type="button" id="recipe-hold" aria-describedby="recipe-hold-help"><span class="hold-idle">Hold to clear example</span><span class="hold-active">Keep holding…</span></button><button class="text-button" type="button" id="reset-recipe-hold" hidden>Reset example</button></div></article>
         </div>
       </section>
       <section class="section motion-part" id="motion-studies" aria-labelledby="studies-heading">
@@ -494,12 +592,12 @@
       <p class="motion-status" id="motion-status" role="status">Choose this tab to start the live studies.</p>
       <div class="motion-grid" id="motion-grid"></div>
       </section>
-      <p class="motion-credit">The rotating circle carries an orange wedge fixed to its surface; the travelling orange passes across the cube, wave field and terrain. Dot orbit and Dither current use <a href="https://github.com/paper-design/shaders" target="_blank" rel="noopener">Paper Shaders 0.0.81</a>, bundled locally under <a href="../vendor/paper-shaders/LICENSE" target="_blank" rel="noopener">Apache 2.0</a>. The other five are original Canvas studies. Motion pauses in hidden tabs and outside the view; reduced-motion preferences start with stills. “Save frame” downloads a PNG of the current image.</p>
+      <p class="motion-credit">Five original Canvas studies. The rotating circle carries an orange wedge fixed to its surface; the travelling orange passes across the cube, wave field and terrain. Motion pauses in hidden tabs and outside the view, and reduced-motion preferences start with stills. “Save frame” downloads a PNG of the current image.</p>
     </section>
     <footer class="page-footer">
       <div class="footer-about"><p class="brand"><span class="brand-square" aria-hidden="true"></span><strong>mikelon</strong><span class="brand-slash">/</span><span>design system</span></p><p>A working kit for Miguel Cordero Collar's personal work. The palette and type come from miguelcorderocollar.com and mikelon_kit; the components and motif studies are new.</p><p class="footer-links"><a href="https://miguelcorderocollar.com" target="_blank" rel="noopener">miguelcorderocollar.com ↗</a><a href="https://github.com/miguelcorderocollar/miguel-personal-style" target="_blank" rel="noopener">GitHub repository ↗</a></p></div>
       <div class="footer-column"><p class="footer-head">Use it</p><a href="https://github.com/miguelcorderocollar/miguel-personal-style#install-the-skill" target="_blank" rel="noopener">Get the skill ↗</a><a href="https://github.com/miguelcorderocollar/miguel-personal-style/blob/main/skills/miguel-personal-style/references/usage.md" target="_blank" rel="noopener">Usage guide ↗</a></div>
-      <div class="footer-column"><p class="footer-head">Licences</p><a href="../fonts/OFL.txt" target="_blank" rel="noopener">JetBrains Mono / OFL ↗</a><a href="../vendor/paper-shaders/LICENSE" target="_blank" rel="noopener">Paper Shaders / Apache 2.0 ↗</a><span>Sample copy and chart values are illustrative.</span></div>
+      <div class="footer-column"><p class="footer-head">Licences</p><a href="../fonts/OFL.txt" target="_blank" rel="noopener">JetBrains Mono / OFL ↗</a><span>Sample copy and chart values are illustrative.</span></div>
     </footer>
   </main>
   <dialog id="example-dialog" aria-labelledby="dialog-heading"><p class="kicker">A useful pause</p><h2 id="dialog-heading">Keep the thought.</h2><p>A focused dialog uses the same type, rules and square geometry as the rest of the system.</p><button class="btn" id="close-dialog" type="button">Back to the page <span aria-hidden="true">↗</span></button></dialog>
@@ -509,8 +607,7 @@
   <dialog id="recipe-sheet" class="recipe-sheet-content" aria-labelledby="recipe-sheet-title"><p class="kicker">Supporting context</p><h2 id="recipe-sheet-title">Keep the page in view.</h2><p>This panel gives the details their own space. Close it and carry on where you left off.</p><dl><div><dt>Paper</dt><dd id="recipe-sheet-paper">Black by default</dd></div><div><dt>Type</dt><dd>JetBrains Mono</dd></div><div><dt>Accent</dt><dd id="recipe-sheet-accent">#FF8561</dd></div></dl><button type="button" class="btn btn-outline" id="close-recipe-sheet">Back to the examples <span aria-hidden="true">→</span></button></dialog>
   <dialog id="recipe-hold-confirm" aria-labelledby="recipe-hold-confirm-title"><p class="kicker">Confirm the change</p><h2 id="recipe-hold-confirm-title">Clear this example?</h2><p>This affects only the sample on this page. You can reset it afterwards.</p><div class="button-row"><button type="button" class="btn" id="accept-recipe-hold">Clear example</button><button type="button" class="btn btn-outline" id="cancel-recipe-hold" autofocus>Keep it</button></div></dialog>
   <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
-  <script src="../vendor/paper-shaders/paper-shaders.min.js"></script>
-  <script>
+    <script>
     // Source palette and type: bundled personal-style.css / assets/tokens.json.
     // The mikelon_kit mark below is the unchanged SVG from that extension.
     // Dot, pixel and coordinate motifs are original experimental compositions.
@@ -551,9 +648,10 @@
       setTimeout(() => URL.revokeObjectURL(url), 1000); notice(`Downloaded ${name}`);
     }
     function selectTab(id, focus = false, updateURL = true) {
-      if (!['basics', 'components', 'assets', 'motion'].includes(id)) id = 'basics';
+      if (!['basics', 'components', 'assets', 'use', 'motion'].includes(id)) id = 'basics';
       $$('[role="tab"]').forEach(tab => { const active = tab.getAttribute('aria-controls') === id; tab.setAttribute('aria-selected', String(active)); tab.tabIndex = active ? 0 : -1; if (active && focus) tab.focus(); });
       $$('[role="tabpanel"]').forEach(panel => { panel.hidden = panel.id !== id; });
+      if (id === 'use') renderPhoto();
       if (id === 'motion') ensureMotion().then(syncMotion);
       else syncMotion();
       if (updateURL) {
@@ -845,13 +943,11 @@
       finally { URL.revokeObjectURL(url); button.disabled = false; }
     }
     const motionPresets = [
-      {id:'orbit',name:'Dot orbit',note:'A field of dots, each moving around its own little centre. A loose background with a steady rhythm.',engine:'paper',pace:.8},
-      {id:'dither',name:'Dither current',note:'A slow current passing through a fixed pixel screen. Try it behind a short title.',engine:'paper',pace:.22},
-      {id:'circle',name:'Rotating circle',note:'A dotted globe turns with an orange wedge, a slice from pole to pole that stays on the surface as it rotates.',engine:'canvas',pace:1},
-      {id:'cube',name:'Turning cube',note:'Three dotted faces turn in perspective while a warm strip passes across the object.',engine:'canvas',pace:1},
-      {id:'wave',name:'Wave field',note:'Rows of dots grow and settle as a wave moves through them.',engine:'canvas',pace:1},
-      {id:'terrain',name:'Drifting terrain',note:'A dotted landscape shifting under a quiet horizon.',engine:'canvas',pace:1},
-      {id:'magnet',name:'Magnetic grid',note:'Move through the field to gently push the dots aside. You can also focus it and use the arrow keys.',engine:'canvas',pace:1}
+      {id:'circle',name:'Rotating circle',note:'A dotted globe turns with an orange wedge, a slice from pole to pole that stays on the surface as it rotates.',pace:1},
+      {id:'cube',name:'Turning cube',note:'Three dotted faces turn in perspective while a warm strip passes across the object.',pace:1},
+      {id:'wave',name:'Wave field',note:'Rows of dots grow and settle as a wave moves through them.',pace:1},
+      {id:'terrain',name:'Drifting terrain',note:'A dotted landscape shifting under a quiet horizon.',pace:1},
+      {id:'magnet',name:'Magnetic grid',note:'Move through the field to gently push the dots aside. You can also focus it and use the arrow keys.',pace:1}
     ];
     function motionColour(accent = false) {
       return motionState.colour === 'orange' || (motionState.colour === 'duo' && accent) ? palette().accent : palette().ink;
@@ -920,19 +1016,6 @@
             dot(x,yBase+height,.55+depth*2.1,motionAccentAt(col/columns,time,row===10));
           }
         }
-      } else if (scene.id === 'orbit') {
-        for(let y=gap;y<h;y+=gap)for(let x=gap;x<w;x+=gap){
-          const phase=noise(x,y)*Math.PI*2, orbit=gap*.16;
-          dot(x+Math.cos(time*.7+phase)*orbit,y+Math.sin(time*.6+phase)*orbit,1.1+noise(y,x)*2.3,noise(x,y)>.88);
-        }
-      } else if (scene.id === 'dither') {
-        const step=Math.max(3,gap/5), bayer=[0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5];
-        context.fillStyle=motionColour(false);
-        for(let y=0;y<h;y+=step)for(let x=0;x<w;x+=step){
-          const signal=.48+.43*Math.sin(x/w*6.2+Math.sin(y/h*5+time*.4)+time*.25);
-          const threshold=bayer[(Math.floor(y/step)%4)*4+(Math.floor(x/step)%4)]/16;
-          if(signal>threshold)context.fillRect(x,y,step*.75,step*.75);
-        }
       } else if (scene.id === 'magnet') {
         const point=scene.pointer || {x:w*(.5+.15*Math.sin(time*.4)),y:h*(.53+.12*Math.cos(time*.43))};
         for(let y=gap;y<h;y+=gap)for(let x=gap;x<w;x+=gap){
@@ -950,15 +1033,6 @@
       const box=scene.host.getBoundingClientRect(); scene.width=Math.max(1,box.width); scene.height=Math.max(1,box.height); scene.ratio=Math.min(2,devicePixelRatio||1);
       scene.canvas.width=Math.round(scene.width*scene.ratio); scene.canvas.height=Math.round(scene.height*scene.ratio); drawMotionCanvas(scene);
     }
-    function paperUniforms(kind, texture) {
-      const P=window.MikelonPaper, p=palette(), ink=P.getShaderColorFromString(p.ink), accent=P.getShaderColorFromString(p.accent);
-      const base={u_fit:0,u_scale:motionState.spacing/66.6667,u_rotation:0,u_originX:.5,u_originY:.5,u_offsetX:0,u_offsetY:0,u_worldWidth:0,u_worldHeight:0,u_colorBack:P.getShaderColorFromString(p.paper)};
-      if(kind==='orbit'){
-        const colours=motionState.colour==='orange'?[accent]:motionState.colour==='ink'?[ink]:[ink,ink,ink,ink,ink,ink,ink,accent];
-        return {...base,u_colors:colours,u_colorsCount:colours.length,u_size:.42,u_sizeRange:.12,u_spreading:.75,u_stepsPerColor:1,u_noiseTexture:texture};
-      }
-      return {...base,u_scale:.85,u_colorFront:motionState.colour==='orange'?accent:ink,u_shape:P.DitheringShapes.wave,u_type:P.DitheringTypes['4x4'],u_pxSize:motionState.spacing/6};
-    }
     function motionIsActive() { return !$('#motion').hidden && !document.hidden; }
     function syncMotion() {
       const active=motionIsActive(), running=active&&motionState.playing;
@@ -966,9 +1040,7 @@
       $('#motion-play').innerHTML=motionState.playing?'Pause motion <span aria-hidden="true">Ⅱ</span>':'Play motion <span aria-hidden="true">▷</span>';
       $('#motion-speed-output').textContent=`${motionState.speed.toFixed(2)}×`; $('#motion-spacing-output').textContent=`${motionState.spacing}px`;
       $('#motion-accent').disabled=motionState.colour!=='duo';
-      const fallback=motionScenes.some(scene=>scene.fallback);
-      $('#motion-status').textContent=motionReady ? `${running?'Playing':'Paused'} / offscreen studies rest automatically.${fallback?' Canvas fallback is active for the two shader studies.':''}` : 'Open this tab to start the live studies.';
-      motionScenes.forEach(scene=>{if(scene.mount)scene.mount.setSpeed(running?motionState.speed*scene.pace:0);});
+      $('#motion-status').textContent=motionReady ? `${running?'Playing':'Paused'} / offscreen studies rest automatically.` : 'Open this tab to start the live studies.';
       if(!running){if(motionRAF)cancelAnimationFrame(motionRAF);motionRAF=0;motionLastTime=0;motionLastDraw=0;return;}
       if(!motionRAF&&motionScenes.some(scene=>scene.context&&scene.visible)){motionLastTime=0;motionRAF=requestAnimationFrame(tickMotion);}
     }
@@ -979,23 +1051,18 @@
       if(motionScenes.some(scene=>scene.context&&scene.visible))motionRAF=requestAnimationFrame(tickMotion);
     }
     function refreshMotion() {
-      motionScenes.forEach(scene=>{if(scene.mount)scene.mount.setUniforms(paperUniforms(scene.id,scene.texture));else drawMotionCanvas(scene);});syncMotion();
+      motionScenes.forEach(scene=>drawMotionCanvas(scene));syncMotion();
     }
     async function ensureMotion() {
       if(motionReady)return motionReady;
       motionReady=(async()=>{
         $('#motion-grid').innerHTML=motionPresets.map((preset,index)=>`<article class="motion-card"><div class="motion-art" id="motion-art-${preset.id}"><span class="motion-number" aria-hidden="true">0${index+1} / LIVE STUDY</span></div><div class="motion-card-info"><h3>${preset.name}</h3><p>${preset.note}</p><div class="motion-actions"><button type="button" class="download-asset" data-motion-frame="${preset.id}" aria-label="Save a PNG frame of ${preset.name}">Save frame ↓</button><button type="button" class="download-asset" data-motion-recipe="${preset.id}" aria-label="Copy settings for ${preset.name}">Copy settings ↗</button></div></div></article>`).join('');
-        let texture;
-        if(window.MikelonPaper){try{texture=MikelonPaper.getShaderNoiseTexture();await texture.decode();}catch{texture=null;}}
         for(const preset of motionPresets){
-          const host=document.getElementById(`motion-art-${preset.id}`),scene={...preset,host,visible:false,texture,pointer:null};motionScenes.push(scene);
-          if(preset.engine==='paper'&&window.MikelonPaper&&texture){
-            try{scene.mount=new MikelonPaper.ShaderMount(host,preset.id==='orbit'?MikelonPaper.dotOrbitFragmentShader:MikelonPaper.ditheringFragmentShader,paperUniforms(preset.id,texture),{alpha:false,preserveDrawingBuffer:true},0,2400,1,900000);scene.canvas=scene.mount.canvasElement;}catch{scene.fallback=true;$$('canvas',host).forEach(canvas=>canvas.remove());}
-          }else if(preset.engine==='paper')scene.fallback=true;
-          if(!scene.mount){
+          const host=document.getElementById(`motion-art-${preset.id}`),scene={...preset,host,visible:false,pointer:null};motionScenes.push(scene);
+          {
             scene.canvas=document.createElement('canvas');scene.canvas.setAttribute('role','img');scene.canvas.setAttribute('aria-label',preset.note);host.append(scene.canvas);scene.context=scene.canvas.getContext('2d');resizeMotionCanvas(scene);
             scene.resizeObserver=new ResizeObserver(()=>resizeMotionCanvas(scene));scene.resizeObserver.observe(host);
-          }else{scene.canvas.setAttribute('role','img');scene.canvas.setAttribute('aria-label',preset.note);}
+          }
           if(preset.id==='magnet'){
             scene.canvas.tabIndex=0;
             const point=event=>{const rect=scene.canvas.getBoundingClientRect();scene.pointer={x:event.clientX-rect.left,y:event.clientY-rect.top};if(!motionState.playing)drawMotionCanvas(scene);};
@@ -1005,7 +1072,7 @@
         }
         const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{const scene=motionScenes.find(item=>item.host===entry.target);if(scene)scene.visible=entry.isIntersecting;});syncMotion();},{threshold:.03});motionScenes.forEach(scene=>observer.observe(scene.host));
         $$('[data-motion-frame]').forEach(button=>button.addEventListener('click',async()=>{const scene=motionScenes.find(item=>item.id===button.dataset.motionFrame);if(!scene.canvas)return;try{const blob=await new Promise(resolve=>scene.canvas.toBlob(resolve,'image/png'));if(!blob)throw Error('No frame');download(blob,`mikelon-${scene.id}-frame.png`,'image/png');}catch{notice('Frame export is unavailable in this browser.');}}));
-        $$('[data-motion-recipe]').forEach(button=>button.addEventListener('click',()=>{const preset=motionPresets.find(item=>item.id===button.dataset.motionRecipe);copy(JSON.stringify({study:preset.name,engine:motionScenes.find(item=>item.id===preset.id).mount?'Paper Shaders 0.0.81':'Canvas 2D',theme:state.theme,palette:palette(),pace:motionState.speed,dotSpacing:motionState.spacing,colour:motionState.colour,travellingAccent:motionState.travelling},null,2),'Motion settings copied.');}));
+        $$('[data-motion-recipe]').forEach(button=>button.addEventListener('click',()=>{const preset=motionPresets.find(item=>item.id===button.dataset.motionRecipe);copy(JSON.stringify({study:preset.name,engine:'Canvas 2D',theme:state.theme,palette:palette(),pace:motionState.speed,dotSpacing:motionState.spacing,colour:motionState.colour,travellingAccent:motionState.travelling},null,2),'Motion settings copied.');}));
         syncMotion();return true;
       })();
       window.__motionReady=motionReady;return motionReady;
@@ -1025,7 +1092,7 @@
       $('#application-terrain').innerHTML = halftoneSVG('terrain', {palette:PALETTES.light,cell:7});
       $('#application-mesh').innerHTML = halftoneSVG('mesh', {palette:PALETTES.dark,mode:'duo',cell:7});
       $('#application-sphere').innerHTML = halftoneSVG('sphere', {palette:PALETTES.dark,mode:'duo',cell:6});
-      renderRecipeForm();$('#recipe-token').textContent=`--mcc-accent: ${palette().accent};`;$('#recipe-sheet-accent').textContent=palette().accent;$('#recipe-sheet-paper').textContent=theme==='dark'?'Black by default':'Occasional white';
+      renderRecipeForm();$('#recipe-sheet-accent').textContent=palette().accent;$('#recipe-sheet-paper').textContent=theme==='dark'?'Black by default':'Occasional white';
       if(motionReady)refreshMotion();
     }
     $('#theme-toggle').addEventListener('click', () => setTheme(state.theme === 'light' ? 'dark' : 'light'));
@@ -1077,8 +1144,51 @@
     $$('[data-example-page]').forEach(button => button.addEventListener('click', () => { examplePage = Number(button.dataset.examplePage); renderExamplePage(); }));
     function stepExamplePage(step) { examplePage = Math.max(1, Math.min(3, examplePage + step)); renderExamplePage(); if (document.activeElement.disabled) $(`[data-example-page="${examplePage}"]`).focus(); }
     $('#previous-page').addEventListener('click', () => stepExamplePage(-1)); $('#next-page').addEventListener('click', () => stepExamplePage(1)); renderExamplePage();
-    $('#demo-form').addEventListener('submit', event => { event.preventDefault(); const name = $('#collection-name').value.trim(); if (!name) { $('#collection-name').setCustomValidity('Enter a collection name.'); $('#collection-name').reportValidity(); return; } $('#collection-name').setCustomValidity(''); $('#form-feedback').textContent = `Demo collection renamed to "${name}".`; notice('Collection name updated in this demo.'); });
+    $('#demo-form').addEventListener('submit', event => { event.preventDefault(); const name = $('#collection-name').value.trim(); if (!name) { $('#collection-name').setCustomValidity('Enter a collection name.'); $('#collection-name').reportValidity(); return; } $('#collection-name').setCustomValidity(''); $('#form-feedback').textContent = `Saved “${name}” as ${$('#collection-kind').value.toLowerCase()}${$('#collection-note').value.trim() ? ', with a note' : ''}.`; notice('Collection name updated in this demo.'); });
     $('#collection-name').addEventListener('input', () => $('#collection-name').setCustomValidity(''));
+    // In use: the published halftone, filtered to its display size so the dots don't moiré.
+    let photoTools = null, photoWidth = 0;
+    async function renderPhoto(force = false) {
+      const canvas = $('#photo-canvas'), source = $('#photo-source');
+      if (!canvas || $('#use').hidden) return;
+      const width = Math.round(canvas.parentElement.getBoundingClientRect().width), ratio = devicePixelRatio || 1;
+      if (!width || (!force && width === photoWidth)) return;
+      try {
+        photoTools ??= await import('../image-rendering.js');
+        await source.decode();
+        const prepared = photoTools.displayImage(source, width, ratio);
+        canvas.width = prepared.width; canvas.height = prepared.height; canvas.getContext('2d').drawImage(prepared, 0, 0);
+        photoWidth = width;
+        $('#photo-meta').textContent = `Master ${source.naturalWidth} × ${source.naturalHeight} / shown at ${canvas.width} × ${canvas.height}`;
+      } catch { $('#photo-meta').textContent = 'The filtered copy is unavailable here; the master image is unchanged.'; }
+    }
+    new ResizeObserver(() => renderPhoto()).observe($('.photo-frame'));
+
+    // Data table: illustrative values, sortable, with one marked row.
+    const tableRows = [
+      { week: 'W40', topic: 'Better questions', notes: 14, change: 3 },
+      { week: 'W41', topic: 'Calmer tools', notes: 9, change: -5 },
+      { week: 'W42', topic: 'Small details', notes: 21, change: 12 },
+      { week: 'W43', topic: 'Reading lists', notes: 6, change: -15 },
+      { week: 'W44', topic: 'Halftone tests', notes: 17, change: 11, current: true }
+    ];
+    let tableSort = { key: 'notes', direction: -1 };
+    function renderTable() {
+      const { key, direction } = tableSort;
+      const rows = [...tableRows].sort((a, b) => (typeof a[key] === 'number' ? a[key] - b[key] : a[key].localeCompare(b[key])) * direction);
+      $('#data-table tbody').innerHTML = rows.map(row => `<tr${row.current ? ' class="is-current" aria-current="true"' : ''}><td>${row.week}${row.current ? '<span class="sr-only"> (current week)</span>' : ''}</td><td>${row.topic}</td><td class="num">${row.notes}</td><td class="num">${row.change > 0 ? '+' : row.change < 0 ? '−' : ''}${Math.abs(row.change)}</td></tr>`).join('');
+      $$('#data-table th').forEach(th => th.setAttribute('aria-sort', th.querySelector('[data-sort]').dataset.sort === key ? (direction > 0 ? 'ascending' : 'descending') : 'none'));
+    }
+    $$('#data-table [data-sort]').forEach(button => button.addEventListener('click', () => {
+      const key = button.dataset.sort;
+      tableSort = { key, direction: tableSort.key === key ? -tableSort.direction : (key === 'notes' || key === 'change' ? -1 : 1) };
+      renderTable();
+    }));
+    renderTable();
+
+    $('#collection-note').addEventListener('input', event => { $('#note-count').textContent = `${event.target.value.length} / 140`; });
+    $$('[data-component-group]').forEach(link => link.addEventListener('click', event => { event.preventDefault(); selectTab('components'); jumpTo(`group-${link.dataset.componentGroup}`); }));
+
     const updateSwitches = () => { const context = $('#context-switch').checked, compact = $('#compact-switch').checked; $('#switch-feedback').textContent = `${context ? 'Supporting context is visible.' : 'Supporting context is hidden.'} ${compact ? 'Compact' : 'Standard'} spacing.`; $$('.collection-row p').forEach(note => { note.hidden = !context; }); $$('.collection-row').forEach(row => { row.style.paddingBlock = compact ? '8px' : ''; }); };
     $('#context-switch').addEventListener('change', updateSwitches); $('#compact-switch').addEventListener('change', updateSwitches);
     $$('[data-filter]').forEach(button => button.addEventListener('click', () => { $$('[data-filter]').forEach(item => item.setAttribute('aria-pressed', String(item === button))); let count = 0; $$('.collection-row').forEach(row => { row.hidden = button.dataset.filter !== 'all' && row.dataset.category !== button.dataset.filter; if (!row.hidden) count++; }); $('#collection-count').textContent = `${count} example ${count === 1 ? 'entry' : 'entries'}`; }));
@@ -1104,24 +1214,15 @@
       [...$('#recipe-reveal').children].forEach((element,index)=>uiMotion?.enter(element,{duration:240,offset:8,delay:index*45}));
     });
     $('#change-recipe-form').addEventListener('click',()=>{recipeFormIndex=(recipeFormIndex+1)%4;uiMotion?.replace($('#recipe-form'),renderRecipeForm);});
-    $('#copy-recipe-token').addEventListener('click',()=>copy($('#recipe-token').textContent,'Accent token copied.',$('#recipe-copy-label')));
-    $('#run-recipe-progress').addEventListener('click',()=>{
-      const button=$('#run-recipe-progress'),progress=$('#recipe-progress'),badge=$('#recipe-completion');
-      let value=0;button.disabled=true;progress.value=0;badge.classList.remove('mcc-badge--done');badge.textContent='Preparing…';$('#recipe-progress-count').textContent='0 / 4';$('#recipe-progress-feedback').textContent='Preparing four sample items.';
-      const timer=setInterval(()=>{
-        progress.value=++value;progress.textContent=`${value} of 4`;$('#recipe-progress-count').textContent=`${value} / 4`;
-        if(value===4){clearInterval(timer);button.disabled=false;badge.classList.add('mcc-badge--done');badge.textContent='All ready';$('#recipe-progress-feedback').textContent='All four sample items are ready.';uiMotion?.enter(badge,{duration:180,offset:3});}
-      },450);
-    });
     $('#motion-play').addEventListener('click',()=>{motionState.playing=!motionState.playing;syncMotion();});
     $('#motion-speed').addEventListener('input',event=>{motionState.speed=Number(event.target.value);syncMotion();});
     $('#motion-spacing').addEventListener('input',event=>{motionState.spacing=Number(event.target.value);refreshMotion();});
     $('#motion-colour').addEventListener('change',event=>{motionState.colour=event.target.value;refreshMotion();});
     $('#motion-accent').addEventListener('change',event=>{motionState.travelling=event.target.checked;refreshMotion();});
-    $('#motion-reset').addEventListener('click',()=>{motionState.elapsed=0;motionLastTime=0;motionScenes.forEach(scene=>{if(scene.mount)scene.mount.setFrame(0);else drawMotionCanvas(scene,0);});syncMotion();});
+    $('#motion-reset').addEventListener('click',()=>{motionState.elapsed=0;motionLastTime=0;motionScenes.forEach(scene=>drawMotionCanvas(scene,0));syncMotion();});
     document.addEventListener('visibilitychange',syncMotion);
     motionPreference.addEventListener('change',event=>{if(event.matches){motionState.playing=false;syncMotion();}});
-    window.addEventListener('pagehide',event=>{if(!event.persisted){if(motionRAF)cancelAnimationFrame(motionRAF);motionScenes.forEach(scene=>{scene.mount?.dispose();scene.resizeObserver?.disconnect();});}});
+    window.addEventListener('pagehide',event=>{if(!event.persisted){if(motionRAF)cancelAnimationFrame(motionRAF);motionScenes.forEach(scene=>scene.resizeObserver?.disconnect());}});
     let initialTheme = 'dark'; try { const saved=localStorage.getItem('mikelon-showcase-theme-v2'); if(saved==='light'||saved==='dark') initialTheme=saved; } catch { /* Use the black default. */ }
     setTheme(initialTheme); selectTab(location.hash.slice(1), false, false);
     // A tab hash makes the browser focus its panel on arrival. Keep focus styling for keyboard use, not for landing.

@@ -35,4 +35,4 @@ vercel deploy --prod
 
 `vercel.json` selects the static framework preset, runs `npm run build`, and serves `public/`. No runtime secrets, database or server functions are required.
 
-After deploying, verify the root page, fonts, all eight interaction recipes, native surfaces, SVG export, hash navigation and a narrow viewport. A root-page reload must retain its selected tab without changing to an asset-directory URL.
+After deploying, verify the root page, fonts, the interaction recipes (Components › Context & safeguards and the Motion tab), native surfaces, SVG export, hash navigation and a narrow viewport. A root-page reload must retain its selected tab without changing to an asset-directory URL.

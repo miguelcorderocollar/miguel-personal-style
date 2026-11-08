@@ -41,10 +41,11 @@ The interactive showcase brings the identity into working examples. Switch theme
 
 | Area | What's inside |
 | --- | --- |
-| Basics | Local fonts, colour tokens, typography, light and dark treatments, rules and spacing |
-| Components | Buttons, fields, switches, collection filters, charts, cards, disclosure, pixel loaders, progress, skeletons, badges, notices, empty states and pagination |
-| Assets & backgrounds | Procedural halftone forms, pixel marks, textures, SVG backgrounds and a playground with SVG/PNG export |
-| Motion | Dot and pixel studies with pause, pace, palette controls and PNG frame export |
+| Foundations | Local fonts, colour tokens, typography, black and white treatments, principles, structure and how to start |
+| Components | Nineteen working parts in five groups: actions and input, browse and data (including a sortable table), reading and content (including a pull quote), feedback and waiting, and context and safeguards (popover, side panel, undo, hold to confirm) |
+| Graphics | Procedural halftone forms, pixel marks, textures, a halftone playground and a background studio with SVG/PNG export |
+| In use | The photographic halftone at display size, plus cover, slide, notebook and chapter compositions |
+| Motion | Two editorial moves and five Canvas dot studies with pause, pace, palette controls and PNG frame export |
 
 ### Orange pixels, useful states
 
@@ -61,7 +62,7 @@ Two loader variants use orange square pixels. Loading buttons, placeholders and 
 
 ### Dots in motion
 
-The Motion tab starts with eight working interaction recipes: editorial entrance, graphic replacement, progress completion, copy confirmation, anchored popover, side panel, removal with undo and hold-to-confirm. It also explores the same type, colours and geometric marks. These are editable studies for choosing a direction. The included Paper Shaders effects have Canvas fallbacks.
+The Motion tab starts with two editorial moves: a one-time entrance and a graphic replacement. Its five Canvas dot studies explore the same type, colours and geometric marks, including a globe whose orange wedge turns with its surface. These are editable studies for choosing a direction. Interaction motion for popovers, side panels, undo and hold-to-confirm lives with those components.
 
 ![A little forward motion. A dot wave with a passing orange band.](banners/motion.jpg)
 
@@ -69,7 +70,7 @@ Open the showcase to see the loops and change their settings.
 
 ## Open the showcase
 
-Browse the [live demo](https://miguel-personal-style.vercel.app/), or open [the Motion recipes](https://miguel-personal-style.vercel.app/#motion) directly.
+Browse the [live demo](https://miguel-personal-style.vercel.app/), or open [the components](https://miguel-personal-style.vercel.app/#components) or [the motion studies](https://miguel-personal-style.vercel.app/#motion) directly.
 
 From this folder, start a local server:
 
@@ -79,7 +80,7 @@ python3 -m http.server 8000 --bind 127.0.0.1
 
 Open [the design system](http://127.0.0.1:8000/skills/miguel-personal-style/assets/examples/design-system.html) or [the small component starter](http://127.0.0.1:8000/skills/miguel-personal-style/assets/examples/component-starter.html).
 
-Browsing needs a modern browser and a local HTTP server. No build step or external font service is required. WebGL2 powers the library motion effects; Canvas fallbacks cover unavailable WebGL2.
+Browsing needs a modern browser and a local HTTP server. No build step or external font service is required. The showcase's motion studies use Canvas 2D.
 
 ## Deploy the demo
 
@@ -166,6 +167,6 @@ The UI motion follows [Emil Kowalski’s animation and design skills](https://gi
 
 The palette, type choices and photographic shader are based on [miguelcorderocollar.com](https://miguelcorderocollar.com/). Procedural shapes, component compositions and motion studies extend that base. Sample copy and chart values are illustrative.
 
-JetBrains Mono is bundled under the [SIL Open Font License](skills/miguel-personal-style/assets/fonts/OFL.txt). The bundled Paper Shaders runtime retains its [Apache 2.0 licence](skills/miguel-personal-style/assets/vendor/paper-shaders/LICENSE), NOTICE and provenance. Keep these files when copying their assets.
+JetBrains Mono is bundled under the [SIL Open Font License](skills/miguel-personal-style/assets/fonts/OFL.txt). The optional bundled Paper Shaders runtime, which the showcase no longer uses, retains its [Apache 2.0 licence](skills/miguel-personal-style/assets/vendor/paper-shaders/LICENSE), NOTICE and provenance. Keep these files when copying their assets.
 
 Website reference screenshots have a separate purpose from production assets. They do not grant reuse rights to third-party portraits, photographs or quotations. See the [source record](skills/miguel-personal-style/references/source-record.md) for asset-specific context. No blanket licence for all repository content is declared here.

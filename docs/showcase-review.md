@@ -92,3 +92,29 @@ Everything in the tables above was implemented except the items under "Out of sc
 - The mobile hero shows the globe at 140px below the install command, rather than beside the kicker, so the headline keeps its full width.
 
 Checks: `scripts/capture-showcase.mjs` and `scripts/verify-motion.mjs` pass. A separate pass confirmed the install and snippet copy actions, the landing-focus fix and the "Copy the stylesheets" jump. It also found no horizontal overflow on any tab at 320, 390, 760 and 1050px.
+
+## Second pass: organisation (8 November 2026)
+
+Miguel approved a five-tab structure, the removal of the two Paper Shaders studies and four additions.
+
+| Tab | Contents |
+| --- | --- |
+| 01 Foundations (`#basics`) | Palette, type, treatments, principles, structure, start here |
+| 02 Components (`#components`) | 19 parts in five groups with a jump list: actions and input, browse and data, reading and content, feedback and waiting, context and safeguards |
+| 03 Graphics (`#assets`) | Gallery, halftone playground, background studio |
+| 04 In use (`#use`) | The published mountain halftone at display size, filtered with `image-rendering.js`, then the cover, slide, notebook and chapter compositions |
+| 05 Motion (`#motion`) | Two editorial moves and five Canvas dot studies |
+
+The panel IDs are unchanged, so existing `#basics`, `#assets` and `#motion` links still work.
+
+- **Moved:** the popover, side panel, undo and hold-to-confirm recipes are now components, tagged with their `motion.js` helper.
+- **Removed:**
+  - the progress and copy-confirmation recipes, which duplicated the Progress component and the existing copy actions;
+  - the Dot orbit and Dither current studies. The page no longer loads the Paper Shaders runtime, which stays bundled in the skill.
+- **Added:**
+  - a sortable data table with tabular figures and one marked row;
+  - a pull quote with a required source line (placeholder text);
+  - a select, a textarea with a character count, and a Dialog & toast card;
+  - the photography figure.
+
+`scripts/verify-motion.mjs` now finds the moved recipes in Components. It checks copy feedback on the hero install command and progress on the Progress component.
