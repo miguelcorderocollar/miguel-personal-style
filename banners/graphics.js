@@ -11,8 +11,10 @@ if(kind==='identity'){
     const q=(x*x+y*y)/(R*R);if(q>1)continue;
     const z=Math.sqrt(1-q),light=Math.max(0,-.45*x/R-.55*y/R+.65*z);
     const radius=.40+2.75*Math.pow(1-light,1.05);
-    const orange=x>130&&y>60&&x+y>260;
-    marks+=circle(cx+x,cy+y,radius,orange?accent:ink);
+    // An orange wedge: a band of longitude fixed to the tilted globe, meeting at both poles.
+    const tilt=.26,spin=.3,longitude=Math.atan2(x/R,(y/R)*Math.sin(tilt)+z*Math.cos(tilt))-spin;
+    const orange=Math.abs(Math.atan2(Math.sin(longitude),Math.cos(longitude)))<.2;
+    marks+=circle(cx+x,cy+y,orange?Math.max(radius,1.9):radius,orange?accent:ink);
   }
   marks+=`<path d="M858 161h-17v17M1355 524v17h-17" fill="none" stroke="${rule}"/>`;
   for(const [x,y,s,o]of[[1255,549,23,1],[1278,526,23,1],[1301,503,23,1],[1324,480,23,1],[1324,526,11,.4],[1360,503,11,.25]])marks+=rect(x,y,s,s,accent,o);

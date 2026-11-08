@@ -88,7 +88,7 @@ motion.replace(document.querySelector('.graphic'), () => renderSelectedForm());
 motion.feedback(document.querySelector('[data-mcc-feedback-label]'), 'Copied');
 ```
 
-The Motion tab contains eight working recipes, including the four examples above and native popover, side panel, removal/undo and hold-to-confirm. The actual showcase uses the same methods for its opening, composition cards, halftone form selector, palette/background copy actions and progress examples.
+The showcase demonstrates each recipe where it is used. The Motion tab replays the editorial entrance and the graphic replacement. Components › Context & safeguards holds the popover, side panel, removal/undo and hold-to-confirm, and Feedback & waiting holds determinate progress. Copy confirmation appears on the hero install command, the palette and the background studio.
 
 ## Context, undo and deliberate actions
 
