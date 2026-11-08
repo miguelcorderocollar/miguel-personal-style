@@ -83,3 +83,12 @@ The reference promo, `film.js` `sphereAt`, still contains the screen-fixed `band
 - Moving the button, field, switch and filter styles from this page into `components.css`. They are good enough to ship, but that changes the installable kit's API.
 - A slowly turning hero globe. A still is used, because the motion guide keeps continuous loops in the Motion tab.
 - The Dither current study's large flat fill in the black view. It comes from the bundled Paper Shaders preset, and its parameters are a taste call.
+
+## Implemented
+
+Everything in the tables above was implemented except the items under "Out of scope". Two details changed during implementation:
+
+- The rotating circle's dot pattern carries a fixed phase, so the wedge faces the viewer in the opening frame and reduced-motion still. Before, the first frames showed it on the far side.
+- The mobile hero shows the globe at 140px below the install command, rather than beside the kicker, so the headline keeps its full width.
+
+Checks: `scripts/capture-showcase.mjs` and `scripts/verify-motion.mjs` pass. A separate pass confirmed the install and snippet copy actions, the landing-focus fix and the "Copy the stylesheets" jump. It also found no horizontal overflow on any tab at 320, 390, 760 and 1050px.
