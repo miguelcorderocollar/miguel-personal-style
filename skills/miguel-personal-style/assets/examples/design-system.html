@@ -53,7 +53,8 @@
     .install-note { margin-top: 10px; font-size: 10px; color: var(--muted); }
     .hero-art { height: 265px; position: relative; display: grid; place-items: center; border-left: 1px solid var(--rule); }
     #hero-sphere { width: 252px; height: 252px; }
-    #hero-sphere svg { width: 100%; height: 100%; }
+    #hero-sphere { display: block; }
+    .art-toggle { position: absolute; left: 24px; bottom: -11px; font-size: 9px; padding: 0; }
     .art-index { position: absolute; top: 0; right: 0; font-size: 10px; color: var(--muted); }
     .art-caption { position: absolute; right: 0; bottom: -11px; font-size: 9px; letter-spacing: .03em; color: var(--muted); }
     .tabs-shell { position: sticky; top: 0; z-index: 5; background: var(--paper); border-top: 1px solid var(--ink); border-bottom: 1px solid var(--rule); }
@@ -317,8 +318,9 @@
     .motion-actions { display: flex; gap: 20px; margin-top: 17px; }
     .motion-credit { border-top: 1px solid var(--rule); padding-top: 20px; margin-top: 30px; font-size: 10px; color: var(--muted); line-height: 1.9; }
     .page-footer { margin-top: 72px; padding-block: 28px 40px; border-top: 1px solid var(--ink); display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 32px; font-size: 10px; color: var(--muted); }
-    .footer-about p:last-child { max-width: 52ch; margin-top: 14px; line-height: 1.75; }
+    .footer-about .brand + p { max-width: 52ch; margin-top: 14px; line-height: 1.75; }
     .footer-about .brand { color: var(--ink); }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 18px; font-size: 11px; }
     .footer-column { display: flex; flex-direction: column; align-items: start; gap: 9px; }
     .footer-head { font-size: 9px; letter-spacing: .07em; text-transform: uppercase; color: var(--ink); margin-bottom: 4px; }
     .page-footer a { color: var(--ink); text-decoration-color: var(--rule); }
@@ -360,8 +362,8 @@
         <div class="install" role="group" aria-label="Install the skill"><code class="install-command" id="install-command"><span class="install-prompt" aria-hidden="true">$</span>npx skills add miguelcorderocollar/miguel-personal-style --skill miguel-personal-style</code><button class="install-copy" id="copy-install" type="button"><span id="copy-install-label" data-mcc-feedback-label>Copy</span></button></div>
         <p class="install-note">Installs the skill for your agent. Prefer files? <a href="#start" data-start>Copy the stylesheets</a>.</p>
       </div>
-      <figure class="hero-art" aria-label="Procedural halftone globe with an orange wedge">
-        <span class="art-index">FIG. 01 / DOT STUDY</span><div id="hero-sphere" aria-hidden="true"></div><figcaption class="art-caption">Precise grid. Imperfect ink.</figcaption>
+      <figure class="hero-art" aria-label="A slowly turning dotted globe with an orange wedge">
+        <span class="art-index">FIG. 01 / DOT STUDY</span><canvas id="hero-sphere" aria-hidden="true"></canvas><figcaption class="art-caption">A turning globe. One orange wedge.</figcaption><button class="text-button art-toggle" id="hero-motion" type="button" aria-pressed="true" aria-label="Pause the globe">Pause <span aria-hidden="true">Ⅱ</span></button>
       </figure>
     </section>
   </div>
@@ -495,8 +497,8 @@
       <p class="motion-credit">The rotating circle carries an orange wedge fixed to its surface; the travelling orange passes across the cube, wave field and terrain. Dot orbit and Dither current use <a href="https://github.com/paper-design/shaders" target="_blank" rel="noopener">Paper Shaders 0.0.81</a>, bundled locally under <a href="../vendor/paper-shaders/LICENSE" target="_blank" rel="noopener">Apache 2.0</a>. The other five are original Canvas studies. Motion pauses in hidden tabs and outside the view; reduced-motion preferences start with stills. “Save frame” downloads a PNG of the current image.</p>
     </section>
     <footer class="page-footer">
-      <div class="footer-about"><p class="brand"><span class="brand-square" aria-hidden="true"></span><strong>mikelon</strong><span class="brand-slash">/</span><span>design system</span></p><p>A working kit for Miguel Cordero Collar's personal work. The palette and type come from miguelcorderocollar.com and mikelon_kit; the components and motif studies are new.</p></div>
-      <div class="footer-column"><p class="footer-head">Use it</p><a href="https://github.com/miguelcorderocollar/miguel-personal-style#install-the-skill" target="_blank" rel="noopener">Get the skill ↗</a><a href="https://github.com/miguelcorderocollar/miguel-personal-style/blob/main/skills/miguel-personal-style/references/usage.md" target="_blank" rel="noopener">Usage guide ↗</a><a href="https://github.com/miguelcorderocollar/miguel-personal-style" target="_blank" rel="noopener">Source on GitHub ↗</a></div>
+      <div class="footer-about"><p class="brand"><span class="brand-square" aria-hidden="true"></span><strong>mikelon</strong><span class="brand-slash">/</span><span>design system</span></p><p>A working kit for Miguel Cordero Collar's personal work. The palette and type come from miguelcorderocollar.com and mikelon_kit; the components and motif studies are new.</p><p class="footer-links"><a href="https://miguelcorderocollar.com" target="_blank" rel="noopener">miguelcorderocollar.com ↗</a><a href="https://github.com/miguelcorderocollar/miguel-personal-style" target="_blank" rel="noopener">GitHub repository ↗</a></p></div>
+      <div class="footer-column"><p class="footer-head">Use it</p><a href="https://github.com/miguelcorderocollar/miguel-personal-style#install-the-skill" target="_blank" rel="noopener">Get the skill ↗</a><a href="https://github.com/miguelcorderocollar/miguel-personal-style/blob/main/skills/miguel-personal-style/references/usage.md" target="_blank" rel="noopener">Usage guide ↗</a></div>
       <div class="footer-column"><p class="footer-head">Licences</p><a href="../fonts/OFL.txt" target="_blank" rel="noopener">JetBrains Mono / OFL ↗</a><a href="../vendor/paper-shaders/LICENSE" target="_blank" rel="noopener">Paper Shaders / Apache 2.0 ↗</a><span>Sample copy and chart values are illustrative.</span></div>
     </footer>
   </main>
@@ -576,22 +578,58 @@
     // The orange wedge: a band of longitude from pole to pole, fixed to the globe's surface.
     // (nx, ny, nz) is a front-facing point on a unit sphere in screen space: x right, y down, z toward the viewer.
     // Undo the globe's forward tilt, then compare the point's longitude with the wedge's meridian.
-    const WEDGE = { tilt: .42, spin: .58, half: .19 };
+    const WEDGE = { tilt: .26, spin: .3, half: .22 };
     function inWedge(nx, ny, nz, { tilt = WEDGE.tilt, spin = WEDGE.spin, half = WEDGE.half } = {}) {
       if (nz < 0) return false;
       const longitude = Math.atan2(nx, ny * Math.sin(tilt) + nz * Math.cos(tilt)) - spin;
       return Math.abs(Math.atan2(Math.sin(longitude), Math.cos(longitude))) < half;
     }
-    function sphereSVG(ink = palette().ink, accent = palette().accent) {
-      let circles = '', wedge = '';
-      for (let y = 16; y < 286; y += 5) for (let x = 16; x < 286; x += 5) {
-        const nx = (x - 150) / 125, ny = (y - 150) / 125, d = nx * nx + ny * ny;
-        if (d > 1) continue;
-        const nz = Math.sqrt(1 - d), light = Math.max(0, -.56 * nx - .6 * ny + .57 * nz);
-        const mark = `<circle cx="${x}" cy="${y}" r="${(.35 + (1 - light) * 2.1).toFixed(2)}"/>`;
-        if (inWedge(nx, ny, nz)) wedge += mark; else circles += mark;
+    // Hero globe: dots sampled on the sphere's surface, so the dots and the orange wedge turn together.
+    // It rests offscreen, in hidden documents and for reduced-motion preferences, and has its own pause control.
+    const heroGlobe = { angle: -.5, playing: true, visible: true, raf: 0, last: 0, drawn: 0, points: [] };
+    for (let ring = 1, rings = 60; ring < rings; ring++) {
+      const latitude = -Math.PI / 2 + ring * Math.PI / rings, count = Math.max(6, Math.round(rings * 2 * Math.cos(latitude)));
+      for (let col = 0; col < count; col++) {
+        const longitude = col * Math.PI * 2 / count;
+        heroGlobe.points.push({ latitude, longitude, wedge: Math.min(longitude, Math.PI * 2 - longitude) < WEDGE.half + .04 });
       }
-      return svgWrap(`<g fill="${ink}">${circles}</g><g fill="${accent}">${wedge}</g>`, 'Procedural halftone globe with an orange wedge', 300, 300);
+    }
+    function drawHeroGlobe() {
+      const canvas = heroGlobe.canvas; if (!canvas) return;
+      const box = canvas.getBoundingClientRect(), size = Math.max(1, Math.round(box.width)), ratio = Math.min(2, devicePixelRatio || 1);
+      if (canvas.width !== Math.round(size * ratio)) { canvas.width = canvas.height = Math.round(size * ratio); }
+      const context = canvas.getContext('2d'), { ink, accent } = palette(), R = size * .42, centre = size / 2, unit = size / 252;
+      const tilt = WEDGE.tilt, ct = Math.cos(tilt), st = Math.sin(tilt);
+      context.setTransform(ratio, 0, 0, ratio, 0, 0); context.clearRect(0, 0, size, size);
+      for (const accentPass of [false, true]) {
+        context.fillStyle = accentPass ? accent : ink; context.beginPath();
+        for (const point of heroGlobe.points) {
+          if (point.wedge !== accentPass) continue;
+          const cl = Math.cos(point.latitude), phase = point.longitude + heroGlobe.angle;
+          const bx = cl * Math.sin(phase), by = Math.sin(point.latitude), bz = cl * Math.cos(phase);
+          const y = by * ct + bz * st, z = -by * st + bz * ct;
+          if (z < .02) continue;
+          const light = Math.max(0, -.5 * bx - .55 * y + .67 * z);
+          const radius = unit * Math.max(.22 + Math.pow(1 - light, 1.3) * 1.55, point.wedge ? 1.1 : 0) * Math.min(1, z * 4);
+          const x = centre + bx * R, py = centre + y * R;
+          context.moveTo(x + radius, py); context.arc(x, py, radius, 0, Math.PI * 2);
+        }
+        context.fill();
+      }
+    }
+    function heroTick(now) {
+      heroGlobe.raf = 0; if (!heroRunning()) return;
+      const delta = heroGlobe.last ? Math.min(.05, (now - heroGlobe.last) / 1000) : 0; heroGlobe.last = now;
+      heroGlobe.angle += delta * .45;
+      if (now - heroGlobe.drawn >= 1000 / 30) { heroGlobe.drawn = now; drawHeroGlobe(); }
+      heroGlobe.raf = requestAnimationFrame(heroTick);
+    }
+    function heroRunning() { return heroGlobe.playing && heroGlobe.visible && !document.hidden; }
+    function syncHeroGlobe() {
+      const button = $('#hero-motion');
+      if (button) { button.setAttribute('aria-pressed', String(heroGlobe.playing)); button.innerHTML = heroGlobe.playing ? 'Pause <span aria-hidden="true">Ⅱ</span>' : 'Play <span aria-hidden="true">▷</span>'; }
+      if (heroRunning()) { if (!heroGlobe.raf) { heroGlobe.last = 0; heroGlobe.raf = requestAnimationFrame(heroTick); } }
+      else { if (heroGlobe.raf) cancelAnimationFrame(heroGlobe.raf); heroGlobe.raf = 0; drawHeroGlobe(); }
     }
     const clamp = (value, low = 0, high = 1) => Math.max(low, Math.min(high, value));
     const noise = (x, y) => { const n = Math.sin(x * 127.1 + y * 311.7) * 43758.5453; return n - Math.floor(n); };
@@ -645,7 +683,9 @@
       for (let y = cell / 2; y < 220; y += cell) for (let x = cell / 2; x < 320; x += cell) {
         let tone = halftoneTone(kind, x, y); if (tone === null) continue;
         tone = Math.round(clamp((tone - .5) * contrast + .5) * 8) / 8;
-        const r = cell * .46 * (.12 + .88 * tone), colour = mode === 'orange' || (mode === 'duo' && halftoneAccent(kind, x, y)) ? p.accent : p.ink;
+        const accent = mode === 'duo' && halftoneAccent(kind, x, y), colour = mode === 'orange' || accent ? p.accent : p.ink;
+        // Wedge dots keep a minimum size so the slice reads through the lit side of the sphere.
+        const r = cell * .46 * Math.max(.12 + .88 * tone, accent && kind === 'sphere' ? .62 : 0);
         const px = x.toFixed(2), py = y.toFixed(2), radius = r.toFixed(2);
         if (dot === 'square') marks += `<rect x="${(x-r*.85).toFixed(2)}" y="${(y-r*.85).toFixed(2)}" width="${(r*1.7).toFixed(2)}" height="${(r*1.7).toFixed(2)}" fill="${colour}"/>`;
         else if (dot === 'cross') marks += `<path d="M${(x-r).toFixed(2)} ${py}h${(r*2).toFixed(2)}M${px} ${(y-r).toFixed(2)}v${(r*2).toFixed(2)}" stroke="${colour}" stroke-width="${Math.max(.45,r*.5).toFixed(2)}" fill="none"/>`;
@@ -980,7 +1020,7 @@
       document.documentElement.style.colorScheme = theme;
       $('#theme-toggle').setAttribute('aria-pressed', String(theme === 'dark')); $('#theme-label').textContent = theme === 'dark' ? 'Light view' : 'Dark view';
       try { localStorage.setItem('mikelon-showcase-theme-v2', theme); } catch { /* Storage is optional in local previews. */ }
-      renderPalette(); renderAssets(); renderLab(); renderStudio(); $('#hero-sphere').innerHTML = sphereSVG();
+      renderPalette(); renderAssets(); renderLab(); renderStudio(); drawHeroGlobe();
       $('#application-pixels').innerHTML = '<svg viewBox="0 0 300 180" style="position:absolute;width:115px;height:100px;right:20px;bottom:30px" aria-hidden="true"><g fill="var(--accent)"><path d="M92 112h24v24H92zM116 88h24v24h-24zM140 64h24v24h-24zM164 40h24v24h-24zM188 40h24v24h-24z"/></g></svg>';
       $('#application-terrain').innerHTML = halftoneSVG('terrain', {palette:PALETTES.light,cell:7});
       $('#application-mesh').innerHTML = halftoneSVG('mesh', {palette:PALETTES.dark,mode:'duo',cell:7});
@@ -1087,6 +1127,13 @@
     // A tab hash makes the browser focus its panel on arrival. Keep focus styling for keyboard use, not for landing.
     const releaseLandingFocus = () => { if (document.activeElement?.matches('[role="tabpanel"]')) document.activeElement.blur(); };
     releaseLandingFocus(); window.addEventListener('load', releaseLandingFocus, { once: true });
+    heroGlobe.canvas = $('#hero-sphere'); heroGlobe.playing = !motionPreference.matches;
+    new ResizeObserver(drawHeroGlobe).observe(heroGlobe.canvas);
+    new IntersectionObserver(entries => { heroGlobe.visible = entries[0].isIntersecting; syncHeroGlobe(); }).observe(heroGlobe.canvas);
+    $('#hero-motion').addEventListener('click', () => { heroGlobe.playing = !heroGlobe.playing; $('#hero-motion').setAttribute('aria-label', heroGlobe.playing ? 'Pause the globe' : 'Play the globe'); syncHeroGlobe(); });
+    document.addEventListener('visibilitychange', syncHeroGlobe);
+    motionPreference.addEventListener('change', event => { if (event.matches) { heroGlobe.playing = false; syncHeroGlobe(); } });
+    syncHeroGlobe();
     const uiReady=import('../motion.js').then(({createMotion})=>{
       uiMotion=createMotion();uiToast=uiMotion.bindToast($('#toast'));uiDialog=uiMotion.bindDialog($('#example-dialog'));
       const recipeSheet=uiMotion.bindDialog($('#recipe-sheet'),{placement:'right'});
