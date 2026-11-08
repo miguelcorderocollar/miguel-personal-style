@@ -324,7 +324,7 @@
         <h1 id="page-title">Small details.<br>Distinct character.</h1>
         <p class="hero-copy">A working kit for the things I make.<br>Type, colour, useful components, and a little room to play.</p>
       </div>
-      <figure class="hero-art" aria-label="Procedural monochrome halftone study with an orange pixel marker">
+      <figure class="hero-art" aria-label="Procedural halftone globe with an orange wedge">
         <span class="art-index">FIG. 01 / DOT STUDY</span><div id="hero-sphere" aria-hidden="true"></div><figcaption class="art-caption">Precise grid. Imperfect ink.</figcaption>
       </figure>
     </section>
@@ -426,7 +426,7 @@
       <div class="motion-toolbar"><button type="button" class="btn" id="motion-play" aria-pressed="true">Pause motion <span aria-hidden="true">Ⅱ</span></button><label class="motion-control"><span class="control-top">Pace <output id="motion-speed-output" for="motion-speed">0.65×</output></span><input type="range" id="motion-speed" min="0.2" max="1.4" step="0.05" value="0.65"></label><label class="motion-control"><span class="control-top">Dot spacing <output id="motion-spacing-output" for="motion-spacing">22px</output></span><input type="range" id="motion-spacing" min="14" max="34" step="2" value="22"></label><label class="motion-control"><span class="control-top">Palette</span><select class="input" id="motion-colour"><option value="duo">Ink & orange</option><option value="ink">Neutral ink</option><option value="orange">Orange ink</option></select></label><label class="check motion-accent"><input type="checkbox" id="motion-accent" checked>Travelling orange</label><button type="button" class="text-button" id="motion-reset">Restart loops ↺</button></div>
       <p class="motion-status" id="motion-status" role="status">Choose this tab to start the live studies.</p>
       <div class="motion-grid" id="motion-grid"></div>
-      <p class="motion-credit">The travelling orange passes across the rotating objects, wave field and terrain. Dot orbit and Dither current use <a href="https://github.com/paper-design/shaders" target="_blank" rel="noopener">Paper Shaders 0.0.81</a>, bundled locally under <a href="../vendor/paper-shaders/LICENSE" target="_blank" rel="noopener">Apache 2.0</a>. The other five are original Canvas studies. Motion pauses in hidden tabs and outside the view; reduced-motion preferences start with stills. “Save frame” downloads a PNG of the current image.</p>
+      <p class="motion-credit">The rotating circle carries an orange wedge fixed to its surface; the travelling orange passes across the cube, wave field and terrain. Dot orbit and Dither current use <a href="https://github.com/paper-design/shaders" target="_blank" rel="noopener">Paper Shaders 0.0.81</a>, bundled locally under <a href="../vendor/paper-shaders/LICENSE" target="_blank" rel="noopener">Apache 2.0</a>. The other five are original Canvas studies. Motion pauses in hidden tabs and outside the view; reduced-motion preferences start with stills. “Save frame” downloads a PNG of the current image.</p>
     </section>
     <footer class="page-footer"><p>mikelon / A working design system.<br>Based on Miguel's personal website and mikelon_kit. Source palette and typography; new component and motif studies.</p><div class="footer-links"><a href="https://github.com/miguelcorderocollar/miguel-personal-style#install-the-skill" target="_blank" rel="noopener">Get the skill ↗</a><a href="../fonts/OFL.txt" target="_blank" rel="noopener">Font licence ↗</a></div></footer>
   </main>
@@ -504,21 +504,30 @@
     window.addEventListener('hashchange', () => selectTab(location.hash.slice(1)));
     $('#assets-link').addEventListener('click', event => { event.preventDefault(); selectTab('assets', true); $('.tabs-shell').scrollIntoView({block:'start'}); });
 
-    function sphereSVG(ink = palette().ink, accent = palette().accent, showMarker = true) {
-      let circles = '';
+    // The orange wedge: a band of longitude from pole to pole, fixed to the globe's surface.
+    // (nx, ny, nz) is a front-facing point on a unit sphere in screen space: x right, y down, z toward the viewer.
+    // Undo the globe's forward tilt, then compare the point's longitude with the wedge's meridian.
+    const WEDGE = { tilt: .42, spin: .58, half: .19 };
+    function inWedge(nx, ny, nz, { tilt = WEDGE.tilt, spin = WEDGE.spin, half = WEDGE.half } = {}) {
+      if (nz < 0) return false;
+      const longitude = Math.atan2(nx, ny * Math.sin(tilt) + nz * Math.cos(tilt)) - spin;
+      return Math.abs(Math.atan2(Math.sin(longitude), Math.cos(longitude))) < half;
+    }
+    function sphereSVG(ink = palette().ink, accent = palette().accent) {
+      let circles = '', wedge = '';
       for (let y = 16; y < 286; y += 5) for (let x = 16; x < 286; x += 5) {
         const nx = (x - 150) / 125, ny = (y - 150) / 125, d = nx * nx + ny * ny;
         if (d > 1) continue;
         const nz = Math.sqrt(1 - d), light = Math.max(0, -.56 * nx - .6 * ny + .57 * nz);
-        const radius = .35 + (1 - light) * 2.1;
-        circles += `<circle cx="${x}" cy="${y}" r="${radius.toFixed(2)}"/>`;
+        const mark = `<circle cx="${x}" cy="${y}" r="${(.35 + (1 - light) * 2.1).toFixed(2)}"/>`;
+        if (inWedge(nx, ny, nz)) wedge += mark; else circles += mark;
       }
-      return svgWrap(`<g fill="${ink}">${circles}</g>${showMarker ? `<path d="M249 225h13v13h13v13h-13v13h-13v-13h-13v-13h13z" fill="${accent}"/>` : ''}`, 'Procedural halftone sphere study', 300, 300);
+      return svgWrap(`<g fill="${ink}">${circles}</g><g fill="${accent}">${wedge}</g>`, 'Procedural halftone globe with an orange wedge', 300, 300);
     }
     const clamp = (value, low = 0, high = 1) => Math.max(low, Math.min(high, value));
     const noise = (x, y) => { const n = Math.sin(x * 127.1 + y * 311.7) * 43758.5453; return n - Math.floor(n); };
     const HALFTONES = ['sphere','cube','terrain','fade','ripple','mesh','wave','arrow'];
-    const HALFTONE_MODES = { cube:'duo', fade:'orange', mesh:'duo', arrow:'orange' };
+    const HALFTONE_MODES = { sphere:'duo', cube:'duo', fade:'orange', mesh:'duo', arrow:'orange' };
     function inPolygon(x, y, points) {
       let inside = false;
       for (let i = 0, j = points.length - 1; i < points.length; j = i++) {
@@ -555,13 +564,19 @@
       if (kind === 'arrow') return inPolygon(x,y,[[37,86],[190,86],[190,44],[281,110],[190,176],[190,134],[37,134]]) ? .12 + .8 * (x - 37) / 244 : null;
       return null;
     }
+    // Where "Ink + orange detail" places its orange. On the sphere, it is the surface-fixed wedge.
+    function halftoneAccent(kind, x, y) {
+      if (kind !== 'sphere') return x > 190 && y < 118;
+      const nx = (x - 160) / 86, ny = (y - 110) / 86;
+      return inWedge(nx, ny, Math.sqrt(Math.max(0, 1 - nx * nx - ny * ny)));
+    }
     function halftoneSVG(kind, options = {}) {
       const p = options.palette || palette(), cell = options.cell || 7, contrast = options.contrast ?? 1, dot = options.dot || 'circle', mode = options.mode || 'ink';
       let marks = '';
       for (let y = cell / 2; y < 220; y += cell) for (let x = cell / 2; x < 320; x += cell) {
         let tone = halftoneTone(kind, x, y); if (tone === null) continue;
         tone = Math.round(clamp((tone - .5) * contrast + .5) * 8) / 8;
-        const r = cell * .46 * (.12 + .88 * tone), colour = mode === 'orange' || (mode === 'duo' && x > 190 && y < 118) ? p.accent : p.ink;
+        const r = cell * .46 * (.12 + .88 * tone), colour = mode === 'orange' || (mode === 'duo' && halftoneAccent(kind, x, y)) ? p.accent : p.ink;
         const px = x.toFixed(2), py = y.toFixed(2), radius = r.toFixed(2);
         if (dot === 'square') marks += `<rect x="${(x-r*.85).toFixed(2)}" y="${(y-r*.85).toFixed(2)}" width="${(r*1.7).toFixed(2)}" height="${(r*1.7).toFixed(2)}" fill="${colour}"/>`;
         else if (dot === 'cross') marks += `<path d="M${(x-r).toFixed(2)} ${py}h${(r*2).toFixed(2)}M${px} ${(y-r).toFixed(2)}v${(r*2).toFixed(2)}" stroke="${colour}" stroke-width="${Math.max(.45,r*.5).toFixed(2)}" fill="none"/>`;
@@ -723,7 +738,7 @@
     const motionPresets = [
       {id:'orbit',name:'Dot orbit',note:'A field of dots, each moving around its own little centre. A loose background with a steady rhythm.',engine:'paper',pace:.8},
       {id:'dither',name:'Dither current',note:'A slow current passing through a fixed pixel screen. Try it behind a short title.',engine:'paper',pace:.22},
-      {id:'circle',name:'Rotating circle',note:'A dotted globe turns through a travelling band of orange. The dots follow the surface as it rotates.',engine:'canvas',pace:1},
+      {id:'circle',name:'Rotating circle',note:'A dotted globe turns with an orange wedge, a slice from pole to pole that stays on the surface as it rotates.',engine:'canvas',pace:1},
       {id:'cube',name:'Turning cube',note:'Three dotted faces turn in perspective while a warm strip passes across the object.',engine:'canvas',pace:1},
       {id:'wave',name:'Wave field',note:'Rows of dots grow and settle as a wave moves through them.',engine:'canvas',pace:1},
       {id:'terrain',name:'Drifting terrain',note:'A dotted landscape shifting under a quiet horizon.',engine:'canvas',pace:1},
@@ -764,7 +779,10 @@
             const longitude=col*Math.PI*2/count,point=rotatedPoint({x:Math.cos(latitude)*Math.cos(longitude),y:Math.sin(latitude),z:Math.cos(latitude)*Math.sin(longitude)},time);
             if(point.z<0)continue;
             const shade=clamp(point.x*-.42+point.y*-.48+point.z*.65);
-            dots.push({...point,r:1.2+(1-shade)*1.6});
+            // The wedge is chosen in the globe's own coordinates (before rotation), so it turns with the surface.
+            // Column 0 is its centre meridian: every ring contributes a dot and the slice meets at both poles.
+            const offset=Math.min(longitude,Math.PI*2-longitude);
+            dots.push({...point,r:1.2+(1-shade)*1.6,wedge:offset<.3});
           }
         }
       }
@@ -780,7 +798,7 @@
         const scale=Math.min(h*(scene.id==='cube'?.235:.33),w*.27);
         for(const point of rotatingDots(scene.id,time,gap)){
           const perspective=4.5/(4.5-point.z),x=w*.5+point.x*scale*perspective,y=h*.52+point.y*scale*perspective;
-          dot(x,y,point.r*perspective,motionAccentAt(point.x/2.8+.5,time,point.x>.3&&point.y<.3));
+          dot(x,y,point.r*perspective,scene.id==='circle'?point.wedge:motionAccentAt(point.x/2.8+.5,time,point.x>.3&&point.y<.3));
         }
       } else if (scene.id === 'terrain') {
         const columns=Math.ceil(w/(gap*.65)), rows=15;
