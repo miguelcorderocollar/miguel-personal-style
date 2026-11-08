@@ -118,3 +118,10 @@ The panel IDs are unchanged, so existing `#basics`, `#assets` and `#motion` link
   - the photography figure.
 
 `scripts/verify-motion.mjs` now finds the moved recipes in Components. It checks copy feedback on the hero install command and progress on the Progress component.
+
+## Third pass: less text, a touchable globe (8 November 2026)
+
+- **Hero globe:** surface dots at 48 rings, between the dense and grid versions. It turns slowly while two orange wedges drift the other way. Hover pushes dots aside, press and hold pauses it, and a drag spins it; a gentle pull returns it upright to its spin. The caption and figure label are gone.
+- **Text:**
+  - Removed section intros, group intros, explanatory footnotes, the masthead edition line, the install note, photo notes, motion credits, card numbers and asset notes.
+  - The labels that keep the content honest stay: sample copy, illustrative values and the placeholder quote. So do the status messages controls write into.

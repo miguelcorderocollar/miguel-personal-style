@@ -53,9 +53,8 @@
     .install-note { margin-top: 10px; font-size: 10px; color: var(--muted); }
     .hero-art { height: 265px; position: relative; display: grid; place-items: center; border-left: 1px solid var(--rule); }
     #hero-sphere { width: 252px; height: 252px; }
-    #hero-sphere { display: block; }
-    .art-index { position: absolute; top: 0; right: 0; font-size: 10px; color: var(--muted); }
-    .art-caption { position: absolute; right: 0; bottom: -11px; font-size: 9px; letter-spacing: .03em; color: var(--muted); }
+    #hero-sphere { display: block; cursor: grab; touch-action: pan-y; }
+    #hero-sphere.is-grabbing { cursor: grabbing; }
     .tabs-shell { position: sticky; top: 0; z-index: 5; background: var(--paper); border-top: 1px solid var(--ink); border-bottom: 1px solid var(--rule); }
     .tabs { display: flex; gap: 36px; align-items: stretch; }
     .tab { padding: 21px 0 18px; border: 0; border-bottom: 3px solid transparent; background: none; color: var(--muted); white-space: nowrap; font-size: 12px; }
@@ -307,6 +306,7 @@
     .motion-card:last-child:nth-child(odd) .motion-art { height: 340px; }
     .motion-part .motion-toolbar { margin-top: 0; }
     .motion-part { border-top: 1px solid var(--ink); padding-top: 26px; }
+    .panel > .motion-part:first-child { border-top: 0; padding-top: 0; margin-top: 0; }
     .motion-art { position: relative; height: 280px; overflow: hidden; background: var(--paper); border-bottom: 1px solid var(--rule); }
     .motion-art canvas { display: block; width: 100%; height: 100%; touch-action: pan-y; }
     .motion-number { position: absolute; top: 12px; left: 12px; padding: 3px 6px; z-index: 1; font-size: 9px; color: var(--muted); background: var(--paper); pointer-events: none; }
@@ -351,7 +351,7 @@
     .component-group + .component-group { margin-top: 46px; }
     .group-head { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding-bottom: 12px; margin-bottom: 14px; border-bottom: 1px solid var(--ink); }
     .group-head h3 { font-size: 15px; font-weight: 800; letter-spacing: -.035em; }
-    .group-head p { font-size: 10px; color: var(--muted); }
+    .legend { font-size: 10px; color: var(--muted); max-width: 46ch; }
     .component:last-child:nth-child(odd) { grid-column: 1 / -1; border-right: 0; }
     .component .recipe-stage { margin-bottom: 14px; }
     .component .timing { margin-top: 0; font-size: 9px; letter-spacing: .04em; }
@@ -415,18 +415,17 @@
   <div class="wrap">
     <header class="masthead">
       <div class="brand"><span class="brand-square" aria-hidden="true"></span><strong>mikelon</strong><span class="brand-slash">/</span><span class="brand-description">design system</span></div>
-      <div class="masthead-right"><span class="edition">Personal identity · working edition</span><button class="theme-button" id="theme-toggle" type="button" aria-pressed="true"><span class="theme-icon" aria-hidden="true"></span><span id="theme-label">Light view</span></button></div>
+      <div class="masthead-right"><button class="theme-button" id="theme-toggle" type="button" aria-pressed="true"><span class="theme-icon" aria-hidden="true"></span><span id="theme-label">Light view</span></button></div>
     </header>
     <section class="hero" aria-labelledby="page-title">
       <div>
         <p class="kicker">Miguel Cordero Collar / A visual field guide</p>
         <h1 id="page-title">Small details.<br>Distinct character.</h1>
-        <p class="hero-copy">A working kit for the things I make.<br>Type, colour, useful components, and a little room to play.</p>
+        <p class="hero-copy">A working kit for the things I make.</p>
         <div class="install" role="group" aria-label="Install the skill"><code class="install-command" id="install-command"><span class="install-prompt" aria-hidden="true">$</span>npx skills add miguelcorderocollar/miguel-personal-style --skill miguel-personal-style</code><button class="install-copy" id="copy-install" type="button"><span id="copy-install-label" data-mcc-feedback-label>Copy</span></button></div>
-        <p class="install-note">Installs the skill for your agent. Prefer files? <a href="#start" data-start>Copy the stylesheets</a>.</p>
       </div>
-      <figure class="hero-art" aria-label="A slowly turning halftone globe with orange wedges drifting the other way">
-        <span class="art-index">FIG. 01 / DOT STUDY</span><canvas id="hero-sphere" aria-hidden="true"></canvas><figcaption class="art-caption">A turning globe. Orange drifting the other way.</figcaption>
+      <figure class="hero-art" aria-label="A slowly turning dotted globe with orange wedges. Drag to spin it.">
+        <canvas id="hero-sphere" aria-hidden="true"></canvas>
       </figure>
     </section>
   </div>
@@ -444,21 +443,21 @@
     <section class="panel" id="basics" role="tabpanel" aria-labelledby="tab-basics" tabindex="0">
       <div class="section-head"><div><p class="kicker">The foundations</p><h2>Mostly neutral. Deliberately orange.</h2></div><button class="text-button" type="button" id="copy-palette"><span id="copy-palette-label" data-mcc-feedback-label>Copy this palette</span> <span aria-hidden="true">↗</span></button></div>
       <div class="palette" id="palette" aria-label="Theme colours. Click a swatch to copy its value."></div>
-      <p class="footnote"><span class="inline-dot" aria-hidden="true"></span>Orange is a marker, a selection, a point of focus. Click any colour to copy its value.</p>
+      
       <section class="section" aria-labelledby="type-heading">
-        <div class="section-head"><div><p class="kicker">Typography</p><h2 id="type-heading">One family. Enough range.</h2></div><p>JetBrains Mono in 500, 600 and 800.<br>Hierarchy comes from weight, scale and space.</p></div>
+        <div class="section-head"><div><p class="kicker">Typography</p><h2 id="type-heading">One family. Enough range.</h2></div></div>
         <div class="type-board">
           <div class="type-main"><h3>JetBrains Mono</h3><div class="type-controls" role="group" aria-label="Specimen font weight"><button class="weight-button" type="button" data-weight="500" aria-pressed="false">Medium 500</button><button class="weight-button" type="button" data-weight="600" aria-pressed="false">SemiBold 600</button><button class="weight-button" type="button" data-weight="800" aria-pressed="true">ExtraBold 800</button></div><p class="type-preview" id="type-preview" style="font-weight:800">A curious eye.<br>A clear point of view.</p><label class="label" for="specimen-input">Try your own words</label><input id="specimen-input" class="specimen-edit" type="text" placeholder="Write something worth keeping." maxlength="100" autocomplete="off"></div>
           <div class="type-sizes"><div class="type-row"><p class="type-example">Aa 0123</p><p class="type-label">Display / ExtraBold / tight spacing</p></div><div class="type-row"><p class="type-example">A useful heading.</p><p class="type-label">Heading / SemiBold</p></div><div class="type-row"><p class="type-example">Keep a little context around the idea.</p><p class="type-label">Body / Medium / natural spacing</p></div><div class="type-row"><p class="type-example">Notes / Observations / 01</p><p class="type-label">Metadata / tabular numbers</p></div></div>
         </div>
       </section>
       <section class="section" aria-labelledby="theme-heading">
-        <div class="section-head"><div><p class="kicker">Two treatments</p><h2 id="theme-heading">The same voice, in different light.</h2></div><p>Black is the default. White is an occasional change of pace. The orange changes with the paper.</p></div>
+        <div class="section-head"><div><p class="kicker">Two treatments</p><h2 id="theme-heading">The same voice, in different light.</h2></div></div>
         <div class="theme-pair"><article class="theme-sample dark"><span class="sample-tag">BLACK / THE EVERYDAY DEFAULT</span><span class="sample-corner" aria-hidden="true">↗</span><h3>Make room<br>for a thought.</h3><p>#000000 / #D3D3D3 / #FF8561</p></article><article class="theme-sample"><span class="sample-tag">WHITE / OCCASIONAL CONTRAST</span><span class="sample-corner" aria-hidden="true">↗</span><h3>Keep a<br>curious eye.</h3><p>#FFFFFF / #000000 / #E8512A</p></article></div>
-        <p class="footnote">For small text on white, pair black type with an orange marker. Save the orange itself for larger type and graphics.</p>
+        
       </section>
       <section class="section" aria-labelledby="principles-heading">
-        <div class="section-head"><div><p class="kicker">Principles</p><h2 id="principles-heading">What to keep. What to leave out.</h2></div><p>The tokens are only half of it.<br>These are the judgements that keep the identity recognisable.</p></div>
+        <div class="section-head"><div><p class="kicker">Principles</p><h2 id="principles-heading">What to keep. What to leave out.</h2></div></div>
         <div class="principles">
           <div class="principle-list"><h3 class="principle-title keep">Keep</h3><ol>
             <li><strong>Black paper first.</strong><span>White is an occasional pause, not a second default.</span></li>
@@ -478,10 +477,10 @@
       </section>
       <section class="section" aria-labelledby="structure-heading">
         <div class="section-head"><div><p class="kicker">Structure</p><h2 id="structure-heading">A page with a clear rhythm.</h2></div></div>
-        <div class="rules-board"><div><div class="rule-visual"><span></span></div><h3>A rule, not a shadow.</h3><p>2px for structure and major edges.<br>1px inside components and tables.</p></div><div><div class="rule-visual double"><span></span></div><h3>A little editorial weight.</h3><p>A double rule for a major division.<br>Use it rarely.</p></div><div><div class="spacing-visual" aria-hidden="true"><span style="height:13px"></span><span style="height:26px"></span><span style="height:39px"></span><span style="height:52px"></span></div><h3>Space follows the type.</h3><p>A 1.2rem vertical rhythm.<br>Gutters and widths in characters.</p></div></div>
+        <div class="rules-board"><div><div class="rule-visual"><span></span></div><h3>A rule, not a shadow.</h3><p>2px for structure, 1px inside.</p></div><div><div class="rule-visual double"><span></span></div><h3>A little editorial weight.</h3><p>For a major division only.</p></div><div><div class="spacing-visual" aria-hidden="true"><span style="height:13px"></span><span style="height:26px"></span><span style="height:39px"></span><span style="height:52px"></span></div><h3>Space follows the type.</h3><p>1.2rem rhythm, widths in characters.</p></div></div>
       </section>
       <section class="section" id="start" aria-labelledby="start-heading">
-        <div class="section-head"><div><p class="kicker">Start here</p><h2 id="start-heading">Start with two stylesheets.</h2></div><p>Install the skill for an agent, or copy the assets folder into a project. Black is the default; add <code>mcc-light</code> only for a deliberate white page.</p></div>
+        <div class="section-head"><div><p class="kicker">Start here</p><h2 id="start-heading">Start with two stylesheets.</h2></div></div>
         <div class="start-grid">
           <article class="start-card"><p class="start-step">01 / With an agent</p><pre class="code" id="start-install">npx skills add miguelcorderocollar/miguel-personal-style --skill miguel-personal-style</pre><button class="text-button" type="button" data-copy-code="start-install"><span data-mcc-feedback-label>Copy command</span> <span aria-hidden="true">↗</span></button></article>
           <article class="start-card"><p class="start-step">02 / In a page</p><pre class="code" id="start-html">&lt;link rel="stylesheet" href="assets/personal-style.css"&gt;
@@ -492,53 +491,53 @@
       </section>
     </section>
     <section class="panel" id="components" role="tabpanel" aria-labelledby="tab-components" tabindex="0" hidden>
-      <div class="section-head"><div><p class="kicker">Components</p><h2>A small, useful toolkit.</h2></div><p>Every control works. A class tag means the part ships in <code>components.css</code>, a function tag means it comes from <code>motion.js</code>, and “Page pattern” means its styles live in this page.</p></div>
+      <div class="section-head"><div><p class="kicker">Components</p><h2>A small, useful toolkit.</h2></div><p class="legend">Tags name what ships: a class from <code>components.css</code> or a function from <code>motion.js</code>.</p></div>
 <nav class="group-nav" aria-label="Component groups"><a href="#group-actions" data-jump="group-actions">Actions & input</a><a href="#group-browse" data-jump="group-browse">Browse & data</a><a href="#group-reading" data-jump="group-reading">Reading & content</a><a href="#group-feedback" data-jump="group-feedback">Feedback & waiting</a><a href="#group-overlays" data-jump="group-overlays">Context & safeguards</a></nav>
       <section class="component-group" id="group-actions" aria-labelledby="group-actions-heading">
-        <div class="group-head"><h3 id="group-actions-heading">Actions & input</h3><p>Ways to act and to enter something.</p></div>
+        <div class="group-head"><h3 id="group-actions-heading">Actions & input</h3></div>
         <div class="component-grid">
-        <section class="component"><div class="component-title"><h3><span class="component-index">01</span>Buttons & actions</h3><span class="kit-tag">Page pattern</span></div><div class="button-row"><button class="btn" type="button" data-notice="Changes saved in this demo.">Save changes <span aria-hidden="true">↗</span></button><button class="btn btn-outline" type="button" data-notice="Secondary action selected.">Secondary</button></div><div class="button-row"><button class="btn btn-accent" type="button" data-notice="Orange marks the action.">An orange detail <span aria-hidden="true">→</span></button><button class="btn btn-outline" type="button" disabled>Unavailable</button></div><p class="footnote">Hard edges. A visible focus ring. An accent with a job.</p></section>
-        <section class="component"><div class="component-title"><h3><span class="component-index">02</span>Fields & feedback</h3><span class="kit-tag">Page pattern</span></div><form id="demo-form" class="demo-form"><div class="field-grid"><div><label class="label" for="collection-name">Collection name</label><input class="input" id="collection-name" name="collection" value="Things worth a closer look" maxlength="80" required></div><div><label class="label" for="collection-kind">Kind</label><select class="input" id="collection-kind" name="kind"><option>Ideas</option><option>Tools</option><option>Notes</option></select></div></div><div class="field-label-row"><label class="label" for="collection-note">Short note</label><span class="char-count" id="note-count" aria-live="off">0 / 140</span></div><textarea class="input textarea" id="collection-note" name="note" rows="3" maxlength="140" placeholder="Why is this worth coming back to?"></textarea><div class="form-actions"><label class="check"><input type="checkbox" checked name="include-context">Include the note with each item</label><button class="btn btn-outline" type="submit">Save collection <span aria-hidden="true">↗</span></button></div><p class="footnote" id="form-feedback" aria-live="polite">Demo only. Try renaming this collection.</p></form></section>
+        <section class="component"><div class="component-title"><h3><span class="component-index">01</span>Buttons & actions</h3><span class="kit-tag">Page pattern</span></div><div class="button-row"><button class="btn" type="button" data-notice="Changes saved in this demo.">Save changes <span aria-hidden="true">↗</span></button><button class="btn btn-outline" type="button" data-notice="Secondary action selected.">Secondary</button></div><div class="button-row"><button class="btn btn-accent" type="button" data-notice="Orange marks the action.">An orange detail <span aria-hidden="true">→</span></button><button class="btn btn-outline" type="button" disabled>Unavailable</button></div></section>
+        <section class="component"><div class="component-title"><h3><span class="component-index">02</span>Fields & feedback</h3><span class="kit-tag">Page pattern</span></div><form id="demo-form" class="demo-form"><div class="field-grid"><div><label class="label" for="collection-name">Collection name</label><input class="input" id="collection-name" name="collection" value="Things worth a closer look" maxlength="80" required></div><div><label class="label" for="collection-kind">Kind</label><select class="input" id="collection-kind" name="kind"><option>Ideas</option><option>Tools</option><option>Notes</option></select></div></div><div class="field-label-row"><label class="label" for="collection-note">Short note</label><span class="char-count" id="note-count" aria-live="off">0 / 140</span></div><textarea class="input textarea" id="collection-note" name="note" rows="3" maxlength="140" placeholder="Why is this worth coming back to?"></textarea><div class="form-actions"><label class="check"><input type="checkbox" checked name="include-context">Include the note with each item</label><button class="btn btn-outline" type="submit">Save collection <span aria-hidden="true">↗</span></button></div><p class="footnote" id="form-feedback" aria-live="polite">Demo only.</p></form></section>
         <section class="component"><div class="component-title"><h3><span class="component-index">03</span>Selection & settings</h3><span class="kit-tag">Page pattern</span></div><label class="switch-row"><span>Show supporting context</span><span class="switch"><input type="checkbox" role="switch" id="context-switch" checked><span class="switch-track" aria-hidden="true"></span></span></label><label class="switch-row"><span>Use compact spacing</span><span class="switch"><input type="checkbox" role="switch" id="compact-switch"><span class="switch-track" aria-hidden="true"></span></span></label><p class="footnote" id="switch-feedback" aria-live="polite">Supporting context is visible. Standard spacing.</p></section>
-        <section class="component"><div class="component-title"><h3><span class="component-index">04</span>Dialog & toast</h3><span class="kit-tag kit"><code>bindDialog</code><code>bindToast</code></span></div><div class="recipe-stage overlay-stage" aria-hidden="true"><div class="overlay-dialog"><i></i><i></i><b></b></div><div class="overlay-toast"></div></div><div class="button-row"><button class="btn btn-outline btn-small" type="button" id="open-dialog">Open a dialog <span aria-hidden="true">↗</span></button><button class="btn btn-outline btn-small" type="button" data-notice="Saved. A toast confirms from the same edge every time.">Show a toast <span aria-hidden="true">↘</span></button></div><p class="footnote">A native dialog keeps focus and Escape. A single toast confirms routine actions and pauses while hovered.</p></section>
+        <section class="component"><div class="component-title"><h3><span class="component-index">04</span>Dialog & toast</h3><span class="kit-tag kit"><code>bindDialog</code><code>bindToast</code></span></div><div class="recipe-stage overlay-stage" aria-hidden="true"><div class="overlay-dialog"><i></i><i></i><b></b></div><div class="overlay-toast"></div></div><div class="button-row"><button class="btn btn-outline btn-small" type="button" id="open-dialog">Open a dialog <span aria-hidden="true">↗</span></button><button class="btn btn-outline btn-small" type="button" data-notice="Saved. A toast confirms from the same edge every time.">Show a toast <span aria-hidden="true">↘</span></button></div></section>
         </div>
       </section>
       <section class="component-group" id="group-browse" aria-labelledby="group-browse-heading">
-        <div class="group-head"><h3 id="group-browse-heading">Browse & data</h3><p>Finding, comparing and moving through a collection.</p></div>
+        <div class="group-head"><h3 id="group-browse-heading">Browse & data</h3></div>
         <div class="component-grid">
         <section class="component"><div class="component-title"><h3><span class="component-index">05</span>Filters & collection rows</h3><span class="kit-tag">Page pattern</span></div><div class="filter-row" role="group" aria-label="Filter example collection"><button class="filter" data-filter="all" aria-pressed="true" type="button">All</button><button class="filter" data-filter="idea" aria-pressed="false" type="button">Ideas</button><button class="filter" data-filter="tool" aria-pressed="false" type="button">Tools</button><button class="filter" data-filter="note" aria-pressed="false" type="button">Notes</button></div><div id="collection-rows"><article class="collection-row" data-category="idea"><span class="index">01</span><div><h4>Start with a better question</h4><p>An idea to come back to.</p></div><span class="collection-arrow" aria-hidden="true">↗</span></article><article class="collection-row" data-category="tool"><span class="index">02</span><div><h4>A smaller, calmer toolkit</h4><p>A useful tool, with a clear purpose.</p></div><span class="collection-arrow" aria-hidden="true">↗</span></article><article class="collection-row" data-category="note"><span class="index">03</span><div><h4>Leave room for the unexpected</h4><p>A note from the margins.</p></div><span class="collection-arrow" aria-hidden="true">↗</span></article></div><p class="collection-count" id="collection-count" aria-live="polite">3 example entries</p></section>
-        <section class="component"><div class="component-title"><h3><span class="component-index">06</span>Data table</h3><span class="kit-tag">Page pattern</span></div><div class="table-wrap"><table class="data-table" id="data-table"><caption class="sr-only">Illustrative reading log. Sort by any column.</caption><thead><tr><th scope="col" aria-sort="none"><button type="button" data-sort="week">Week</button></th><th scope="col" aria-sort="none"><button type="button" data-sort="topic">Topic</button></th><th scope="col" class="num" aria-sort="descending"><button type="button" data-sort="notes">Notes</button></th><th scope="col" class="num" aria-sort="none"><button type="button" data-sort="change">Change</button></th></tr></thead><tbody></tbody></table></div><p class="footnote">Illustrative values. Tabular figures align; one row is marked as the current week.</p></section>
-        <section class="component"><div class="component-title"><h3><span class="component-index">07</span>Charts & signals</h3><span class="kit-tag">Page pattern</span></div><p class="kicker">One series in focus</p><svg class="chart" viewBox="0 0 480 155" role="img" aria-label="Illustrative line chart showing a gradually rising orange series. These are demonstration values, not measured data."><g stroke="var(--rule)" stroke-width="1"><path d="M0 24H480M0 66H480M0 108H480"/></g><path d="M0 148H480" fill="none" stroke="var(--ink)"/><g class="chart-axis" fill="var(--muted)" font-size="9"><text x="0" y="19">75</text><text x="0" y="61">50</text><text x="0" y="103">25</text><text x="0" y="143">0</text></g><path d="M22 130L48 118L90 123L132 92L174 100L216 73L258 79L300 48L342 59L384 29L426 37L470 10" fill="none" stroke="var(--accent)" stroke-width="2.5"/><circle cx="470" cy="10" r="4" fill="var(--accent)"/></svg><div class="chart-caption"><span class="chart-key">Illustrative series</span><span>Earlier → later</span></div><p class="footnote">Demonstration values. Actual charts need their data and source.</p></section>
+        <section class="component"><div class="component-title"><h3><span class="component-index">06</span>Data table</h3><span class="kit-tag">Page pattern</span></div><div class="table-wrap"><table class="data-table" id="data-table"><caption class="sr-only">Illustrative reading log. Sort by any column.</caption><thead><tr><th scope="col" aria-sort="none"><button type="button" data-sort="week">Week</button></th><th scope="col" aria-sort="none"><button type="button" data-sort="topic">Topic</button></th><th scope="col" class="num" aria-sort="descending"><button type="button" data-sort="notes">Notes</button></th><th scope="col" class="num" aria-sort="none"><button type="button" data-sort="change">Change</button></th></tr></thead><tbody></tbody></table></div><p class="footnote">Illustrative values.</p></section>
+        <section class="component"><div class="component-title"><h3><span class="component-index">07</span>Charts & signals</h3><span class="kit-tag">Page pattern</span></div><p class="kicker">One series in focus</p><svg class="chart" viewBox="0 0 480 155" role="img" aria-label="Illustrative line chart showing a gradually rising orange series. These are demonstration values, not measured data."><g stroke="var(--rule)" stroke-width="1"><path d="M0 24H480M0 66H480M0 108H480"/></g><path d="M0 148H480" fill="none" stroke="var(--ink)"/><g class="chart-axis" fill="var(--muted)" font-size="9"><text x="0" y="19">75</text><text x="0" y="61">50</text><text x="0" y="103">25</text><text x="0" y="143">0</text></g><path d="M22 130L48 118L90 123L132 92L174 100L216 73L258 79L300 48L342 59L384 29L426 37L470 10" fill="none" stroke="var(--accent)" stroke-width="2.5"/><circle cx="470" cy="10" r="4" fill="var(--accent)"/></svg><div class="chart-caption"><span class="chart-key">Illustrative series</span><span>Earlier → later</span></div><p class="footnote">Illustrative values.</p></section>
         <section class="component"><div class="component-title"><h3><span class="component-index">08</span>Pagination</h3><span class="kit-tag kit"><code>.mcc-pagination</code></span></div>
           <div class="page-results" id="page-results"></div><nav class="mcc-pagination" aria-label="Example collection pages"><button type="button" id="previous-page" aria-label="Previous page" disabled>←</button><button type="button" data-example-page="1" aria-label="Page 1" aria-current="page">01</button><button type="button" data-example-page="2" aria-label="Page 2">02</button><button type="button" data-example-page="3" aria-label="Page 3">03</button><button type="button" id="next-page" aria-label="Next page">→</button></nav><p class="footnote" id="page-feedback" role="status"></p>
         </section>
         </div>
       </section>
       <section class="component-group" id="group-reading" aria-labelledby="group-reading-heading">
-        <div class="group-head"><h3 id="group-reading-heading">Reading & content</h3><p>Editorial pieces for longer or quieter content.</p></div>
+        <div class="group-head"><h3 id="group-reading-heading">Reading & content</h3></div>
         <div class="component-grid">
-        <section class="component"><div class="component-title"><h3><span class="component-index">09</span>Editorial card</h3><span class="kit-tag">Page pattern</span></div><article class="editorial-card"><p class="kicker">A personal note</p><h3>Some things deserve a closer look.</h3><p>COLLECT / QUESTION / COME BACK TO IT</p></article><p class="component-demo-label">Sample editorial copy.</p></section>
-        <section class="component"><div class="component-title"><h3><span class="component-index">10</span>Pull quote</h3><span class="kit-tag">Page pattern</span></div><figure class="pull-quote"><blockquote><p>Put the real quotation here. Give it room, and give it a source.</p></blockquote><figcaption><span class="quote-name">Speaker name</span><span class="quote-source">Source title / Year</span></figcaption></figure><p class="component-demo-label">Placeholder text. A quotation needs its real words and attribution; never invent one.</p></section>
+        <section class="component"><div class="component-title"><h3><span class="component-index">09</span>Editorial card</h3><span class="kit-tag">Page pattern</span></div><article class="editorial-card"><p class="kicker">A personal note</p><h3>Some things deserve a closer look.</h3><p>COLLECT / QUESTION / COME BACK TO IT</p></article><p class="component-demo-label">Sample copy.</p></section>
+        <section class="component"><div class="component-title"><h3><span class="component-index">10</span>Pull quote</h3><span class="kit-tag">Page pattern</span></div><figure class="pull-quote"><blockquote><p>Put the real quotation here. Give it room, and give it a source.</p></blockquote><figcaption><span class="quote-name">Speaker name</span><span class="quote-source">Source title / Year</span></figcaption></figure><p class="component-demo-label">Placeholder. Use a real, attributed quote.</p></section>
         <section class="component"><div class="component-title"><h3><span class="component-index">11</span>Disclosure & reading</h3><span class="kit-tag">Page pattern</span></div><details><summary>When should the orange appear?</summary><p>Use it to identify the selected item, a chart point or a short annotation. A little space around the accent gives it more presence.</p></details><details><summary>How does the image treatment work?</summary><p>The site's photos use monochrome halftone dots on a fixed grid. Text and charts stay crisp. The dot sphere in this showcase is an original procedural study.</p></details></section>
         </div>
       </section>
       <section class="component-group" id="group-feedback" aria-labelledby="group-feedback-heading">
-        <div class="group-head"><h3 id="group-feedback-heading">Feedback & waiting</h3><p>States, progress and the first moment of an empty collection.</p></div>
+        <div class="group-head"><h3 id="group-feedback-heading">Feedback & waiting</h3></div>
         <div class="component-grid">
         <section class="component" id="pixel-loaders"><div class="component-title"><h3><span class="component-index">12</span>Pixel loaders</h3><span class="kit-tag kit"><code>.mcc-loader</code></span></div>
           <div class="loader-gallery"><div class="loader-stage"><span class="mcc-loader mcc-loader--large" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="micro">Square chase</span></div><div class="loader-stage"><span class="mcc-loader mcc-loader--steps mcc-loader--large" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="micro">Pixel steps</span></div></div>
-          <div class="loading-demo"><button class="btn" id="loading-action" type="button"><span id="loading-indicator" hidden><span class="mcc-loader mcc-loader--small" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></span><span id="loading-label">Try a loading action</span></button><p class="footnote" id="loading-feedback" role="status">A short demo. No files are sent.</p></div>
-          <p class="footnote">Orange pixels carry the motion. Reduced-motion settings keep the marks still.</p>
+          <div class="loading-demo"><button class="btn" id="loading-action" type="button"><span id="loading-indicator" hidden><span class="mcc-loader mcc-loader--small" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></span><span id="loading-label">Try a loading action</span></button><p class="footnote" id="loading-feedback" role="status">Demo only.</p></div>
+          
         </section>
         <section class="component"><div class="component-title"><h3><span class="component-index">13</span>Progress & placeholders</h3><span class="kit-tag kit"><code>.mcc-progress</code><code>.mcc-skeleton</code></span></div>
           <div class="progress-meta"><label for="example-progress">Preparing example items</label><span id="progress-label">0 / 8</span></div><progress class="mcc-progress" id="example-progress" max="8" value="0">0 of 8</progress>
-          <div class="button-row"><button class="btn btn-outline btn-small" id="progress-action" type="button">Run progress demo →</button></div><p class="footnote" id="progress-feedback" role="status">Illustrative progress. Ready to start.</p>
-          <div class="skeleton-row" role="img" aria-label="Static example of a loading placeholder"><div class="mcc-skeleton" style="height:42px" aria-hidden="true"></div><div class="skeleton-copy" aria-hidden="true"><div class="mcc-skeleton"></div><div class="mcc-skeleton"></div></div></div><p class="footnote">Keep the layout in place while content loads.</p>
+          <div class="button-row"><button class="btn btn-outline btn-small" id="progress-action" type="button">Run progress demo →</button></div><p class="footnote" id="progress-feedback" role="status">Ready.</p>
+          <div class="skeleton-row" role="img" aria-label="Static example of a loading placeholder"><div class="mcc-skeleton" style="height:42px" aria-hidden="true"></div><div class="skeleton-copy" aria-hidden="true"><div class="mcc-skeleton"></div><div class="mcc-skeleton"></div></div></div>
         </section>
         <section class="component"><div class="component-title"><h3><span class="component-index">14</span>Status & notices</h3><span class="kit-tag kit"><code>.mcc-badge</code><code>.mcc-notice</code></span></div>
           <div class="button-row"><span class="mcc-badge">Draft</span><span class="mcc-badge mcc-badge--active">In progress</span><span class="mcc-badge mcc-badge--done">Saved</span></div>
           <div id="notice-slot" style="margin-top:24px"><div class="mcc-notice" id="inline-notice"><div><strong>A local preview</strong><p>Your changes appear in this example only.</p></div><button type="button" id="dismiss-notice" aria-label="Dismiss preview notice">×</button></div><button class="text-button" id="restore-notice" type="button" hidden>Show notice again</button></div>
-          <p class="footnote">Text names the state; the marker adds emphasis.</p>
+          
         </section>
         <section class="component"><div class="component-title"><h3><span class="component-index">15</span>Empty state</h3><span class="kit-tag kit"><code>.mcc-empty</code></span></div>
           <div id="empty-slot"><div class="mcc-empty" id="empty-state"><span class="mcc-empty-mark" aria-hidden="true"></span><h4>Room for a first thought.</h4><p>Collect an idea you want to come back to.</p><button type="button" class="btn btn-outline btn-small" id="add-example">Add an example +</button></div>
@@ -547,56 +546,53 @@
         </div>
       </section>
       <section class="component-group" id="group-overlays" aria-labelledby="group-overlays-heading">
-        <div class="group-head"><h3 id="group-overlays-heading">Context & safeguards</h3><p>Supporting surfaces and actions that should be reversible or deliberate.</p></div>
+        <div class="group-head"><h3 id="group-overlays-heading">Context & safeguards</h3></div>
         <div class="component-grid">
-        <section class="component"><div class="component-title"><h3><span class="component-index">16</span>Popover</h3><span class="kit-tag kit"><code>bindPopover</code></span></div><div class="recipe-stage"><div class="recipe-mini" id="recipe-popover-preview"><span class="recipe-mini-mark" aria-hidden="true"></span><div><strong>A little context.</strong><p>Options stay near the thing they change.</p></div></div></div><p class="footnote timing">200ms / scale .95</p><p class="footnote">An anchored popover with native outside-click dismissal and Escape.</p><button class="btn btn-outline btn-small" type="button" id="open-recipe-popover" popovertarget="recipe-popover">Open card options <span aria-hidden="true">↗</span></button></section>
-        <section class="component"><div class="component-title"><h3><span class="component-index">17</span>Side panel</h3><span class="kit-tag kit"><code>bindDialog</code></span></div><div class="recipe-stage"><div class="recipe-panel-map" aria-hidden="true"><div><i></i><i></i><i></i></div><aside></aside></div></div><p class="footnote timing">280ms in / 200ms out</p><p class="footnote">A native dialog brings supporting context in from the right and returns focus on close.</p><button class="btn btn-outline btn-small" type="button" id="open-recipe-sheet">Open the side panel <span aria-hidden="true">→</span></button></section>
-        <section class="component"><div class="component-title"><h3><span class="component-index">18</span>Removal with undo</h3><span class="kit-tag kit"><code>bindPresence</code></span></div><div class="recipe-stage recipe-presence-stage"><p class="recipe-removed" id="recipe-removed" hidden>Room for another thought.</p><div class="recipe-mini" id="recipe-presence-item"><span class="recipe-mini-mark" aria-hidden="true"></span><div><strong>Keep the useful details.</strong><p>An example item, ready to remove or restore.</p></div></div></div><p class="footnote timing">160ms out / 180ms in</p><p class="footnote" id="recipe-presence-status" role="status">One sample item. Removal is reversible.</p><button class="btn btn-outline btn-small" type="button" id="toggle-recipe-presence"><span id="recipe-presence-label">Remove this example</span> <span aria-hidden="true">↗</span></button></section>
-        <section class="component"><div class="component-title"><h3><span class="component-index">19</span>Hold to confirm</h3><span class="kit-tag kit"><code>bindHold</code></span></div><div class="recipe-stage recipe-hold-stage"><span class="mcc-badge" id="recipe-hold-state">Example is safe</span><p id="recipe-hold-status" role="status">A quick click changes nothing.</p></div><p class="footnote timing">2s hold / 200ms cancel</p><p class="footnote" id="recipe-hold-help">Hold for two seconds to clear this demo. Release or move away to cancel. Keyboard opens confirmation.</p><div class="button-row"><button class="btn btn-outline btn-small" type="button" id="recipe-hold" aria-describedby="recipe-hold-help"><span class="hold-idle">Hold to clear example</span><span class="hold-active">Keep holding…</span></button><button class="text-button" type="button" id="reset-recipe-hold" hidden>Reset example</button></div></section>
+        <section class="component"><div class="component-title"><h3><span class="component-index">16</span>Popover</h3><span class="kit-tag kit"><code>bindPopover</code></span></div><div class="recipe-stage"><div class="recipe-mini" id="recipe-popover-preview"><span class="recipe-mini-mark" aria-hidden="true"></span><div><strong>A little context.</strong><p>Options stay near the thing they change.</p></div></div></div><p class="footnote timing">200ms / scale .95</p><button class="btn btn-outline btn-small" type="button" id="open-recipe-popover" popovertarget="recipe-popover">Open card options <span aria-hidden="true">↗</span></button></section>
+        <section class="component"><div class="component-title"><h3><span class="component-index">17</span>Side panel</h3><span class="kit-tag kit"><code>bindDialog</code></span></div><div class="recipe-stage"><div class="recipe-panel-map" aria-hidden="true"><div><i></i><i></i><i></i></div><aside></aside></div></div><p class="footnote timing">280ms in / 200ms out</p><button class="btn btn-outline btn-small" type="button" id="open-recipe-sheet">Open the side panel <span aria-hidden="true">→</span></button></section>
+        <section class="component"><div class="component-title"><h3><span class="component-index">18</span>Removal with undo</h3><span class="kit-tag kit"><code>bindPresence</code></span></div><div class="recipe-stage recipe-presence-stage"><p class="recipe-removed" id="recipe-removed" hidden>Room for another thought.</p><div class="recipe-mini" id="recipe-presence-item"><span class="recipe-mini-mark" aria-hidden="true"></span><div><strong>Keep the useful details.</strong><p>An example item, ready to remove or restore.</p></div></div></div><p class="footnote timing">160ms out / 180ms in</p><p class="footnote" id="recipe-presence-status" role="status">Removal can be undone.</p><button class="btn btn-outline btn-small" type="button" id="toggle-recipe-presence"><span id="recipe-presence-label">Remove this example</span> <span aria-hidden="true">↗</span></button></section>
+        <section class="component"><div class="component-title"><h3><span class="component-index">19</span>Hold to confirm</h3><span class="kit-tag kit"><code>bindHold</code></span></div><div class="recipe-stage recipe-hold-stage"><span class="mcc-badge" id="recipe-hold-state">Example is safe</span><p id="recipe-hold-status" role="status">A quick click changes nothing.</p></div><p class="footnote timing">2s hold / 200ms cancel</p><p class="footnote" id="recipe-hold-help">Hold for two seconds. Keyboard opens a confirmation.</p><div class="button-row"><button class="btn btn-outline btn-small" type="button" id="recipe-hold" aria-describedby="recipe-hold-help"><span class="hold-idle">Hold to clear example</span><span class="hold-active">Keep holding…</span></button><button class="text-button" type="button" id="reset-recipe-hold" hidden>Reset example</button></div></section>
         </div>
       </section>
     </section>
     <section class="panel" id="assets" role="tabpanel" aria-labelledby="tab-assets" tabindex="0" hidden>
-      <div class="section-head"><div><p class="kicker">Graphics</p><h2>More dots. More things to try.</h2></div><p>Original vector studies for covers, slides, backgrounds and the margins of a page. Take a piece, change it, see where it belongs.</p></div>
+      <div class="section-head"><div><p class="kicker">Graphics</p><h2>More dots. More things to try.</h2></div></div>
       <div class="asset-toolbar"><div class="asset-filters" role="group" aria-label="Filter visual explorations"><button class="filter" type="button" data-family="all" aria-pressed="true">Everything <span class="filter-count" data-count="all"></span></button><button class="filter" type="button" data-family="halftone" aria-pressed="false">Halftone <span class="filter-count" data-count="halftone"></span></button><button class="filter" type="button" data-family="marks" aria-pressed="false">Marks & shapes <span class="filter-count" data-count="marks"></span></button><button class="filter" type="button" data-family="textures" aria-pressed="false">Textures <span class="filter-count" data-count="textures"></span></button><button class="filter" type="button" data-family="core" aria-pressed="false">Core <span class="filter-count" data-count="core"></span></button></div><a class="text-button" href="#halftone-lab" data-jump="halftone-lab">Play with the halftones ↗</a></div>
-      <div class="gallery-summary"><p id="gallery-count" role="status"></p><p>SVGs have transparent backgrounds, except the original extension mark.</p></div>
+      <div class="gallery-summary"><p id="gallery-count" role="status"></p></div>
       <div class="asset-grid" id="asset-grid"></div>
       <section class="section" id="halftone-lab" aria-labelledby="lab-heading">
-        <div class="section-head"><div><p class="kicker">Halftone playground</p><h2 id="lab-heading">Dots can do more.</h2></div><p>A sphere, a wave, a soft edge. Change the form, dot shape and colour, then export a piece of your own.</p></div>
-        <div class="studio"><div class="halftone-canvas"><p class="kicker lab-label">Live study / vector halftone</p><span class="lab-corner" aria-hidden="true"></span><div id="lab-art"></div><p class="lab-coordinate" id="lab-coordinate">SPHERE / CIRCLES / 7PX GRID</p></div><div class="studio-controls lab-controls"><h3>A few ways to change it.</h3><label class="control"><span class="control-top">Form</span><select class="input" id="lab-form"><option value="sphere" selected>Sphere</option><option value="cube">Dot cube</option><option value="terrain">Terrain</option><option value="fade">Tonal fade</option><option value="ripple">Dot ripples</option><option value="mesh">Interference mesh</option><option value="wave">Wave band</option><option value="arrow">Dotted direction</option></select></label><label class="control"><span class="control-top">Dot shape</span><select class="input" id="lab-dot"><option value="circle">Circles</option><option value="square">Squares</option><option value="cross">Crosses</option><option value="dash">Short lines</option></select></label><label class="control"><span class="control-top">Colour</span><select class="input" id="lab-ink"><option value="ink">Neutral ink</option><option value="orange">Orange</option><option value="duo">Ink + orange detail</option></select></label><label class="control"><span class="control-top">Dot spacing <output for="lab-spacing" id="lab-spacing-output">7px</output></span><input type="range" id="lab-spacing" min="4" max="12" step="1" value="7"></label><label class="control"><span class="control-top">Contrast <output for="lab-contrast" id="lab-contrast-output">100%</output></span><input type="range" id="lab-contrast" min="50" max="180" step="10" value="100"></label><label class="check"><input type="checkbox" id="lab-paper">Include the paper background</label><button class="btn" id="download-halftone" type="button">Download SVG <span aria-hidden="true">↓</span></button><button class="btn btn-outline" id="download-halftone-png" type="button">Download PNG <span aria-hidden="true">↓</span></button><p class="footnote">Transparent by default. PNGs export at 1600 × 1100. These are graphic studies; the photo shader keeps its own recipe.</p></div></div>
+        <div class="section-head"><div><p class="kicker">Halftone playground</p><h2 id="lab-heading">Dots can do more.</h2></div></div>
+        <div class="studio"><div class="halftone-canvas"><span class="lab-corner" aria-hidden="true"></span><div id="lab-art"></div><p class="lab-coordinate" id="lab-coordinate">SPHERE / CIRCLES / 7PX GRID</p></div><div class="studio-controls lab-controls"><label class="control"><span class="control-top">Form</span><select class="input" id="lab-form"><option value="sphere" selected>Sphere</option><option value="cube">Dot cube</option><option value="terrain">Terrain</option><option value="fade">Tonal fade</option><option value="ripple">Dot ripples</option><option value="mesh">Interference mesh</option><option value="wave">Wave band</option><option value="arrow">Dotted direction</option></select></label><label class="control"><span class="control-top">Dot shape</span><select class="input" id="lab-dot"><option value="circle">Circles</option><option value="square">Squares</option><option value="cross">Crosses</option><option value="dash">Short lines</option></select></label><label class="control"><span class="control-top">Colour</span><select class="input" id="lab-ink"><option value="ink">Neutral ink</option><option value="orange">Orange</option><option value="duo">Ink + orange detail</option></select></label><label class="control"><span class="control-top">Dot spacing <output for="lab-spacing" id="lab-spacing-output">7px</output></span><input type="range" id="lab-spacing" min="4" max="12" step="1" value="7"></label><label class="control"><span class="control-top">Contrast <output for="lab-contrast" id="lab-contrast-output">100%</output></span><input type="range" id="lab-contrast" min="50" max="180" step="10" value="100"></label><label class="check"><input type="checkbox" id="lab-paper">Include the paper background</label><button class="btn" id="download-halftone" type="button">Download SVG <span aria-hidden="true">↓</span></button><button class="btn btn-outline" id="download-halftone-png" type="button">Download PNG <span aria-hidden="true">↓</span></button></div></div>
       </section>
-      <section class="section" id="background-studio" aria-labelledby="studio-heading"><div class="section-head"><div><p class="kicker">Background studio</p><h2 id="studio-heading">Try a little atmosphere.</h2></div><p>Halftone edges, fading dots, contours and quiet grids. Leave some clear paper for the words.</p></div><div class="studio"><div class="studio-canvas" id="studio-canvas"><span class="sample-tag">MIGUEL CORDERO COLLAR / PERSONAL NOTES</span><h3>A place for<br>unfinished ideas.</h3><p>A small observation. A question to follow.<br>Something worth coming back to.</p><span class="canvas-coordinate" aria-hidden="true">1200 × 720 / BACKGROUND STUDY</span></div><div class="studio-controls"><h3>Make it yours.</h3><label class="control"><span class="control-top">Pattern</span><select class="input" id="pattern-select"><optgroup label="Dots & halftones"><option value="dots">Dot field</option><option value="mist">Fading dot mist</option><option value="edge">Halftone edge</option><option value="corner" selected>Halftone corner</option><option value="wave">Dot wave</option></optgroup><optgroup label="Lines & grids"><option value="grid">Coordinate grid</option><option value="ripple">Offset ripples</option><option value="contours">Contour lines</option><option value="hatch">Diagonal hatch</option><option value="crosses">Registration crosses</option></optgroup><optgroup label="Pixels & paper"><option value="pixels">Pixel corner</option><option value="dither">Dither fade</option><option value="none">Plain paper</option></optgroup></select></label><label class="control"><span class="control-top">Colour</span><select class="input" id="background-ink"><option value="accent">Orange</option><option value="ink">Neutral ink</option></select></label><label class="control"><span class="control-top">Spacing <output for="spacing" id="spacing-output">28px</output></span><input type="range" id="spacing" min="16" max="56" step="4" value="28"></label><label class="control"><span class="control-top">Strength <output for="strength" id="strength-output">24%</output></span><input type="range" id="strength" min="4" max="36" step="2" value="24"></label><button type="button" class="btn" id="download-background">Download SVG <span aria-hidden="true">↓</span></button><button type="button" class="btn btn-outline" id="copy-background"><span id="copy-background-label" data-mcc-feedback-label>Copy background CSS</span></button><p class="footnote">Exports the background only, at 1200 × 720. Controls and sample copy stay in this page.</p></div></div></section>
+      <section class="section" id="background-studio" aria-labelledby="studio-heading"><div class="section-head"><div><p class="kicker">Background studio</p><h2 id="studio-heading">Try a little atmosphere.</h2></div></div><div class="studio"><div class="studio-canvas" id="studio-canvas"><span class="sample-tag">MIGUEL CORDERO COLLAR / PERSONAL NOTES</span><h3>A place for<br>unfinished ideas.</h3><p>A small observation. A question to follow.<br>Something worth coming back to.</p></div><div class="studio-controls"><label class="control"><span class="control-top">Pattern</span><select class="input" id="pattern-select"><optgroup label="Dots & halftones"><option value="dots">Dot field</option><option value="mist">Fading dot mist</option><option value="edge">Halftone edge</option><option value="corner" selected>Halftone corner</option><option value="wave">Dot wave</option></optgroup><optgroup label="Lines & grids"><option value="grid">Coordinate grid</option><option value="ripple">Offset ripples</option><option value="contours">Contour lines</option><option value="hatch">Diagonal hatch</option><option value="crosses">Registration crosses</option></optgroup><optgroup label="Pixels & paper"><option value="pixels">Pixel corner</option><option value="dither">Dither fade</option><option value="none">Plain paper</option></optgroup></select></label><label class="control"><span class="control-top">Colour</span><select class="input" id="background-ink"><option value="accent">Orange</option><option value="ink">Neutral ink</option></select></label><label class="control"><span class="control-top">Spacing <output for="spacing" id="spacing-output">28px</output></span><input type="range" id="spacing" min="16" max="56" step="4" value="28"></label><label class="control"><span class="control-top">Strength <output for="strength" id="strength-output">24%</output></span><input type="range" id="strength" min="4" max="36" step="2" value="24"></label><button type="button" class="btn" id="download-background">Download SVG <span aria-hidden="true">↓</span></button><button type="button" class="btn btn-outline" id="copy-background"><span id="copy-background-label" data-mcc-feedback-label>Copy background CSS</span></button></div></div></section>
     </section>
     <section class="panel" id="use" role="tabpanel" aria-labelledby="tab-use" tabindex="0" hidden>
-      <div class="section-head"><div><p class="kicker">In use</p><h2>A system that travels.</h2></div><p>Photography, covers and slides. How the type, the halftone and the orange behave outside the component grid.</p></div>
+      <div class="section-head"><div><p class="kicker">In use</p><h2>A system that travels.</h2></div></div>
       <figure class="photo-figure">
         <div class="photo-frame"><canvas id="photo-canvas" role="img" aria-label="Mountain ridge under clouds, printed as a fine monochrome halftone"></canvas><img id="photo-source" src="../references/site-mountains-halftone.png" alt="" hidden></div>
-        <figcaption><span class="photo-index">FIG. 02 / PHOTOGRAPHY</span><span>The published mountain halftone from miguelcorderocollar.com, shown at its display size. <code>image-rendering.js</code> filters it so the dots don't moiré.</span><span class="photo-meta" id="photo-meta"></span></figcaption>
+        <figcaption>Published halftone / miguelcorderocollar.com</figcaption>
       </figure>
-      <div class="photo-notes"><div><h3>One recipe for photographs.</h3><p>Fixed-grid monochrome dots from <code>shader-recipe.json</code>. Keep the same pitch across a series.</p></div><div><h3>Procedural forms are separate.</h3><p>The globe and the gallery studies are drawings, not outputs of the photo shader.</p></div><div><h3>Smaller than the master?</h3><p>Filter a display copy with <code>displayImage()</code>. Never resample the master itself.</p></div></div>
-      <section class="section" aria-labelledby="application-heading"><div class="section-head"><div><p class="kicker">Compositions</p><h2 id="application-heading">Covers, slides and notes.</h2></div><p>The same type and geometry at the sizes they ship. Black first, with one occasional white page.</p></div><div class="applications"><article class="application dark"><p class="kicker">Cover / Black default</p><h3>A few things<br>I keep an eye on.</h3><p>NOTES, PEOPLE & IDEAS ↗</p><div id="application-pixels" aria-hidden="true"></div></article><article class="application dark with-art"><p class="kicker">Slide / 16:9</p><h3>What changes<br>when we try?</h3><p>ONE QUESTION TO TAKE WITH YOU.</p><div class="application-art" id="application-sphere" aria-hidden="true"></div></article><article class="application with-art"><p class="kicker">Notebook / Occasional white</p><h3>An idea<br>taking shape.</h3><p>OBSERVATIONS IN PROGRESS.</p><div class="application-art" id="application-terrain" aria-hidden="true"></div></article><article class="application dark with-art"><p class="kicker">Chapter opener / Black</p><h3>Find a<br>new angle.</h3><p>A DIFFERENT WAY INTO THE QUESTION.</p><div class="application-art" id="application-mesh" aria-hidden="true"></div></article></div><p class="footnote">Original compositions and sample copy. The decorative motifs remain experiments.</p></section>
+      <section class="section" aria-labelledby="application-heading"><div class="section-head"><div><p class="kicker">Compositions</p><h2 id="application-heading">Covers, slides and notes.</h2></div></div><div class="applications"><article class="application dark"><p class="kicker">Cover / Black default</p><h3>A few things<br>I keep an eye on.</h3><p>NOTES, PEOPLE & IDEAS ↗</p><div id="application-pixels" aria-hidden="true"></div></article><article class="application dark with-art"><p class="kicker">Slide / 16:9</p><h3>What changes<br>when we try?</h3><p>ONE QUESTION TO TAKE WITH YOU.</p><div class="application-art" id="application-sphere" aria-hidden="true"></div></article><article class="application with-art"><p class="kicker">Notebook / Occasional white</p><h3>An idea<br>taking shape.</h3><p>OBSERVATIONS IN PROGRESS.</p><div class="application-art" id="application-terrain" aria-hidden="true"></div></article><article class="application dark with-art"><p class="kicker">Chapter opener / Black</p><h3>Find a<br>new angle.</h3><p>A DIFFERENT WAY INTO THE QUESTION.</p><div class="application-art" id="application-mesh" aria-hidden="true"></div></article></div><p class="footnote">Sample copy.</p></section>
     </section>
     <section class="panel" id="motion" role="tabpanel" aria-labelledby="tab-motion" tabindex="0" hidden>
-      <div class="section-head"><div><p class="kicker">Motion</p><h2>Motion you can put to work.</h2></div><p>Two speeds. Short moves for occasional editorial changes, and slower dot studies for covers, headers and quiet holding screens.</p></div>
       <section class="section motion-part" id="motion-recipes" aria-labelledby="recipe-heading">
-        <div class="section-head"><div><p class="kicker">01 / Editorial moves</p><h2 id="recipe-heading">Arrive once. Then hold still.</h2></div><p>An entrance for a cover and a bridge between two graphics. Interaction motion for popovers, panels, undo and hold lives with its <a href="#group-overlays" data-component-group="overlays">component</a>.</p></div>
+        <div class="section-head"><div><p class="kicker">01 / Editorial moves</p><h2 id="recipe-heading">Arrive once. Then hold still.</h2></div></div>
         <div class="recipe-grid">
-          <article class="recipe-card"><div class="recipe-head"><h3>Editorial reveal</h3><span>240ms / 45ms stagger</span></div><div class="recipe-stage" id="recipe-reveal"><p class="kicker">A personal note</p><h4>A little room<br>for a new idea.</h4><p>One entrance. Then the words stay still.</p></div><p class="footnote">A short introduction for covers and occasional editorial pages.</p><button class="btn btn-outline btn-small" type="button" id="replay-reveal">Replay entrance <span aria-hidden="true">↗</span></button></article>
-          <article class="recipe-card"><div class="recipe-head"><h3>Changing form</h3><span>180ms / 4px</span></div><div class="recipe-stage recipe-graphic" id="recipe-form"></div><p class="footnote">A small bridge between different graphic forms. Slider updates stay direct.</p><button class="btn btn-outline btn-small" type="button" id="change-recipe-form">Change the form <span aria-hidden="true">→</span></button></article>
+          <article class="recipe-card"><div class="recipe-head"><h3>Editorial reveal</h3><span>240ms / 45ms stagger</span></div><div class="recipe-stage" id="recipe-reveal"><p class="kicker">A personal note</p><h4>A little room<br>for a new idea.</h4><p>One entrance. Then the words stay still.</p></div><button class="btn btn-outline btn-small" type="button" id="replay-reveal">Replay entrance <span aria-hidden="true">↗</span></button></article>
+          <article class="recipe-card"><div class="recipe-head"><h3>Changing form</h3><span>180ms / 4px</span></div><div class="recipe-stage recipe-graphic" id="recipe-form"></div><button class="btn btn-outline btn-small" type="button" id="change-recipe-form">Change the form <span aria-hidden="true">→</span></button></article>
         </div>
       </section>
       <section class="section motion-part" id="motion-studies" aria-labelledby="studies-heading">
-      <div class="section-head"><div><p class="kicker">02 / Dot studies</p><h2 id="studies-heading">Loops for quiet screens.</h2></div><p>Live studies in the same ink, paper and orange. Pause them, change the pace or save a frame.</p></div>
+      <div class="section-head"><div><p class="kicker">02 / Dot studies</p><h2 id="studies-heading">Loops for quiet screens.</h2></div></div>
       <div class="motion-toolbar"><button type="button" class="btn" id="motion-play" aria-pressed="true">Pause motion <span aria-hidden="true">Ⅱ</span></button><label class="motion-control"><span class="control-top">Pace <output id="motion-speed-output" for="motion-speed">0.65×</output></span><input type="range" id="motion-speed" min="0.2" max="1.4" step="0.05" value="0.65"></label><label class="motion-control"><span class="control-top">Dot spacing <output id="motion-spacing-output" for="motion-spacing">22px</output></span><input type="range" id="motion-spacing" min="14" max="34" step="2" value="22"></label><label class="motion-control"><span class="control-top">Palette</span><select class="input" id="motion-colour"><option value="duo">Ink & orange</option><option value="ink">Neutral ink</option><option value="orange">Orange ink</option></select></label><label class="check motion-accent"><input type="checkbox" id="motion-accent" checked>Travelling orange</label><button type="button" class="text-button" id="motion-reset">Restart loops ↺</button></div>
       <p class="motion-status" id="motion-status" role="status">Choose this tab to start the live studies.</p>
       <div class="motion-grid" id="motion-grid"></div>
       </section>
-      <p class="motion-credit">Five original Canvas studies. The rotating circle carries an orange wedge fixed to its surface; the travelling orange passes across the cube, wave field and terrain. Motion pauses in hidden tabs and outside the view, and reduced-motion preferences start with stills. “Save frame” downloads a PNG of the current image.</p>
     </section>
     <footer class="page-footer">
-      <div class="footer-about"><p class="brand"><span class="brand-square" aria-hidden="true"></span><strong>mikelon</strong><span class="brand-slash">/</span><span>design system</span></p><p>A working kit for Miguel Cordero Collar's personal work. The palette and type come from miguelcorderocollar.com and mikelon_kit; the components and motif studies are new.</p><p class="footer-links"><a href="https://miguelcorderocollar.com" target="_blank" rel="noopener">miguelcorderocollar.com ↗</a><a href="https://github.com/miguelcorderocollar/miguel-personal-style" target="_blank" rel="noopener">GitHub repository ↗</a></p></div>
+      <div class="footer-about"><p class="brand"><span class="brand-square" aria-hidden="true"></span><strong>mikelon</strong><span class="brand-slash">/</span><span>design system</span></p><p>A working kit for Miguel Cordero Collar's personal work.</p><p class="footer-links"><a href="https://miguelcorderocollar.com" target="_blank" rel="noopener">miguelcorderocollar.com ↗</a><a href="https://github.com/miguelcorderocollar/miguel-personal-style" target="_blank" rel="noopener">GitHub repository ↗</a></p></div>
       <div class="footer-column"><p class="footer-head">Use it</p><a href="https://github.com/miguelcorderocollar/miguel-personal-style#install-the-skill" target="_blank" rel="noopener">Get the skill ↗</a><a href="https://github.com/miguelcorderocollar/miguel-personal-style/blob/main/skills/miguel-personal-style/references/usage.md" target="_blank" rel="noopener">Usage guide ↗</a></div>
-      <div class="footer-column"><p class="footer-head">Licences</p><a href="../fonts/OFL.txt" target="_blank" rel="noopener">JetBrains Mono / OFL ↗</a><span>Sample copy and chart values are illustrative.</span></div>
+      <div class="footer-column"><p class="footer-head">Licences</p><a href="../fonts/OFL.txt" target="_blank" rel="noopener">JetBrains Mono / OFL ↗</a></div>
     </footer>
   </main>
   <dialog id="example-dialog" aria-labelledby="dialog-heading"><p class="kicker">A useful pause</p><h2 id="dialog-heading">Keep the thought.</h2><p>A focused dialog uses the same type, rules and square geometry as the rest of the system.</p><button class="btn" id="close-dialog" type="button">Back to the page <span aria-hidden="true">↗</span></button></dialog>
@@ -682,52 +678,118 @@
       const longitude = Math.atan2(nx, ny * Math.sin(tilt) + nz * Math.cos(tilt)) - spin;
       return Math.abs(Math.atan2(Math.sin(longitude), Math.cos(longitude))) < half;
     }
-    // Hero globe: the same fixed halftone grid as the sphere study, redrawn as the globe turns.
-    // Segment lines are fixed to the surface and turn with it; the orange wedges drift the other way.
-    // It rests offscreen and in hidden documents, and stays still for reduced-motion preferences.
-    const heroGlobe = { time: 0, visible: true, raf: 0, last: 0, drawn: 0 };
-    const HERO = { spin: .1, wedgeDrift: -.2, segments: 10, startWedge: -.35 };
+    // Hero globe: dots sampled on the sphere's surface, held in an orientation matrix so it can spin on any axis.
+    // A slow natural spin turns it one way while two opposite orange wedges drift the other way.
+    // Hover pushes nearby dots aside, press and hold pauses it, and a drag spins it; afterwards a gentle pull
+    // returns it upright to its natural spin. It rests offscreen and in hidden tabs; reduced motion removes the spin.
+    const HERO = { rings: 48, spin: .12, wedgeDrift: -.32, wedgeHalf: .26, settle: 1.6, upright: .9, push: 7, reach: 38 };
+    const heroGlobe = { time: 0, visible: true, raf: 0, last: 0, points: [], orientation: null, velocity: [0, 0, 0],
+      pointer: null, dragging: false, dragLast: null, dragVelocity: [0, 0, 0] };
+    for (let ring = 1; ring < HERO.rings; ring++) {
+      const latitude = -Math.PI / 2 + ring * Math.PI / HERO.rings, count = Math.max(6, Math.round(HERO.rings * 2 * Math.cos(latitude)));
+      for (let col = 0; col < count; col++) {
+        const longitude = col * Math.PI * 2 / count, cl = Math.cos(latitude);
+        heroGlobe.points.push({ longitude, body: [cl * Math.sin(longitude), Math.sin(latitude), cl * Math.cos(longitude)] });
+      }
+    }
+    {
+      // Resting orientation: tipped forward so the north pole shows, as in the static sphere studies.
+      const ct = Math.cos(WEDGE.tilt), st = Math.sin(WEDGE.tilt);
+      heroGlobe.orientation = [1, 0, 0, 0, ct, st, 0, -st, ct];
+      heroGlobe.rest = [0, ct, -st];
+    }
+    function rotateOrientation(vector) {
+      // Apply a rotation vector (axis × angle, screen space) to the orientation matrix with Rodrigues' formula.
+      const angle = Math.hypot(...vector); if (angle < 1e-7) return;
+      const [x, y, z] = vector.map(v => v / angle), c = Math.cos(angle), s1 = Math.sin(angle), t = 1 - c;
+      const R = [t*x*x + c, t*x*y - s1*z, t*x*z + s1*y, t*x*y + s1*z, t*y*y + c, t*y*z - s1*x, t*x*z - s1*y, t*y*z + s1*x, t*z*z + c];
+      const O = heroGlobe.orientation, next = new Array(9);
+      for (let i = 0; i < 3; i++) for (let j = 0; j < 3; j++) next[i * 3 + j] = R[i * 3] * O[j] + R[i * 3 + 1] * O[3 + j] + R[i * 3 + 2] * O[6 + j];
+      heroGlobe.orientation = next;
+    }
+    function heroTarget() {
+      // Natural spin about the resting pole, plus a restoring turn that brings a tipped pole back upright.
+      const O = heroGlobe.orientation, pole = [O[1], O[4], O[7]], rest = heroGlobe.rest, spin = motionPreference.matches ? 0 : HERO.spin;
+      const cross = [pole[1] * rest[2] - pole[2] * rest[1], pole[2] * rest[0] - pole[0] * rest[2], pole[0] * rest[1] - pole[1] * rest[0]];
+      return rest.map((v, i) => v * spin + cross[i] * HERO.upright);
+    }
     function drawHeroGlobe() {
       const canvas = heroGlobe.canvas; if (!canvas) return;
       const box = canvas.getBoundingClientRect(), size = Math.max(1, Math.round(box.width)), ratio = Math.min(2, devicePixelRatio || 1);
       if (canvas.width !== Math.round(size * ratio)) { canvas.width = canvas.height = Math.round(size * ratio); }
-      const context = canvas.getContext('2d'), { ink, accent } = palette();
-      const R = size * .42, centre = size / 2, cell = R * 2 / 27, tilt = WEDGE.tilt, ct = Math.cos(tilt), st = Math.sin(tilt);
-      const surfaceSpin = heroGlobe.time * HERO.spin, wedgeSpin = HERO.startWedge + heroGlobe.time * HERO.wedgeDrift;
-      const segment = Math.PI * 2 / HERO.segments;
+      const context = canvas.getContext('2d'), { ink, accent } = palette(), R = size * .42, centre = size / 2, unit = size / 252;
+      const O = heroGlobe.orientation, pointer = heroGlobe.pointer, wedgeCentre = HERO.wedgeDrift * heroGlobe.time - .35;
       context.setTransform(ratio, 0, 0, ratio, 0, 0); context.clearRect(0, 0, size, size);
       const marks = { ink: new Path2D(), accent: new Path2D() };
-      for (let gy = centre - R + cell / 2; gy < centre + R; gy += cell) for (let gx = centre - R + cell / 2; gx < centre + R; gx += cell) {
-        const nx = (gx - centre) / R, ny = (gy - centre) / R, q = nx * nx + ny * ny;
-        if (q > 1) continue;
-        const nz = Math.sqrt(1 - q);
-        let tone = .12 + .86 * (1 - clamp(-.5 * nx - .55 * ny + .67 * nz));
-        // Longitude in the globe's own frame (undo the tilt), shared by the segment lines and the wedge.
-        const bz = ny * st + nz * ct, longitude = Math.atan2(nx, bz);
-        const offset = longitude - surfaceSpin, toLine = Math.abs(offset - Math.round(offset / segment) * segment);
-        if (toLine < .075 && Math.abs(-ny * ct + nz * st) < .96) tone *= .2;
-        // Two opposite wedges: as one turns behind the globe, the other comes round the front.
-        const accentDot = inWedge(nx, ny, nz, { spin: wedgeSpin }) || inWedge(nx, ny, nz, { spin: wedgeSpin + Math.PI });
-        if (accentDot) tone = Math.max(tone, .62);
-        tone = Math.round(clamp(tone) * 8) / 8;
-        const radius = cell * .46 * (.12 + .88 * tone);
-        const path = accentDot ? marks.accent : marks.ink;
-        path.moveTo(gx + radius, gy); path.arc(gx, gy, radius, 0, Math.PI * 2);
+      for (const point of heroGlobe.points) {
+        const [bx, by, bz] = point.body;
+        const z = O[6] * bx + O[7] * by + O[8] * bz; if (z < .02) continue;
+        const x = O[0] * bx + O[1] * by + O[2] * bz, y = O[3] * bx + O[4] * by + O[5] * bz;
+        const light = Math.max(0, -.5 * x - .55 * y + .67 * z);
+        const offset = Math.abs(Math.atan2(Math.sin(point.longitude - wedgeCentre), Math.cos(point.longitude - wedgeCentre)));
+        const wedge = offset < HERO.wedgeHalf || Math.PI - offset < HERO.wedgeHalf;
+        const radius = unit * Math.max(.35 + Math.pow(1 - light, 1.2) * 1.75, wedge ? 1.3 : 0) * Math.min(1, z * 4);
+        let px = centre + x * R, py = centre + y * R;
+        if (pointer) {
+          const dx = px - pointer.x, dy = py - pointer.y, d = Math.hypot(dx, dy);
+          if (d < HERO.reach * unit) { const push = Math.pow(1 - d / (HERO.reach * unit), 2) * HERO.push * unit / Math.max(1, d); px += dx * push; py += dy * push; }
+        }
+        const path = wedge ? marks.accent : marks.ink;
+        path.moveTo(px + radius, py); path.arc(px, py, radius, 0, Math.PI * 2);
       }
       context.fillStyle = ink; context.fill(marks.ink);
       context.fillStyle = accent; context.fill(marks.accent);
     }
+    function heroSettled() { return Math.hypot(...heroGlobe.velocity.map((v, i) => v - heroTarget()[i])) < 1e-3 && Math.hypot(...heroTarget()) < 1e-3; }
     function heroTick(now) {
-      heroGlobe.raf = 0; if (!heroRunning()) return;
+      heroGlobe.raf = 0; if (!heroGlobe.visible || document.hidden) return;
       const delta = heroGlobe.last ? Math.min(.05, (now - heroGlobe.last) / 1000) : 0; heroGlobe.last = now;
-      heroGlobe.time += delta;
-      if (now - heroGlobe.drawn >= 1000 / 24) { heroGlobe.drawn = now; drawHeroGlobe(); }
-      heroGlobe.raf = requestAnimationFrame(heroTick);
+      if (!heroGlobe.dragging) {
+        // Ease the current spin toward the natural one, then turn by it. Holding still pauses time as well.
+        const target = heroTarget(), ease = 1 - Math.exp(-delta / HERO.settle);
+        heroGlobe.velocity = heroGlobe.velocity.map((v, i) => v + (target[i] - v) * ease);
+        rotateOrientation(heroGlobe.velocity.map(v => v * delta));
+        if (!motionPreference.matches) heroGlobe.time += delta;
+      }
+      drawHeroGlobe();
+      // Reduced motion: keep animating only while a drag settles or the pointer is over the globe.
+      if (!motionPreference.matches || heroGlobe.dragging || heroGlobe.pointer || !heroSettled()) heroGlobe.raf = requestAnimationFrame(heroTick);
     }
-    function heroRunning() { return !motionPreference.matches && heroGlobe.visible && !document.hidden; }
     function syncHeroGlobe() {
-      if (heroRunning()) { if (!heroGlobe.raf) { heroGlobe.last = 0; heroGlobe.raf = requestAnimationFrame(heroTick); } }
+      if (heroGlobe.visible && !document.hidden) { if (!heroGlobe.raf) { heroGlobe.last = 0; heroGlobe.raf = requestAnimationFrame(heroTick); } }
       else { if (heroGlobe.raf) cancelAnimationFrame(heroGlobe.raf); heroGlobe.raf = 0; drawHeroGlobe(); }
+    }
+    function bindHeroGlobe(canvas) {
+      const local = event => { const box = canvas.getBoundingClientRect(); return { x: event.clientX - box.left, y: event.clientY - box.top, t: event.timeStamp }; };
+      canvas.addEventListener('pointerenter', event => { heroGlobe.pointer = local(event); syncHeroGlobe(); });
+      canvas.addEventListener('pointerleave', () => { if (!heroGlobe.dragging) heroGlobe.pointer = null; });
+      canvas.addEventListener('pointerdown', event => {
+        if (event.button !== 0) return;
+        canvas.setPointerCapture(event.pointerId);
+        heroGlobe.dragging = true; heroGlobe.velocity = [0, 0, 0]; heroGlobe.dragVelocity = [0, 0, 0];
+        heroGlobe.dragLast = heroGlobe.pointer = local(event); canvas.classList.add('is-grabbing'); syncHeroGlobe();
+      });
+      canvas.addEventListener('pointermove', event => {
+        const point = local(event); heroGlobe.pointer = point;
+        if (!heroGlobe.dragging) { syncHeroGlobe(); return; }
+        // Dragging turns the front surface with the pointer: right spins about the vertical axis, down about the horizontal.
+        const R = canvas.getBoundingClientRect().width * .42, last = heroGlobe.dragLast;
+        const step = [-(point.y - last.y) / R, (point.x - last.x) / R, 0], seconds = Math.max(.008, (point.t - last.t) / 1000);
+        rotateOrientation(step);
+        heroGlobe.dragVelocity = heroGlobe.dragVelocity.map((v, i) => v * .6 + step[i] / seconds * .4);
+        heroGlobe.dragLast = point;
+      });
+      const release = event => {
+        if (!heroGlobe.dragging) return;
+        heroGlobe.dragging = false; canvas.classList.remove('is-grabbing');
+        // A held pointer that stopped moving releases without a fling.
+        const still = event.timeStamp - heroGlobe.dragLast.t > 80;
+        const fling = still ? [0, 0, 0] : heroGlobe.dragVelocity, speed = Math.hypot(...fling), limit = 6;
+        heroGlobe.velocity = speed > limit ? fling.map(v => v * limit / speed) : fling;
+        if (event.type === 'pointercancel') heroGlobe.pointer = null;
+        syncHeroGlobe();
+      };
+      canvas.addEventListener('pointerup', release); canvas.addEventListener('pointercancel', release);
     }
     const noise = (x, y) => { const n = Math.sin(x * 127.1 + y * 311.7) * 43758.5453; return n - Math.floor(n); };
     const HALFTONES = ['sphere','cube','terrain','fade','ripple','mesh','wave','arrow'];
@@ -874,8 +936,8 @@
     function renderAssets() {
       const visible = assets.filter(asset => state.family === 'all' || asset.family === state.family);
       const familyNames = {halftone:'Halftone study',marks:'Mark / shape',textures:'Texture study',core:'Core reference'};
-      $('#asset-grid').innerHTML = visible.map(asset => `<article class="asset-tile" data-family="${asset.family}"><div class="asset-preview">${asset.id === 'mark' ? `<div style="width:69px;height:69px" role="img" aria-label="Original mikelon_kit extension mark">${motifSVG(asset.id)}</div>` : motifSVG(asset.id)}</div><div class="asset-info"><div class="asset-info-top"><h3>${asset.name}</h3><span class="asset-family">${familyNames[asset.family]}</span></div><p>${asset.note}</p><div class="asset-actions"><button type="button" class="download-asset" data-download="${asset.id}" aria-label="Download ${asset.name} as SVG">SVG ↓</button>${asset.family === 'halftone' ? `<button type="button" class="download-asset" data-lab="${asset.id}" aria-label="Explore ${asset.name} in the halftone playground">Play with it ↗</button>` : asset.background ? `<button type="button" class="download-asset" data-background="${asset.background}" aria-label="Try ${asset.name} as a background">Try as background ↗</button>` : ''}</div></div></article>`).join('');
-      $('#gallery-count').textContent = `${visible.length} of ${assets.length} pieces / ${state.family === 'all' ? 'the full box' : familyNames[state.family]}`;
+      $('#asset-grid').innerHTML = visible.map(asset => `<article class="asset-tile" data-family="${asset.family}"><div class="asset-preview">${asset.id === 'mark' ? `<div style="width:69px;height:69px" role="img" aria-label="Original mikelon_kit extension mark">${motifSVG(asset.id)}</div>` : motifSVG(asset.id)}</div><div class="asset-info"><div class="asset-info-top"><h3>${asset.name}</h3></div><div class="asset-actions"><button type="button" class="download-asset" data-download="${asset.id}" aria-label="Download ${asset.name} as SVG">SVG ↓</button>${asset.family === 'halftone' ? `<button type="button" class="download-asset" data-lab="${asset.id}" aria-label="Explore ${asset.name} in the halftone playground">Play with it ↗</button>` : asset.background ? `<button type="button" class="download-asset" data-background="${asset.background}" aria-label="Try ${asset.name} as a background">Try as background ↗</button>` : ''}</div></div></article>`).join('');
+      $('#gallery-count').textContent = `${visible.length} pieces`;
       $$('[data-count]').forEach(label => { label.textContent = label.dataset.count === 'all' ? assets.length : assets.filter(asset => asset.family === label.dataset.count).length; });
       $$('[data-download]').forEach(button => button.addEventListener('click', () => download(motifSVG(button.dataset.download), `mikelon-${button.dataset.download}.svg`)));
       $$('[data-lab]').forEach(button => button.addEventListener('click', () => { state.labForm = button.dataset.lab; state.labInk = HALFTONE_MODES[state.labForm] || 'ink'; $('#lab-form').value = state.labForm; $('#lab-ink').value = state.labInk; renderLab(); jumpTo('halftone-lab'); }));
@@ -946,7 +1008,7 @@
       {id:'cube',name:'Turning cube',note:'Three dotted faces turn in perspective while a warm strip passes across the object.',pace:1},
       {id:'wave',name:'Wave field',note:'Rows of dots grow and settle as a wave moves through them.',pace:1},
       {id:'terrain',name:'Drifting terrain',note:'A dotted landscape shifting under a quiet horizon.',pace:1},
-      {id:'magnet',name:'Magnetic grid',note:'Move through the field to gently push the dots aside. You can also focus it and use the arrow keys.',pace:1}
+      {id:'magnet',name:'Magnetic grid',hint:'Move through it, or focus it and use the arrow keys.',note:'Move through the field to gently push the dots aside. You can also focus it and use the arrow keys.',pace:1}
     ];
     function motionColour(accent = false) {
       return motionState.colour === 'orange' || (motionState.colour === 'duo' && accent) ? palette().accent : palette().ink;
@@ -1039,7 +1101,7 @@
       $('#motion-play').innerHTML=motionState.playing?'Pause motion <span aria-hidden="true">Ⅱ</span>':'Play motion <span aria-hidden="true">▷</span>';
       $('#motion-speed-output').textContent=`${motionState.speed.toFixed(2)}×`; $('#motion-spacing-output').textContent=`${motionState.spacing}px`;
       $('#motion-accent').disabled=motionState.colour!=='duo';
-      $('#motion-status').textContent=motionReady ? `${running?'Playing':'Paused'} / offscreen studies rest automatically.` : 'Open this tab to start the live studies.';
+      $('#motion-status').textContent=motionReady ? `${running?'Playing':'Paused'}` : 'Open this tab to start the live studies.';
       if(!running){if(motionRAF)cancelAnimationFrame(motionRAF);motionRAF=0;motionLastTime=0;motionLastDraw=0;return;}
       if(!motionRAF&&motionScenes.some(scene=>scene.context&&scene.visible)){motionLastTime=0;motionRAF=requestAnimationFrame(tickMotion);}
     }
@@ -1055,7 +1117,7 @@
     async function ensureMotion() {
       if(motionReady)return motionReady;
       motionReady=(async()=>{
-        $('#motion-grid').innerHTML=motionPresets.map((preset,index)=>`<article class="motion-card"><div class="motion-art" id="motion-art-${preset.id}"><span class="motion-number" aria-hidden="true">0${index+1} / LIVE STUDY</span></div><div class="motion-card-info"><h3>${preset.name}</h3><p>${preset.note}</p><div class="motion-actions"><button type="button" class="download-asset" data-motion-frame="${preset.id}" aria-label="Save a PNG frame of ${preset.name}">Save frame ↓</button><button type="button" class="download-asset" data-motion-recipe="${preset.id}" aria-label="Copy settings for ${preset.name}">Copy settings ↗</button></div></div></article>`).join('');
+        $('#motion-grid').innerHTML=motionPresets.map((preset,index)=>`<article class="motion-card"><div class="motion-art" id="motion-art-${preset.id}"></div><div class="motion-card-info"><h3>${preset.name}</h3>${preset.hint?`<p>${preset.hint}</p>`:''}<div class="motion-actions"><button type="button" class="download-asset" data-motion-frame="${preset.id}" aria-label="Save a PNG frame of ${preset.name}">Save frame ↓</button><button type="button" class="download-asset" data-motion-recipe="${preset.id}" aria-label="Copy settings for ${preset.name}">Copy settings ↗</button></div></div></article>`).join('');
         for(const preset of motionPresets){
           const host=document.getElementById(`motion-art-${preset.id}`),scene={...preset,host,visible:false,pointer:null};motionScenes.push(scene);
           {
@@ -1097,7 +1159,6 @@
     $('#theme-toggle').addEventListener('click', () => setTheme(state.theme === 'light' ? 'dark' : 'light'));
     $('#copy-install').addEventListener('click', () => copy($('#install-command').textContent.replace(/^\$/, ''), 'Install command copied.', $('#copy-install-label')));
     $$('[data-copy-code]').forEach(button => button.addEventListener('click', () => copy(document.getElementById(button.dataset.copyCode).textContent, 'Copied to clipboard.', $('[data-mcc-feedback-label]', button))));
-    $$('[data-start]').forEach(link => link.addEventListener('click', event => { event.preventDefault(); selectTab('basics'); jumpTo('start'); }));
     $('#copy-palette').addEventListener('click', () => copy(Object.entries(palette()).map(([name, value]) => `--mikelon-${name}: ${value};`).join('\n'), `${state.theme === 'light' ? 'Light' : 'Dark'} palette copied.`, $('#copy-palette-label')));
     $$('[data-weight]').forEach(button => button.addEventListener('click', () => { $$('[data-weight]').forEach(item => item.setAttribute('aria-pressed', String(item === button))); $('#type-preview').style.fontWeight = button.dataset.weight; }));
     $('#specimen-input').addEventListener('input', event => { $('#type-preview').textContent = event.target.value || 'A curious eye.\nA clear point of view.'; $('#type-preview').style.whiteSpace = 'pre-line'; });
@@ -1158,8 +1219,7 @@
         const prepared = photoTools.displayImage(source, width, ratio);
         canvas.width = prepared.width; canvas.height = prepared.height; canvas.getContext('2d').drawImage(prepared, 0, 0);
         photoWidth = width;
-        $('#photo-meta').textContent = `Master ${source.naturalWidth} × ${source.naturalHeight} / shown at ${canvas.width} × ${canvas.height}`;
-      } catch { $('#photo-meta').textContent = 'The filtered copy is unavailable here; the master image is unchanged.'; }
+      } catch { /* The figure keeps its border; the master is unchanged. */ }
     }
     new ResizeObserver(() => renderPhoto()).observe($('.photo-frame'));
 
@@ -1186,7 +1246,6 @@
     renderTable();
 
     $('#collection-note').addEventListener('input', event => { $('#note-count').textContent = `${event.target.value.length} / 140`; });
-    $$('[data-component-group]').forEach(link => link.addEventListener('click', event => { event.preventDefault(); selectTab('components'); jumpTo(`group-${link.dataset.componentGroup}`); }));
 
     const updateSwitches = () => { const context = $('#context-switch').checked, compact = $('#compact-switch').checked; $('#switch-feedback').textContent = `${context ? 'Supporting context is visible.' : 'Supporting context is hidden.'} ${compact ? 'Compact' : 'Standard'} spacing.`; $$('.collection-row p').forEach(note => { note.hidden = !context; }); $$('.collection-row').forEach(row => { row.style.paddingBlock = compact ? '8px' : ''; }); };
     $('#context-switch').addEventListener('change', updateSwitches); $('#compact-switch').addEventListener('change', updateSwitches);
@@ -1227,7 +1286,7 @@
     // A tab hash makes the browser focus its panel on arrival. Keep focus styling for keyboard use, not for landing.
     const releaseLandingFocus = () => { if (document.activeElement?.matches('[role="tabpanel"]')) document.activeElement.blur(); };
     releaseLandingFocus(); window.addEventListener('load', releaseLandingFocus, { once: true });
-    heroGlobe.canvas = $('#hero-sphere');
+    heroGlobe.canvas = $('#hero-sphere'); bindHeroGlobe(heroGlobe.canvas);
     new ResizeObserver(drawHeroGlobe).observe(heroGlobe.canvas);
     new IntersectionObserver(entries => { heroGlobe.visible = entries[0].isIntersecting; syncHeroGlobe(); }).observe(heroGlobe.canvas);
     document.addEventListener('visibilitychange', syncHeroGlobe);
