@@ -128,7 +128,7 @@ The panel IDs are unchanged, so existing `#basics`, `#assets` and `#motion` link
 
 ## Fourth pass: philosophy (8 November 2026)
 
-- A new first tab, **Philosophy**, opens the page.
+- A new tab, **Philosophy**, closes the page as tab 06 (first drafted as the opening tab; Miguel moved it last). Foundations is the default again.
   - **Statement:** "Constraints are beautiful."
   - **Eight short ideas, each with a mark from the kit:**
     - decide once and ship faster;

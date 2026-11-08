@@ -41,12 +41,12 @@ The interactive showcase brings the identity into working examples. Switch theme
 
 | Area | What's inside |
 | --- | --- |
-| Philosophy | Why the style exists: eight short ideas, then what to keep and what to leave out |
 | Foundations | Local fonts, colour tokens, typography, and black and white treatments |
 | Components | Twenty working parts in five groups: actions and input, browse and data (including a sortable table), reading and content (including a pull quote and rules), feedback and waiting, and context and safeguards (popover, side panel, undo, hold to confirm) |
 | Graphics | Procedural halftone forms, pixel marks, textures, a halftone playground and a background studio with SVG/PNG export |
 | In use | The photographic halftone at display size, plus cover, slide, notebook and chapter compositions |
 | Motion | Two editorial moves and five Canvas dot studies with pause, pace, palette controls and PNG frame export |
+| Philosophy | Why the style exists: eight short ideas, then what to keep and what to leave out |
 
 ### Orange pixels, useful states
 
