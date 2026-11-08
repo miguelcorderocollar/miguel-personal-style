@@ -415,9 +415,6 @@
     .rule-inner { border-top: 1px solid var(--rule); }
     .rule-double { border-top: 5px double var(--ink); }
     @media (max-width: 760px) { .ideas { grid-template-columns: 1fr; } .idea { grid-template-columns: 72px 1fr; gap: 16px; padding-block: 26px; } .idea-mark, .idea-mark svg { width: 72px; height: 48px; } .divider-row { grid-template-columns: 1fr; gap: 8px; } }
-    .tune-panel { position: fixed; z-index: 40; left: 16px; bottom: 16px; width: 260px; max-height: calc(100vh - 32px); overflow: auto; padding: 16px; background: var(--paper); border: 1px solid var(--ink); }
-    .tune-panel .control { margin: 14px 0 0; }
-    .tune-panel .btn { margin-top: 16px; width: 100%; }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; scroll-behavior: auto !important; } .switch-track::after, .swatch { transition:none; transform:none; } }
   </style>
   <link rel="stylesheet" href="../motion.css">
@@ -697,10 +694,11 @@
       return Math.abs(Math.atan2(Math.sin(longitude), Math.cos(longitude))) < half;
     }
     // Hero globe: dots sampled on the sphere's surface, held in an orientation matrix so it can spin on any axis.
-    // A slow natural spin turns it one way while the orange wedge drifts the other way.
-    // Hover pushes nearby dots aside, press and hold pauses it, and a drag spins it; afterwards a gentle pull
+    // A natural spin turns it while the orange wedge also drifts across its surface.
+    // Hover pushes nearby dots aside and swells them slightly, press and hold pauses it, and a drag spins it; afterwards a gentle pull
     // returns it upright to its natural spin. It rests offscreen and in hidden tabs; reduced motion removes the spin.
-    const HERO = { rings: 48, spin: .12, wedgeDrift: -.32, wedgeHalf: .26, settle: 1.6, upright: .9, push: 16, reach: 64, falloff: 1.6, swell: 0 };
+    // Values chosen by Miguel with the tuning panel on 8 November 2026.
+    const HERO = { rings: 36, spin: .44, wedgeDrift: .32, wedgeHalf: .51, settle: 2.9, upright: 1.1, push: 19, reach: 110, falloff: 3.9, swell: .5 };
     const heroGlobe = { time: 0, visible: true, raf: 0, last: 0, points: [], orientation: null, velocity: [0, 0, 0],
       pointer: null, dragging: false, dragLast: null, dragVelocity: [0, 0, 0] };
     function buildHeroPoints() {
@@ -1321,27 +1319,6 @@
     const releaseLandingFocus = () => { if (document.activeElement?.matches('[role="tabpanel"]')) document.activeElement.blur(); };
     releaseLandingFocus(); window.addEventListener('load', releaseLandingFocus, { once: true });
     heroGlobe.canvas = $('#hero-sphere'); bindHeroGlobe(heroGlobe.canvas);
-    // TEMPORARY: open the page with ?tune to adjust the hero globe live. Remove after the values are chosen.
-    if (new URLSearchParams(location.search).has('tune')) {
-      const controls = [
-        ['push', 'Magnet push', 0, 40, 1], ['reach', 'Magnet reach', 10, 140, 2], ['falloff', 'Magnet falloff', .5, 4, .1], ['swell', 'Dot swell near pointer', 0, 2, .05],
-        ['spin', 'Spin speed', 0, .6, .01], ['wedgeDrift', 'Wedge drift', -1, 1, .01], ['wedgeHalf', 'Wedge width', .08, .6, .01],
-        ['rings', 'Dot rings', 24, 80, 1], ['settle', 'Return time (s)', .3, 5, .1], ['upright', 'Upright pull', 0, 3, .05]
-      ];
-      const panel = document.createElement('aside');
-      panel.className = 'tune-panel';
-      panel.innerHTML = '<p class="kicker">Globe tuning</p>' + controls.map(([key, label, min, max, step]) =>
-        `<label class="control"><span class="control-top">${label} <output data-out="${key}">${HERO[key]}</output></span><input type="range" data-tune="${key}" min="${min}" max="${max}" step="${step}" value="${HERO[key]}"></label>`).join('') +
-        '<button type="button" class="btn btn-small" id="tune-copy">Copy values</button>';
-      document.body.append(panel);
-      $$('[data-tune]', panel).forEach(input => input.addEventListener('input', () => {
-        const key = input.dataset.tune; HERO[key] = Number(input.value); $(`[data-out="${key}"]`, panel).textContent = input.value;
-        if (key === 'rings') buildHeroPoints();
-        drawHeroGlobe(); syncHeroGlobe();
-      }));
-      $('#tune-copy', panel).addEventListener('click', () => copy(JSON.stringify(Object.fromEntries(controls.map(([key]) => [key, HERO[key]]))), 'Globe values copied.'));
-    }
-
     new ResizeObserver(drawHeroGlobe).observe(heroGlobe.canvas);
     new IntersectionObserver(entries => { heroGlobe.visible = entries[0].isIntersecting; syncHeroGlobe(); }).observe(heroGlobe.canvas);
     document.addEventListener('visibilitychange', syncHeroGlobe);
